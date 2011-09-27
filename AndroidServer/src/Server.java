@@ -1,71 +1,85 @@
 import java.io.IOException;
-import java.io.ObjectInputStream;
 import java.net.ServerSocket;
-import java.net.Socket;
 import java.util.Observable;
 import java.util.Observer;
 
 import util.ServerUtils;
 
-public class Server extends Thread implements Observer{
 
-	private GameLogic gameLogic = null;
-	private UserLogic userLogic = null;
+/**
+ * Class that represents a "Server".
+ * The server holds a socket which the phones connect to.
+ * 
+ * The server starts a new Thread (ServerController) which listens to the sockets,
+ * and take care of all info. The ServerController also makes sure that the server
+ * listens to the models that it uses.
+ * 
+ * @author Magnus
+ */
+public class Server implements Observer{
+
+	private ServerController controller = null;	//	The Thread that waits for input
+	private ServerSocket serverSocket;	//	The socket that the phones connect to
+	private int port;	//	server port
 	
-	private ServerSocket serverSocket;
-	private int port;
-	
+	/**
+	 * Creates new server from port p.
+	 * 
+	 * @param p The server port.
+	 */
 	public Server(int p){
-		
-		gameLogic = new GameLogic();
-		userLogic = new UserLogic();
-		
 		port = p;
-		try {
+		try{
 			serverSocket = new ServerSocket(port);
+			controller = new ServerController(this, serverSocket);
 		}
-		catch(IOException e){}
-		
-		gameLogic.addObserver(this);
-		userLogic.addObserver(this);
+		catch(IOException e){
+			System.err.println("ERROR: SERVER CAN'T BE STARTED: "+e.getMessage());
+		}
 	}
 	
-	public void run(){
+	/**
+	 * Starts the server.
+	 */
+	public void launch(){
+		controller.start();
+		
 		System.out.println("Testserver online!");
 		System.out.println("Server is running on online ip: "+getIp());
 		System.out.println("Server is running on local ip: "+getLocalIp());
 		System.out.println("Server port is: "+getPort());
-		
-		
-		while(true){
-			try{
-				Socket socket = serverSocket.accept();
-				ObjectInputStream in = new ObjectInputStream(socket.getInputStream());
-				Object o = in.readUnshared();
-				System.out.println(o.toString());
-			}
-			catch(IOException e){
-				e.printStackTrace();
-			}
-			catch (ClassNotFoundException e) {
-				e.printStackTrace();
-			}
-		}
 	}
 	
-
+	/**
+	 * Server port.
+	 * 
+	 * @return
+	 */
 	public int getPort(){
 		return port;
 	}
 	
+	/**
+	 * Online ip.
+	 * 
+	 * @return
+	 */
 	public String getIp(){
 		return ServerUtils.getIp();
 	}
 	
+	/**
+	 * Local ip
+	 * 
+	 * @return
+	 */
 	public String getLocalIp(){
 		return ServerUtils.getLocalIp();
 	}
 
+	/**
+	 * Send back data to phone here.
+	 */
 	public void update(Observable arg0, Object arg1) {
 		// RETURN DATA TO THE PHONE HERE!!!
 	}
