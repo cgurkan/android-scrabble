@@ -1,8 +1,7 @@
-import java.util.Observable;
-
-public class GameLogic extends Observable{
+public class GameLogic extends Logic{
 
 	public GameLogic(){
+		super();
 		// DO STUFF
 	}
 }
