@@ -2,20 +2,32 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.util.Observable;
+import java.util.Observer;
 
 import util.ServerUtils;
 
-public class Server extends Thread implements Runnable{
+public class Server extends Thread implements Observer{
 
+	private GameLogic gameLogic = null;
+	private UserLogic userLogic = null;
+	
 	private ServerSocket serverSocket;
 	private int port;
 	
 	public Server(int p){
+		
+		gameLogic = new GameLogic();
+		userLogic = new UserLogic();
+		
 		port = p;
 		try {
 			serverSocket = new ServerSocket(port);
 		}
 		catch(IOException e){}
+		
+		gameLogic.addObserver(this);
+		userLogic.addObserver(this);
 	}
 	
 	public void run(){
@@ -52,5 +64,9 @@ public class Server extends Thread implements Runnable{
 	
 	public String getLocalIp(){
 		return ServerUtils.getLocalIp();
+	}
+
+	public void update(Observable arg0, Object arg1) {
+		// RETURN DATA TO THE PHONE HERE!!!
 	}
 }
