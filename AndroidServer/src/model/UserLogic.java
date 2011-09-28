@@ -71,6 +71,7 @@ public class UserLogic extends Logic{
 			result = username+" is already logged in on another device";
 		}
 		
+		//	return the data to the Controller
 		setChanged();
 		notifyObservers(result);
 	}
@@ -93,10 +94,18 @@ public class UserLogic extends Logic{
 			result = "You are now logged out";
 		}
 		
-		super.setChanged();
-		super.notifyObservers(result);
+		//	return the data to the Controller
+		setChanged();
+		notifyObservers(result);
 	}
 
+	/**
+	 * Signs the user up. If the username is already taken, the method will end in return
+	 * an error. The result ('you are signed up' OR 'username taken') will be returned to the
+	 * Controller.
+	 * 
+	 * @param username the username that the user wants to register.
+	 */
 	public void signUp(String username){
 		String result = "";
 		String query = "SELECT * FROM player WHERE name = '"+username+"'";
@@ -110,11 +119,11 @@ public class UserLogic extends Logic{
 			else{	//	username is ok.
 				String msq = "INSERT INTO player VALUES(NULL, '"+username+"', 1)";
 				int res = db.execUpdate(msq);
-				if(res == Database.QUERY_NOT_OK){
+				if(res == Database.QUERY_NOT_OK){	//	Db returned error from the query
 					result = "Could not perform query \""+msq+"\", returned status QUERY_NOT_OK in UserLogic#signUp()";
 					ErrorHandler.report(result);
 				}
-				else{
+				else{	//	sign up complete
 					result = "You are now signed up, welcome "+username;
 				}
 			}
@@ -123,6 +132,7 @@ public class UserLogic extends Logic{
 			ErrorHandler.report("The following SQL-error(s) occured in UserLogic#getUsersOnline(): "+e.getMessage());
 		}
 		
+		//	return data to Controller
 		setChanged();
 		notifyObservers(result);
 	}
@@ -146,6 +156,7 @@ public class UserLogic extends Logic{
 			ErrorHandler.report("The following SQL-error(s) occured in UserLogic#getUsersOnline(): "+e.getMessage());
 		}
 		
+		//	return the data to the controller
 		setChanged();
 		notifyObservers(users);
 	}
