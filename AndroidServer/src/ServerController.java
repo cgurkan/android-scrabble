@@ -52,6 +52,8 @@ public class ServerController extends Thread implements Runnable{
 						userLogic.login(s);
 						break;
 					case LOGOUT:
+						String s2 = (String)data;
+						userLogic.logout(s2);
 						break;
 					case SIGN_UP:
 						break;
