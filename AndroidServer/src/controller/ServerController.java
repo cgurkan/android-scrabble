@@ -1,7 +1,14 @@
+package controller;
+
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
+
+import util.SendableAction;
+
+import model.GameLogic;
+import model.UserLogic;
 
 /**
  * Server-thread that listens to the ServerSocket that the server provides.

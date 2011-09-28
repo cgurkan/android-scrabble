@@ -1,7 +1,10 @@
+package util;
 import java.sql.SQLException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+
+import model.Database;
 
 public class ErrorHandler {
 	

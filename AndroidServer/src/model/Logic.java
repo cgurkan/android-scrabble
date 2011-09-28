@@ -1,3 +1,4 @@
+package model;
 import java.util.Observable;
 
 public abstract class Logic extends Observable {

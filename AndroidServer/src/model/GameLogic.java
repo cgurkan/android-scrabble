@@ -1,3 +1,4 @@
+package model;
 public class GameLogic extends Logic{
 
 	public GameLogic(){

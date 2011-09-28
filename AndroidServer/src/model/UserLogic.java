@@ -1,7 +1,11 @@
+package model;
+
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.LinkedList;
 import java.util.List;
+
+import util.ErrorHandler;
 
 
 public class UserLogic extends Logic{
