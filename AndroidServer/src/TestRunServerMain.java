@@ -11,7 +11,7 @@ public class TestRunServerMain {
 	 * @param args
 	 */
 	public static void main(String[] args){
-		sendMessage(SendableAction.LOGOUT, "Trollll");
+		sendMessage(SendableAction.LOGIN, "µ");
 		
 	}
 
