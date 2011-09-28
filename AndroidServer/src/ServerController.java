@@ -43,7 +43,10 @@ public class ServerController extends Thread implements Runnable{
 				Socket socket = serverSocket.accept();
 				ObjectInputStream in = new ObjectInputStream(socket.getInputStream());
 				Object o = in.readUnshared();
-				System.out.println(o.toString());
+				Object p = in.readUnshared();
+				if(o.toString().equals("LOGIN")){
+					userLogic.login(p.toString());
+				}
 			}
 			catch(IOException e){
 				e.printStackTrace();

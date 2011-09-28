@@ -8,7 +8,7 @@ public class Database {
 
 	public final class DbConstants{
 		public static final String serverName = "localhost";
-		public static final String database = "test";
+		public static final String database = "android-scrabble";
 		public static final String username = "root"; 
 		public static final String password = "";
 	}

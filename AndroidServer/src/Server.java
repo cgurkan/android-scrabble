@@ -80,7 +80,7 @@ public class Server implements Observer{
 	/**
 	 * Send back data to phone here.
 	 */
-	public void update(Observable arg0, Object arg1) {
-		// RETURN DATA TO THE PHONE HERE!!!
+	public void update(Observable obs, Object obj) {
+		System.out.println("Server retrieved "+obj.toString()+" from "+obs.toString());
 	}
 }

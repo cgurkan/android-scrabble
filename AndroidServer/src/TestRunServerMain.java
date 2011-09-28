@@ -1,5 +1,3 @@
-
-
 import java.io.IOException;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
@@ -12,24 +10,15 @@ public class TestRunServerMain {
 	/**
 	 * @param args
 	 */
-	public static void main(String[] args) {
-		Server server = new Server(1337);
-		//String s = "ESTABLISH";
-		
-		//sendMessage(server, s);
-		
-		String s = "SELECT * FROM test";
-		sendMessage(server, s);
-		
-		//s = "INSERT INTO test VALUES(NULL, 'woop woop')";
-		sendMessage(server, s);
+	public static void main(String[] args){
+		sendMessage("LOGIN", "Mju");
 	}
 
 	
-	public static Socket socketFromServer(Server s){
+	public static Socket socketFromServer(){
 		Socket sk = null;
 		try {
-			sk = new Socket(s.getIp(), s.getPort());
+			sk = new Socket(ServerUtils.getIp(), 1337);
 		} catch (UnknownHostException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -40,11 +29,12 @@ public class TestRunServerMain {
 		return sk;
 	}
 	
-	public static void sendMessage(Server s, String m){
+	public static void sendMessage(String cmd, String data){
 		try {	
-			Socket sk = socketFromServer(s);
+			Socket sk = socketFromServer();
 			ObjectOutputStream out = new ObjectOutputStream(sk.getOutputStream());
-			out.writeUnshared(m);
+			out.writeUnshared(cmd);
+			out.writeUnshared(data);
 			sk.close();
 		} catch (UnknownHostException e) {
 			e.printStackTrace();
