@@ -1,8 +1,11 @@
 package model;
+
 public class GameLogic extends Logic{
 
+	private Database db = null;
+	
 	public GameLogic(){
 		super();
-		// DO STUFF
+		db = getDatabase();	//	Get the inherited database.
 	}
 }

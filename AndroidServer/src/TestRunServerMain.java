@@ -20,11 +20,11 @@ public class TestRunServerMain {
 		Socket sk = null;
 		try {
 			sk = new Socket(ServerUtils.getIp(), 1337);
-		} catch (UnknownHostException e) {
-			// TODO Auto-generated catch block
+		}
+		catch(UnknownHostException e){
 			e.printStackTrace();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
+		}
+		catch(IOException e){
 			e.printStackTrace();
 		}
 		return sk;

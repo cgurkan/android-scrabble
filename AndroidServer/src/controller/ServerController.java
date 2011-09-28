@@ -5,6 +5,7 @@ import java.io.ObjectInputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
 
+import util.ErrorHandler;
 import util.SendableAction;
 
 import model.GameLogic;
@@ -71,10 +72,10 @@ public class ServerController extends Thread implements Runnable{
 				}
 			}
 			catch(IOException e){
-				e.printStackTrace();
+				ErrorHandler.report("Error in server-thread (I/O): "+e.getMessage());
 			}
 			catch (ClassNotFoundException e) {
-				e.printStackTrace();
+				ErrorHandler.report("Error in server-thread (ClassNotFound): "+e.getMessage());
 			}
 		}
 	}

@@ -8,6 +8,11 @@ import java.util.List;
 import util.ErrorHandler;
 
 
+/**
+ * Logic-class that contains all user-based logics.
+ * 
+ * @author Magnus
+ */
 public class UserLogic extends Logic{
 
 	private Database db = null;
