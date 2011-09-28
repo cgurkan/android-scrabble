@@ -6,10 +6,23 @@ import java.util.Date;
 
 import model.Database;
 
+/**
+ * Class for error handling.
+ * Connects to the database and
+ * saves the error.
+ * 
+ * @author Magnus
+ *
+ */
 public class ErrorHandler {
 	
 	private final static Database db = new Database();
 
+	/**
+	 * Reports the error to the database.
+	 * 
+	 * @param error the error that is being logged.
+	 */
 	public static void report(String error){
 		String date = getDateNow();
 		System.err.println(error+" @ "+date);
@@ -23,6 +36,9 @@ public class ErrorHandler {
 		}
 	}
 	
+	/*
+	 * Returns the current date
+	 */
 	private static String getDateNow(){
         DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
         Date date = new Date();

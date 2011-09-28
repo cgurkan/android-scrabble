@@ -63,6 +63,8 @@ public class ServerController extends Thread implements Runnable{
 						String s2 = (String)data;
 						userLogic.logout(s2);
 						break;
+					case SEARCH_PLAYER:
+						break;
 					case SIGN_UP:
 						String s3 = (String)data;
 						userLogic.signUp(s3);

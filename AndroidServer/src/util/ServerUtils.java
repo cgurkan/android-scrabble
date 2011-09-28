@@ -11,8 +11,18 @@ import java.net.URL;
 import java.net.UnknownHostException;
 import java.util.Enumeration;
 
+/**
+ * Utils that are used by the Server.
+ * 
+ * @author Magnus
+ */
 public class ServerUtils {
 	
+	/**
+	 * Gets the online ip.
+	 * 
+	 * @return online ip
+	 */
 	public static String getIp(){
 		URL myip;
 		String temp;
@@ -32,6 +42,11 @@ public class ServerUtils {
 		return temp;
 	}
 	
+	/**
+	 * Gets the local ip.
+	 * 
+	 * @return local ip
+	 */
 	public static String getLocalIp() {
 		String temp = "";
 		try{
@@ -43,7 +58,7 @@ public class ServerUtils {
 
 		return temp;
 	}
-
+	
 	private static InetAddress getFirstNonLoopbackAddress(boolean preferIpv4,
 			boolean preferIPv6) throws SocketException {
 		Enumeration<?> en = NetworkInterface.getNetworkInterfaces();
