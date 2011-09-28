@@ -42,10 +42,21 @@ public class ServerController extends Thread implements Runnable{
 			try{
 				Socket socket = serverSocket.accept();
 				ObjectInputStream in = new ObjectInputStream(socket.getInputStream());
-				Object o = in.readUnshared();
-				Object p = in.readUnshared();
-				if(o.toString().equals("LOGIN")){
-					userLogic.login(p.toString());
+				
+				SendableAction command = ((SendableAction)(in.readUnshared()));
+				Object data = in.readUnshared();
+				
+				switch(command){
+					case LOGIN:
+						String s = (String)data;
+						userLogic.login(s);
+						break;
+					case LOGOUT:
+						break;
+					case SIGN_UP:
+						break;
+					default:
+						break;
 				}
 			}
 			catch(IOException e){

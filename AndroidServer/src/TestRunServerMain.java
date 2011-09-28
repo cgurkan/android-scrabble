@@ -11,7 +11,7 @@ public class TestRunServerMain {
 	 * @param args
 	 */
 	public static void main(String[] args){
-		sendMessage("LOGIN", "Mju");
+		sendMessage(SendableAction.LOGIN, "Mju");
 	}
 
 	
@@ -29,8 +29,8 @@ public class TestRunServerMain {
 		return sk;
 	}
 	
-	public static void sendMessage(String cmd, String data){
-		try {	
+	public static void sendMessage(SendableAction cmd, String data){
+		try {
 			Socket sk = socketFromServer();
 			ObjectOutputStream out = new ObjectOutputStream(sk.getOutputStream());
 			out.writeUnshared(cmd);
