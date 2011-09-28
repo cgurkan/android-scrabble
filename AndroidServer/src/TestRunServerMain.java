@@ -12,7 +12,6 @@ public class TestRunServerMain {
 	 */
 	public static void main(String[] args){
 		sendMessage(SendableAction.LOGIN, "µ");
-		
 	}
 
 	
