@@ -8,4 +8,15 @@ public class SendObject implements Serializable {
 	private SendableAction action;
 	private Object object = null;
 	
+	public SendObject(SendableAction a, Object o){
+		action = a;
+		object = o;
+	}
+	
+	public SendableAction getAction() {
+		return action;
+	}
+	public Object getObject() {
+		return object;
+	}
 }
