@@ -1,5 +1,7 @@
 package util;
 
+import java.io.Serializable;
+
 /**
  * enum that takes care of all
  * actions that possibly can be
@@ -7,7 +9,7 @@ package util;
  * 
  * @author Magnus
  */
-public enum SendableAction {
+public enum SendableAction implements Serializable{
 	LOGIN,
 	LOGOUT,
 	SEARCH_PLAYER,

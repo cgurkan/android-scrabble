@@ -18,7 +18,7 @@ import model.UserLogic;
  * 
  * @author Magnus
  */
-public class ServerController extends Thread implements Runnable{
+public class ServerThread extends Thread implements Runnable{
 
 	private ServerSocket serverSocket = null;
 	private GameLogic gameLogic = null;	//	The logics of the game
@@ -30,7 +30,7 @@ public class ServerController extends Thread implements Runnable{
 	 * @param server
 	 * @param sSocket
 	 */
-	public ServerController(Server server, ServerSocket sSocket){
+	public ServerThread(Server server, ServerSocket sSocket){
 		
 		this.serverSocket = sSocket;
 		
