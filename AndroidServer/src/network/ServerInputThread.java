@@ -8,6 +8,7 @@ import java.net.Socket;
 import controller.ServerController;
 
 import util.ErrorHandler;
+import util.SendObject;
 import util.SendableAction;
 
 import model.GameLogic;

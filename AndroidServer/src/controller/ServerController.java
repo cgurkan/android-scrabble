@@ -8,6 +8,7 @@ import model.GameLogic;
 import model.UserLogic;
 import network.ServerOutputThread;
 
+import util.SendObject;
 import util.ServerUtils;
 
 
@@ -38,17 +39,17 @@ public class ServerController implements Observer{
 	public void redirect(SendObject so){
 		switch(so.getAction()){
 			case LOGIN:
-				String s = (String)data;
+				String s = (String)so.getObject();
 				ul.login(s);
 				break;
 			case LOGOUT:
-				String s2 = (String)data;
+				String s2 = (String)so.getObject();
 				ul.logout(s2);
 				break;
 			case SEARCH_PLAYER:
 				break;
 			case SIGN_UP:
-				String s3 = (String)data;
+				String s3 = (String)so.getObject();
 				ul.signUp(s3);
 				break;
 			default:
