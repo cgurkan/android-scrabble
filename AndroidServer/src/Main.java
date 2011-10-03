@@ -1,4 +1,4 @@
-import controller.Server;
+import controller.ServerController;
 
 
 public class Main {
@@ -7,7 +7,7 @@ public class Main {
 	 * @param args
 	 */
 	public static void main(String[] args) {
-		Server s = new Server(1337);
+		ServerController s = new ServerController(1337);
 		s.launch();
 	}
 }
