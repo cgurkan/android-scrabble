@@ -30,7 +30,7 @@ public class ServerThread extends Thread implements Runnable{
 	 * @param server
 	 * @param sSocket
 	 */
-	public ServerThread(Server server, ServerSocket sSocket){
+	public ServerThread(ServerController server, ServerSocket sSocket){
 		
 		this.serverSocket = sSocket;
 		
