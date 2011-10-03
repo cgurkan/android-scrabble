@@ -4,7 +4,7 @@ import java.net.ServerSocket;
 import java.util.Observable;
 import java.util.Observer;
 
-import network.ServerThread;
+import network.ServerInputThread;
 
 import util.ServerUtils;
 
@@ -21,7 +21,7 @@ import util.ServerUtils;
  */
 public class ServerController implements Observer{
 
-	private ServerThread controller = null;	//	The Thread that waits for input
+	private ServerInputThread controller = null;	//	The Thread that waits for input
 	private ServerSocket serverSocket;	//	The socket that the phones connect to
 	private int port;	//	server port
 	
@@ -34,7 +34,7 @@ public class ServerController implements Observer{
 		port = p;
 		try{
 			serverSocket = new ServerSocket(port);
-			controller = new ServerThread(this, serverSocket);
+			controller = new ServerInputThread(this, serverSocket);
 		}
 		catch(IOException e){
 			System.err.println("ERROR: SERVER CAN'T BE STARTED: "+e.getMessage());
