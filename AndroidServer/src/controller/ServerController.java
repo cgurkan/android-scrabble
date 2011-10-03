@@ -4,7 +4,9 @@ import java.net.ServerSocket;
 import java.util.Observable;
 import java.util.Observer;
 
-import network.ServerInputThread;
+import model.GameLogic;
+import model.UserLogic;
+import network.ServerOutputThread;
 
 import util.ServerUtils;
 
@@ -21,65 +23,39 @@ import util.ServerUtils;
  */
 public class ServerController implements Observer{
 
-	private ServerInputThread controller = null;	//	The Thread that waits for input
-	private ServerSocket serverSocket;	//	The socket that the phones connect to
-	private int port;	//	server port
+	private ServerOutputThread out = null;	//	The Thread that waits for output
+	private UserLogic ul = null;
+	private GameLogic gl = null;
 	
-	/**
-	 * Creates new server from port p.
-	 * 
-	 * @param p The server port.
-	 */
-	public ServerController(int p){
-		port = p;
-		try{
-			serverSocket = new ServerSocket(port);
-			controller = new ServerInputThread(this, serverSocket);
-		}
-		catch(IOException e){
-			System.err.println("ERROR: SERVER CAN'T BE STARTED: "+e.getMessage());
-		}
-	}
-	
-	/**
-	 * Starts the server.
-	 */
-	public void launch(){
-		controller.start();
-		
-		System.out.println("Testserver online!");
-		System.out.println("Server is running on online ip: "+getIp());
-		System.out.println("Server is running on local ip: "+getLocalIp());
-		System.out.println("Server port is: "+getPort());
-	}
-	
-	/**
-	 * Server port.
-	 * 
-	 * @return
-	 */
-	public int getPort(){
-		return port;
-	}
-	
-	/**
-	 * Online ip.
-	 * 
-	 * @return
-	 */
-	public String getIp(){
-		return ServerUtils.getIp();
-	}
-	
-	/**
-	 * Local ip
-	 * 
-	 * @return
-	 */
-	public String getLocalIp(){
-		return ServerUtils.getLocalIp();
+	public ServerController(ServerSocket s){
+		out = new ServerOutputThread(s);
+		ul = new UserLogic();
+		ul.addObserver(this);
+		gl = new GameLogic();
+		gl.addObserver(this);
 	}
 
+	public void redirect(SendObject so){
+		switch(so.getAction()){
+		case LOGIN:
+			String s = (String)data;
+			ul.login(s);
+			break;
+		case LOGOUT:
+			String s2 = (String)data;
+			ul.logout(s2);
+			break;
+		case SEARCH_PLAYER:
+			break;
+		case SIGN_UP:
+			String s3 = (String)data;
+			ul.signUp(s3);
+			break;
+		default:
+			break;
+	}
+	}
+	
 	/**
 	 * Send back data to phone here.
 	 */

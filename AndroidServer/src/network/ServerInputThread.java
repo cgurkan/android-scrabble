@@ -18,13 +18,12 @@ import model.UserLogic;
  * When a phone sends a request to the server it takes care of it and redirects
  * to the correct model.
  * 
- * @author Magnus
+ * @author random dude
  */
 public class ServerInputThread extends Thread implements Runnable{
 
 	private ServerSocket serverSocket = null;
-	private GameLogic gameLogic = null;	//	The logics of the game
-	private UserLogic userLogic = null;	//	The logics of the user
+	private ServerController serverController = null;
 	
 	/**
 	 * Creates a new ServerController from a Server and a ServerSocket.
@@ -32,15 +31,9 @@ public class ServerInputThread extends Thread implements Runnable{
 	 * @param server
 	 * @param sSocket
 	 */
-	public ServerInputThread(ServerController server, ServerSocket sSocket){
-		
-		this.serverSocket = sSocket;
-		
-		gameLogic = new GameLogic();
-		userLogic = new UserLogic();
-		
-		gameLogic.addObserver(server);
-		userLogic.addObserver(server);
+	public ServerInputThread(ServerController sc, ServerSocket s){
+		this.serverSocket = s;
+		serverController = sc;
 	}
 
 	/**
@@ -53,27 +46,8 @@ public class ServerInputThread extends Thread implements Runnable{
 				Socket socket = serverSocket.accept();
 				ObjectInputStream in = new ObjectInputStream(socket.getInputStream());
 				
-				SendableAction command = ((SendableAction)(in.readUnshared()));
-				Object data = in.readUnshared();
-				
-				switch(command){
-					case LOGIN:
-						String s = (String)data;
-						userLogic.login(s);
-						break;
-					case LOGOUT:
-						String s2 = (String)data;
-						userLogic.logout(s2);
-						break;
-					case SEARCH_PLAYER:
-						break;
-					case SIGN_UP:
-						String s3 = (String)data;
-						userLogic.signUp(s3);
-						break;
-					default:
-						break;
-				}
+				SendObject so = ((SendObject)(in.readObject()));
+				serverController.redirect(so);
 			}
 			catch(IOException e){
 				ErrorHandler.report("Error in server-thread (I/O): "+e.getMessage());
