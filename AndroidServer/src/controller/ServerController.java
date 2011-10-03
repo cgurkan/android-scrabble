@@ -37,23 +37,23 @@ public class ServerController implements Observer{
 
 	public void redirect(SendObject so){
 		switch(so.getAction()){
-		case LOGIN:
-			String s = (String)data;
-			ul.login(s);
-			break;
-		case LOGOUT:
-			String s2 = (String)data;
-			ul.logout(s2);
-			break;
-		case SEARCH_PLAYER:
-			break;
-		case SIGN_UP:
-			String s3 = (String)data;
-			ul.signUp(s3);
-			break;
-		default:
-			break;
-	}
+			case LOGIN:
+				String s = (String)data;
+				ul.login(s);
+				break;
+			case LOGOUT:
+				String s2 = (String)data;
+				ul.logout(s2);
+				break;
+			case SEARCH_PLAYER:
+				break;
+			case SIGN_UP:
+				String s3 = (String)data;
+				ul.signUp(s3);
+				break;
+			default:
+				break;
+		}
 	}
 	
 	/**
