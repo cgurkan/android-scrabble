@@ -5,6 +5,8 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.net.Socket;
 
+import util.SendObject;
+
 import controller.ClientController;
 //TODO: need library
 
@@ -44,10 +46,10 @@ public class ClientInputThread extends Thread implements Runnable{
 				clientController.redirect(so);
 			}
 			catch(IOException e){
-				ErrorHandler.report("Error in server-thread (I/O): "+e.getMessage());
+				System.err.println("Error in server-thread (I/O): "+e.getMessage());
 			}
 			catch (ClassNotFoundException e) {
-				ErrorHandler.report("Error in server-thread (ClassNotFound): "+e.getMessage());
+				System.err.println("Error in server-thread (ClassNotFound): "+e.getMessage());
 			}
 		}
 	}
