@@ -29,16 +29,22 @@ public class ClientController implements Observer{
 	public void redirect(SendObject so){
 		switch(so.getAction()){
 			case LOGIN:
+				//TODO: do message and login
 				break;
 			case LOGOUT:
+				//TODO: do message and logout
 				break;
 			case SEARCH_PLAYER:
+				//TODO: show search result
 				break;
 			case SIGN_UP:
+				//TODO: do message and login(?) 
 				break;
 			case GAME_DATA:
+				//TODO: do update board
 				break;
 			case MESSAGE:
+				//TODO: print message
 				break;
 			default:
 				break;
