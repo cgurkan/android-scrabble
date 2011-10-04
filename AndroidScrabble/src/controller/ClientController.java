@@ -28,7 +28,20 @@ public class ClientController implements Observer{
 
 	public void redirect(SendObject so){
 		switch(so.getAction()){
-			//TODO: ENUMS for client only here?
+			case LOGIN:
+				break;
+			case LOGOUT:
+				break;
+			case SEARCH_PLAYER:
+				break;
+			case SIGN_UP:
+				break;
+			case GAME_DATA:
+				break;
+			case MESSAGE:
+				break;
+			default:
+				break;
 		}
 	}
 	
