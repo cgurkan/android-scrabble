@@ -9,10 +9,6 @@ import controller.ServerController;
 
 import util.ErrorHandler;
 import util.SendObject;
-import util.SendableAction;
-
-import model.GameLogic;
-import model.UserLogic;
 
 /**
  * Server-thread that listens to the ServerSocket that the server provides.

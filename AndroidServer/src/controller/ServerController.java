@@ -8,8 +8,8 @@ import model.GameLogic;
 import model.UserLogic;
 import network.ServerOutputThread;
 
+import util.ErrorHandler;
 import util.SendObject;
-import util.ServerUtils;
 
 
 /**
@@ -30,6 +30,7 @@ public class ServerController implements Observer{
 	
 	public ServerController(ServerSocket s){
 		out = new ServerOutputThread(s);
+		
 		ul = new UserLogic();
 		ul.addObserver(this);
 		gl = new GameLogic();
@@ -65,5 +66,12 @@ public class ServerController implements Observer{
 	 */
 	public void update(Observable obs, Object obj) {
 		System.out.println("Server retrieved "+obj.toString()+" from "+obs.toString());
+		SendObject so = (SendObject)obj;
+		try {
+			out.send(so);
+		}
+		catch(IOException e){
+			ErrorHandler.report("Server controller cant send object: "+e.getMessage());
+		}
 	}
 }

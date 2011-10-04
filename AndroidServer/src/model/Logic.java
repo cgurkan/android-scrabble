@@ -8,7 +8,7 @@ import java.util.Observable;
  * 
  * @author Magnus
  */
-public abstract class Logic extends Observable {
+public abstract class Logic extends Observable{
 
 	private Database db;	//	the database that all logic-classes work against
 	
