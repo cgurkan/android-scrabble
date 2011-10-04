@@ -52,6 +52,9 @@ public class ServerController implements Observer{
 				String s3 = (String)so.getObject();
 				ul.signUp(s3);
 				break;
+			case GAME_DATA:
+				//TODO: do gamelogic
+				break;
 			default:
 				break;
 		}
