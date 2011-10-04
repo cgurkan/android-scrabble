@@ -36,7 +36,7 @@ public class ClientInputThread extends Thread implements Runnable{
 	/**
 	 * Executes the thread
 	 */
-	public void run(){		
+	public void run(){
 		
 		while(true){
 			try{
