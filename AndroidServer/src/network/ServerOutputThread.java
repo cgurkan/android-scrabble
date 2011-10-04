@@ -12,12 +12,7 @@ public class ServerOutputThread {
 	private ObjectOutputStream out;
 	
 	public ServerOutputThread(ServerSocket s){
-		try {
-			out = (ObjectOutputStream)(s.accept().getOutputStream());
-		}
-		catch(IOException e){
-			ErrorHandler.report("Cannot open ObjectOutputStream from serversocket "+s+", errors: "+e.getMessage());
-		}
+		
 	}
 	
 	public void send(SendObject so) throws IOException{

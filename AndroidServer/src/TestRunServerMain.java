@@ -13,9 +13,8 @@ public class TestRunServerMain {
 	 * @param args
 	 */
 	public static void main(String[] args){
-		sendMessage(new SendObject(SendableAction.LOGIN, "µ"));
+		sendMessage(new SendObject(SendableAction.LOGOUT, "µ"));
 	}
-
 	
 	public static Socket socketFromServer(){
 		Socket sk = null;

@@ -37,7 +37,7 @@ public class ServerController implements Observer{
 		gl.addObserver(this);
 	}
 
-	public void redirect(SendObject so){
+	public synchronized void redirect(SendObject so){
 		switch(so.getAction()){
 			case LOGIN:
 				String s = (String)so.getObject();
@@ -53,9 +53,9 @@ public class ServerController implements Observer{
 				String s3 = (String)so.getObject();
 				ul.signUp(s3);
 				break;
-			case GAME_DATA:
+			/*case GAME_DATA:
 				//TODO: do gamelogic
-				break;
+				break;*/
 			default:
 				break;
 		}
@@ -64,14 +64,14 @@ public class ServerController implements Observer{
 	/**
 	 * Send back data to phone here.
 	 */
-	public void update(Observable obs, Object obj) {
+	public synchronized void update(Observable obs, Object obj) {
 		System.out.println("Server retrieved "+obj.toString()+" from "+obs.toString());
-		SendObject so = (SendObject)obj;
+		/*SendObject so = (SendObject)obj;
 		try {
 			out.send(so);
 		}
 		catch(IOException e){
 			ErrorHandler.report("Server controller cant send object: "+e.getMessage());
-		}
+		}*/
 	}
 }
