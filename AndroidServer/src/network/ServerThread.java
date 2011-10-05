@@ -2,6 +2,7 @@ package network;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
 
@@ -17,10 +18,12 @@ import util.SendObject;
  * 
  * @author random dude
  */
-public class ServerInputThread extends Thread implements Runnable{
+public class ServerThread extends Thread implements Runnable{
 
 	private ServerSocket serverSocket = null;
 	private ServerController serverController = null;
+	private ObjectInputStream in = null;
+	private ObjectOutputStream out = null;
 	
 	/**
 	 * Creates a new ServerController from a Server and a ServerSocket.
@@ -28,7 +31,7 @@ public class ServerInputThread extends Thread implements Runnable{
 	 * @param server
 	 * @param sSocket
 	 */
-	public ServerInputThread(ServerController sc, ServerSocket s){
+	public ServerThread(ServerController sc, ServerSocket s){
 		this.serverSocket = s;
 		serverController = sc;
 	}
@@ -41,7 +44,7 @@ public class ServerInputThread extends Thread implements Runnable{
 		while(true){
 			try{
 				Socket socket = serverSocket.accept();
-				ObjectInputStream in = new ObjectInputStream(socket.getInputStream());
+				in = new ObjectInputStream(socket.getInputStream());
 				
 				SendObject so = ((SendObject)(in.readObject()));
 				serverController.redirect(so);
@@ -53,5 +56,9 @@ public class ServerInputThread extends Thread implements Runnable{
 				ErrorHandler.report("Error in server-thread (ClassNotFound): "+e.getMessage());
 			}
 		}
+	}
+	
+	public void send(SendObject so) throws IOException{
+		out.writeObject(so);
 	}
 }

@@ -6,7 +6,7 @@ import java.util.Observer;
 
 import model.GameLogic;
 import model.UserLogic;
-import network.ServerOutputThread;
+import network.ServerThread;
 
 import util.ErrorHandler;
 import util.SendObject;
@@ -24,12 +24,13 @@ import util.SendObject;
  */
 public class ServerController implements Observer{
 
-	private ServerOutputThread out = null;	//	The Thread that waits for output
+	private ServerThread thread = null;	//	The Thread that waits for output
 	private UserLogic ul = null;
 	private GameLogic gl = null;
 	
 	public ServerController(ServerSocket s){
-		out = new ServerOutputThread(s);
+		//TODO: how to create the thread here?
+		/*thread = new ServerThread();*/
 		
 		ul = new UserLogic();
 		ul.addObserver(this);
