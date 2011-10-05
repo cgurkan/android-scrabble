@@ -22,6 +22,7 @@ public class Main {
 		}
 		ServerController sc = new ServerController(s);
 		ServerThread st = new ServerThread(sc, s);
+		sc.setThread(st);
 		st.start();
 		
 		System.out.println("Servern springer! Ip "+ServerUtils.getIp()+" och port "+s.getLocalPort());

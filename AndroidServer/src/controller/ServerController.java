@@ -29,9 +29,6 @@ public class ServerController implements Observer{
 	private GameLogic gl = null;
 	
 	public ServerController(ServerSocket s){
-		//TODO: how to create the thread here?
-		/*thread = new ServerThread();*/
-		
 		ul = new UserLogic();
 		ul.addObserver(this);
 		gl = new GameLogic();
@@ -74,5 +71,9 @@ public class ServerController implements Observer{
 		catch(IOException e){
 			ErrorHandler.report("Server controller cant send object: "+e.getMessage());
 		}*/
+	}
+
+	public void setThread(ServerThread st) {
+		thread = st;
 	}
 }
