@@ -1,5 +1,8 @@
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.io.ObjectOutputStream;
+import java.io.Reader;
 import java.net.Socket;
 import java.net.UnknownHostException;
 
@@ -13,13 +16,13 @@ public class TestRunServerMain {
 	 * @param args
 	 */
 	public static void main(String[] args){
-		sendMessage(new SendObject(SendableAction.LOGOUT, "µ"));
+		sendMessage(new SendObject(SendableAction.LOGIN, "Micro"));
 	}
 	
 	public static Socket socketFromServer(){
 		Socket sk = null;
 		try {
-			sk = new Socket(ServerUtils.getIp(), 256);
+			sk = new Socket(ServerUtils.getIp(), 7896);
 		}
 		catch(UnknownHostException e){
 			e.printStackTrace();
