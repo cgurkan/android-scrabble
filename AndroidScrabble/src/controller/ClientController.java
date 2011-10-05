@@ -1,13 +1,13 @@
 package controller;
 import java.io.IOException;
 
-import java.net.ServerSocket;
+import java.net.Socket;
 import java.util.Observable;
 import java.util.Observer;
 
 import util.SendObject;
 
-import network.ClientOutputThread;
+import network.ClientThread;
 //TODO: need library
 
 /**
@@ -22,13 +22,14 @@ import network.ClientOutputThread;
  */
 public class ClientController implements Observer{
 
-	private ClientOutputThread out = null;	//	The Thread that waits for output
+	private ClientThread thread = null;	//	The Thread that waits for output
 	
-	public ClientController(ServerSocket s){
-		out = new ClientOutputThread(s);
+	//TODO: maybe weird here?
+	public ClientController(ClientController c, Socket s){
+		thread = new ClientThread(c,s);
 	}
 
-	public void redirect(SendObject so){
+	public synchronized void redirect(SendObject so){
 		switch(so.getAction()){
 			case LOGIN:
 				//TODO: do message and login
@@ -56,7 +57,7 @@ public class ClientController implements Observer{
 	/**
 	 * Send back data to phone here.
 	 */
-	public void update(Observable obs, Object obj) {
+	public synchronized void update(Observable obs, Object obj) {
 		System.out.println("Client retrieved "+obj.toString()+" from "+obs.toString());
 	}
 }

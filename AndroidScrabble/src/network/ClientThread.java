@@ -17,7 +17,7 @@ import controller.ClientController;
  * 
  * @author random dude
  */
-public class ClientInputThread extends Thread implements Runnable{
+public class ClientThread extends Thread implements Runnable{
 
 	private Socket socket = null;
 	private ClientController clientController = null;
@@ -28,7 +28,7 @@ public class ClientInputThread extends Thread implements Runnable{
 	 * @param server
 	 * @param sSocket
 	 */
-	public ClientInputThread(ClientController sc, Socket s){
+	public ClientThread(ClientController sc, Socket s){
 		socket = s;
 		clientController = sc;
 	}
@@ -52,5 +52,9 @@ public class ClientInputThread extends Thread implements Runnable{
 				System.err.println("Error in server-thread (ClassNotFound): "+e.getMessage());
 			}
 		}
+	}
+	
+	public void send(SendObject so){
+		
 	}
 }
