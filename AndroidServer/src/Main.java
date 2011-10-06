@@ -3,10 +3,7 @@ import java.net.ServerSocket;
 
 import util.ServerUtils;
 
-import network.ServerThread;
-
-import controller.ServerController;
-
+import network.ServerInputThread;
 
 public class Main {
 	
@@ -20,9 +17,8 @@ public class Main {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		ServerController sc = new ServerController(s);
-		ServerThread st = new ServerThread(sc, s);
-		sc.setThread(st);
+
+		ServerInputThread st = new ServerInputThread(s);
 		st.start();
 		
 		System.out.println("Servern springer! Ip "+ServerUtils.getIp()+" och port "+s.getLocalPort());

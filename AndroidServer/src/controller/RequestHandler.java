@@ -1,4 +1,5 @@
 package controller;
+import java.io.IOException;
 import java.net.Socket;
 import java.util.Observable;
 import java.util.Observer;
@@ -7,6 +8,7 @@ import model.GameLogic;
 import model.UserLogic;
 import network.ServerOutputThread;
 
+import util.ErrorHandler;
 import util.SendObject;
 
 
@@ -71,13 +73,12 @@ public class RequestHandler extends Thread implements Runnable, Observer{
 	 */
 	public synchronized void update(Observable obs, Object obj) {
 		//System.out.println("Server retrieved "+obj.toString()+" from "+obs.toString());
-		/*SendObject object = (SendObject)obj;
+		SendObject object = (SendObject)obj;
 		try {
-			out.send(object);
+			output.send(socket, obj);
 		}
 		catch(IOException e){
 			ErrorHandler.report("Server controller cant send object: "+e.getMessage());
-		}*/
-		output.send(socket, obj);
+		}
 	}
 }

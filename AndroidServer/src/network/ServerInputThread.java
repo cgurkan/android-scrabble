@@ -6,7 +6,6 @@ import java.net.ServerSocket;
 import java.net.Socket;
 
 import controller.RequestHandler;
-import controller.ServerController;
 
 import util.ErrorHandler;
 import util.SendObject;
@@ -21,7 +20,6 @@ import util.SendObject;
 public class ServerInputThread extends Thread implements Runnable{
 
 	private ServerSocket serverSocket = null;
-	private ServerController serverController = null;
 	
 	/**
 	 * Creates a new ServerController from a Server and a ServerSocket.
@@ -29,9 +27,8 @@ public class ServerInputThread extends Thread implements Runnable{
 	 * @param server
 	 * @param sSocket
 	 */
-	public ServerInputThread(ServerController sc, ServerSocket s){
+	public ServerInputThread(ServerSocket s){
 		this.serverSocket = s;
-		serverController = sc;
 	}
 
 	/**
@@ -49,14 +46,7 @@ public class ServerInputThread extends Thread implements Runnable{
 					ObjectInputStream in = new ObjectInputStream(socket.getInputStream());
 					
 					SendObject so = ((SendObject)(in.readObject()));
-					/*
-					 * TODO: 
-					 * Kolla om vi ska ha "controllern" som en tråd
-					 */
-					 
-					/* serverController.redirect(so);
-					
-					new RequestHandler(so, socket).start(); */
+					new RequestHandler(so, socket).start();
 					
 					wait = false;
 				}
