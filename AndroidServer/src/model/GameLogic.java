@@ -1,13 +1,13 @@
 package model;
 
-import java.math.BigInteger;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 import util.ErrorHandler;
 
 import model.data.Board;
-import model.data.Tile;
 
 public class GameLogic extends Logic{
 
@@ -34,26 +34,29 @@ public class GameLogic extends Logic{
 		}
 	}
 	
-	public Board createBoard(BigInteger gameID){
+	public Board createBoard(String host, String opp){
 		
 		Board board = new Board();
-		String query = "SELECT * FROM character WHERE game_ID = 'game_ID'";
 		
-		try{
+		return board;
+	}
+	
+	public List<Character> generateLetters(int i){
+		
+		List<Character> letters = new ArrayList<Character>();
+		String query = "SELECT * FROM english ORDER BY RAND() LIMIT 'i'";
+		
+		try {
 			ResultSet set = db.execQuery(query);
 			
 			while(set.next()){
-				char c = set.getString("character").charAt(0);
-				int x = Integer.parseInt(set.getString("x"));
-				int y = Integer.parseInt(set.getString("y"));
-				Tile t = new Tile(c, x, y);
-				board.add(t);
+				letters.add(set.getString("letter").charAt(0));
 			}
-		}
-		catch(SQLException sql){
-			ErrorHandler.report("The following SQL-error(s) occured while trying to log in GameLogic#createBoard(): "+sql.getMessage());
+			
+		} catch (SQLException e) {
+			ErrorHandler.report("The following SQL-error(s) occured while trying to log in GameLogic#generateLetters(): "+ e.getMessage());
 		}
 		
-		return board;
+		return letters;
 	}
 }

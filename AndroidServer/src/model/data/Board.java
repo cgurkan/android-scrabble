@@ -1,41 +1,31 @@
 package model.data;
 
-import java.util.LinkedList;
-import java.util.List;
-
 public class Board {
 	
-	private List<Tile> allTiles = null;
-	
+	private char[][] board = null;
+
 	/**
-	 * Create empty board.
+	 * Initialize an empty board.
 	 */
 	public Board(){
-		this(null);
+		board = new char[15][15];
 	}
 	
 	/**
-	 * Create board from existing array.
-	 *  
-	 * @param tiles the Tile-array to build from.
-	 */
-	public Board(Tile[] tiles){
-		allTiles = new LinkedList<Tile>();
-		
-		if(tiles != null){
-			for(Tile t1 : tiles){
-				allTiles.add(t1);
-			}
-		}
-	}
-	
-	/**
-	 * Adds a new Tile to the board.
+	 * adds a character to the board
 	 * 
-	 * @param t the Tile to adds
+	 * @param c - the character to be added
+	 * @param x - the x position on the board
+	 * @param y - the y position on the board
 	 */
-	public void add(Tile t){
-		allTiles.add(t);
+	public void add(char c, int x, int y){
+		board[x][y] = c;
 	}
-
+	
+	/**
+	 * @return board
+	 */
+	public char[][] getBoard() {
+		return board;
+	}
 }
