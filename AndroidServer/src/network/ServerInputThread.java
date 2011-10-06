@@ -46,13 +46,14 @@ public class ServerInputThread extends Thread implements Runnable{
 					ObjectInputStream in = new ObjectInputStream(socket.getInputStream());
 					
 					SendObject so = ((SendObject)(in.readObject()));
-					new RequestHandler(so, socket).start();
+					new RequestHandler(socket, so).start();
 					
 					wait = false;
 				}
 			}
 			catch(IOException e){
 				ErrorHandler.report("Error in server-thread (I/O): "+e.getMessage());
+				e.printStackTrace();
 				wait = false;
 			}
 			catch (ClassNotFoundException e) {

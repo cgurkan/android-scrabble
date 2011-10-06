@@ -4,15 +4,14 @@ import java.io.IOException;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
 
-public class ServerOutputThread {
+public class ServerOutput {
 
-	public ServerOutputThread(){
+	public ServerOutput(){
 		
 	}
 	
 	public synchronized void send(Socket s, Object object) throws IOException{
-		ObjectOutputStream stream = null;
-		stream = ((ObjectOutputStream)(s.getOutputStream()));
+		ObjectOutputStream stream = new ObjectOutputStream(s.getOutputStream());
 		stream.writeObject(object);
 	}
 }

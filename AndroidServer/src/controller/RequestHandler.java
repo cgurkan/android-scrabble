@@ -6,7 +6,7 @@ import java.util.Observer;
 
 import model.GameLogic;
 import model.UserLogic;
-import network.ServerOutputThread;
+import network.ServerOutput;
 
 import util.ErrorHandler;
 import util.SendObject;
@@ -24,20 +24,20 @@ import util.SendObject;
  */
 public class RequestHandler extends Thread implements Runnable, Observer{
 
-	private ServerOutputThread output = null;	//	The Thread that waits for output
+	private ServerOutput output = null;	//	The Thread that waits for output
 	private Socket socket;
 	private SendObject object;
 	
 	private UserLogic ul = null;
 	private GameLogic gl = null;
 	
-	public RequestHandler(SendObject obj, Socket s){
+	public RequestHandler(Socket s, SendObject obj){
 		ul = new UserLogic();
 		ul.addObserver(this);
 		gl = new GameLogic();
 		gl.addObserver(this);
 		
-		output = new ServerOutputThread();
+		output = new ServerOutput();
 		object = obj;
 		socket = s;
 	}
@@ -73,7 +73,7 @@ public class RequestHandler extends Thread implements Runnable, Observer{
 	 */
 	public synchronized void update(Observable obs, Object obj) {
 		//System.out.println("Server retrieved "+obj.toString()+" from "+obs.toString());
-		SendObject object = (SendObject)obj;
+		//SendObject object = (SendObject)obj;
 		try {
 			output.send(socket, obj);
 		}
