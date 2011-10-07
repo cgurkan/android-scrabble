@@ -6,13 +6,13 @@
     android:weightSum="1">
     <MediaController android:layout_width="match_parent" android:id="@+id/mediaController1"
 	android:layout_weight="0.08" android:layout_height="wrap_content">
-        <TextView android:text="Alfapet" android:textSize="42dp" android:layout_width="match_parent" android:id="@+id/textView1" android:gravity="center_horizontal" android:layout_height="wrap_content"></TextView>
+        <TextView android:text="Alfapet" android:textSize="42dp" android:layout_width="match_parent" android:gravity="center_horizontal" android:layout_height="wrap_content" android:id="@+id/appName"></TextView>
     </MediaController>
-    <LinearLayout android:weightSum="1" android:id="@+id/linearLayout1" android:layout_weight="0.08" android:layout_width="match_parent" android:layout_height="wrap_content">
-        <Button android:id="@+id/button1" android:text="New Game" android:layout_weight="0.11" android:layout_width="wrap_content" android:layout_height="wrap_content"></Button>
-        <Button android:id="@+id/button2" android:text="Settings" android:layout_weight="0.08" android:layout_width="wrap_content" android:layout_height="wrap_content"></Button>
-        <Button android:id="@+id/button3" android:text="Help" android:layout_weight="0.11" android:layout_width="wrap_content" android:layout_height="wrap_content"></Button>
-        <Button android:id="@+id/button4" android:text="About" android:layout_weight="0.11" android:layout_width="wrap_content" android:layout_height="wrap_content"></Button>
+    <LinearLayout android:weightSum="1" android:layout_weight="0.08" android:layout_width="match_parent" android:layout_height="wrap_content" android:id="@+id/buttonsLayout">
+        <Button android:text="New Game" android:layout_weight="0.11" android:layout_width="wrap_content" android:layout_height="wrap_content" android:id="@+id/newGameButton"></Button>
+        <Button android:text="Settings" android:layout_weight="0.08" android:layout_width="wrap_content" android:layout_height="wrap_content" android:id="@+id/settingsButton"></Button>
+        <Button android:text="Help" android:layout_weight="0.11" android:layout_width="wrap_content" android:layout_height="wrap_content" android:id="@+id/helpButton"></Button>
+        <Button android:text="About" android:layout_weight="0.11" android:layout_width="wrap_content" android:layout_height="wrap_content" android:id="@+id/aboutButton"></Button>
     </LinearLayout>
-    <ListView android:layout_weight="0.08" android:layout_marginBottom="5dp" android:layout_width="match_parent" android:id="@+id/listView1" android:layout_height="wrap_content" android:layout_marginTop="5dp"></ListView>
+    <ListView android:layout_weight="0.08" android:layout_marginBottom="5dp" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="5dp" android:id="@+id/gamesView"></ListView>
 </LinearLayout>
