@@ -66,6 +66,8 @@ public class RequestHandler extends Thread implements Runnable, Observer{
 		default:
 			break;
 		}
+		
+		/*All enums have to return a value that will be saved and at the end of run send the return to serverOutput*/
 	}
 	
 	/**

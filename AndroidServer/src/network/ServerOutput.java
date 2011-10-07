@@ -10,7 +10,7 @@ public class ServerOutput {
 		
 	}
 	
-	public synchronized void send(Socket s, Object object) throws IOException{
+	public void send(Socket s, Object object) throws IOException{
 		ObjectOutputStream stream = new ObjectOutputStream(s.getOutputStream());
 		stream.writeObject(object);
 		stream.flush();
