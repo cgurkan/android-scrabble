@@ -43,12 +43,6 @@ public class ClientController implements Observer{
 			case SIGN_UP:
 				//TODO: do message and login(?) 
 				break;
-			case GAME_DATA:
-				//TODO: do update board
-				break;
-			case MESSAGE:
-				//TODO: print message
-				break;
 			default:
 				break;
 		}
