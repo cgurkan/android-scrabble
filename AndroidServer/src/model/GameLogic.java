@@ -13,6 +13,7 @@ import model.data.Board;
 public class GameLogic extends Logic{
 
 	private Database db = null;
+	private int lettersLeft = 300;
 	
 	public GameLogic(){
 		super();
@@ -45,7 +46,17 @@ public class GameLogic extends Logic{
 	public List<Character> generateLetters(int i){
 		
 		List<Character> letters = new ArrayList<Character>();
-		String query = "SELECT * FROM english ORDER BY RAND() LIMIT 'i'";
+		String query = null;
+		
+		if(lettersLeft > i){
+			query = "SELECT char FROM english ORDER BY RAND() LIMIT 'i'";
+		}
+		else if(lettersLeft != 0){
+			query = "SELECT char FROM english ORDER BY RAND() LIMIT 'lettersLeft'";
+		}
+		else{
+			//TODO: when lettersLeft = 0, how do we check the winner? Can the players play with own letters?
+		}
 		
 		try {
 			ResultSet set = db.execQuery(query);
@@ -80,5 +91,24 @@ public class GameLogic extends Logic{
 		}
 		
 		return result;
+	}
+	
+	public int receivePoints(String s){
+		int letters = s.length();
+		int points = 0;
+		
+		while(letters >= 0){
+			String query = "SELECT points FROM english WHERE char = '" + s.charAt(letters) + "' LIMIT 1";
+			
+			try {
+				ResultSet set = db.execQuery(query);
+				points += Integer.parseInt(set.getString("points"));
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+			letters--;
+		}
+		
+		return points;
 	}
 }
