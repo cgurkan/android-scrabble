@@ -1,5 +1,11 @@
 package model.data;
 
+/**
+ * Representation of a board
+ * 
+ * @author Marika
+ *
+ */
 public class Board {
 	
 	private char[][] board = null;
