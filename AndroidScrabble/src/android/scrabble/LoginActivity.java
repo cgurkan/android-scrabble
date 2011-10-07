@@ -8,14 +8,12 @@ import model.LoginModel;
 import util.SendObject;
 
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Toast;
 
 public class LoginActivity extends Activity implements Observer, OnClickListener{
     
@@ -43,10 +41,7 @@ public class LoginActivity extends Activity implements Observer, OnClickListener
         if(so.getObject().toString().equalsIgnoreCase("The requested username "+uName+" does not exist. Please sign up!")){
 
         	Intent intent = new Intent(LoginActivity.this, SignupActivity.class);
-        	
-        	Bundle bundle = new Bundle();
-        	bundle.putString("USERNAME", uName);
-        	intent.putExtras(bundle);
+        	intent.putExtra("USERNAME", uName);
         	startActivity(intent);
         }
         finish();

@@ -56,7 +56,6 @@ public class SignupModel extends Observable{
 		catch(IOException e){
 			e.printStackTrace();
 		}
-		
 		return data;
 	}
 }

@@ -11,5 +11,4 @@ public class SettingsViewActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.settings_menu);
     }
-
 }

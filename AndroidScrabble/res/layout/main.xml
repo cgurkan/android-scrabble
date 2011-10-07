@@ -5,7 +5,7 @@
     android:layout_height="fill_parent"
     android:weightSum="1">
     <MediaController android:layout_width="match_parent" android:id="@+id/mediaController1"
-	android:layout_weight="0.08" android:layout_height="wrap_content">
+        android:layout_weight="0.08" android:layout_height="wrap_content">
         <TextView android:text="Alfapet" android:textSize="42dp" android:layout_width="match_parent" android:gravity="center_horizontal" android:layout_height="wrap_content" android:id="@+id/appName"></TextView>
     </MediaController>
     <LinearLayout android:weightSum="1" android:layout_weight="0.08" android:layout_width="match_parent" android:layout_height="wrap_content" android:id="@+id/buttonsLayout">

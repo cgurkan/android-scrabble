@@ -1,15 +1,18 @@
 package android.scrabble;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
-import android.widget.Button;
 
 public class MainMenuActivity extends Activity {
-    /** Called when the activity is first created. */
+	
+	/** Called when the activity is first created. */
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
+
+        startActivity(new Intent(MainMenuActivity.this, LoginActivity.class));
     }
 
     @Override
