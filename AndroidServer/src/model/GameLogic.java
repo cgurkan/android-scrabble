@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import util.ErrorHandler;
+import util.WordObject;
 
 import model.data.Board;
 
@@ -58,5 +59,26 @@ public class GameLogic extends Logic{
 		}
 		
 		return letters;
+	}
+	
+	/*Send in the word object*/
+	public boolean checkWord(WordObject o){
+		String query = "SELECT * FROM words WHERE word = 'o.getWord()' LIMIT 1";
+		boolean result = false;
+		boolean notDone = true;
+		
+		while(notDone){
+			try {
+				ResultSet set = db.execQuery(query);
+				if(set.next()){
+					result = true;
+				}
+				notDone = false;
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		
+		return result;
 	}
 }
