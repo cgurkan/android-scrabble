@@ -20,7 +20,7 @@ public class SignupModel extends Observable{
 		SendObject retrieved = null;
 		try{
 			SendObject object = new SendObject(SendableAction.SIGN_UP, username);
-			Socket s = new Socket("129.16.201.115", 7896);
+			Socket s = new Socket("46.239.108.240", 7896);
 			
 			ObjectOutputStream out = new ObjectOutputStream(s.getOutputStream());
 			out.writeUnshared(object);
