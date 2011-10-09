@@ -5,8 +5,6 @@ import java.util.Observer;
 
 import model.LoginModel;
 
-import util.SendObject;
-
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -27,12 +25,11 @@ public class LoginActivity extends Activity implements Observer, OnClickListener
         super.onCreate(savedInstanceState);
         setContentView(R.layout.login);
         
-        model = new LoginModel();
+        model = new LoginModel(getBaseContext());
         model.addObserver(this);
         
         Button submit = (Button)(findViewById(R.id.submit));
         submit.setOnClickListener(this);
-        showMessage("created");
     }
     
 	@Override
@@ -56,12 +53,14 @@ public class LoginActivity extends Activity implements Observer, OnClickListener
     		showMessage("You are now logged in!");
     		finish();
     	}
+    	else{
+    		// TODO: take care of errors
+    	}
 	}
 
 	@Override
 	public void onClick(View v){
         EditText input = (EditText)(findViewById(R.id.username));
-        showMessage("call model");
         model.sendLoginRequest(input.getText().toString());
 	}
 	

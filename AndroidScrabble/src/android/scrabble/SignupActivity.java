@@ -3,8 +3,6 @@ package android.scrabble;
 import java.util.Observable;
 import java.util.Observer;
 
-import util.SendObject;
-
 import model.SignupModel;
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -25,13 +23,11 @@ public class SignupActivity extends Activity implements Observer, OnClickListene
         super.onCreate(savedInstanceState);
         setContentView(R.layout.signup);
         
-        String userName = getIntent().getStringExtra("USERNAME");
-
-        model = new SignupModel();
-        model.addObserver(this);
+        String username = getIntent().getStringExtra("USERNAME");
+        setTakenName(username);
         
-        TextView nameTaken = (TextView)(findViewById(R.id.nameTaken));
-    	nameTaken.setText("The username "+userName+" does not exist!");
+        model = new SignupModel(getBaseContext());
+        model.addObserver(this);
     	
     	Button submit = (Button)(findViewById(R.id.submit));
     	submit.setOnClickListener(this);
@@ -43,23 +39,38 @@ public class SignupActivity extends Activity implements Observer, OnClickListene
         
         model.sendLoginRequest(input.getText().toString());
 	}
+	
+	public void setTakenName(String username){
+        TextView nameTaken = (TextView)(findViewById(R.id.nameTaken));
+    	nameTaken.setText("The username "+username+" does not exist!");
+	}
 
 	@Override
-	public void update(Observable observable, Object data) {
-        EditText input = (EditText)(findViewById(R.id.username));
-        String username = input.getText().toString();
-		SendObject object = (SendObject)(data);
-		if(object.getObject().toString().equalsIgnoreCase("You are now signed up, welcome "+username)){
-			AlertDialog.Builder builder = new AlertDialog.Builder(SignupActivity.this);
-			builder.setMessage(object.getObject().toString());
-			builder.setPositiveButton("OK", new DialogInterface.OnClickListener(){
-				@Override
-				public void onClick(DialogInterface arg0, int arg1) {
-					finish();
-				}
-			});
-			AlertDialog dialog = builder.create();
-			dialog.show();
-		}
+	public void update(Observable observable, Object data){
+        int resCode = ((Integer)(data)).intValue();
+		
+        if(resCode == SignupModel.SIGNUP_NOT_OK){
+            EditText input = (EditText)(findViewById(R.id.username));
+            setTakenName(input.getText().toString());
+        }
+        else if(resCode == SignupModel.SIGNUP_OK){
+        	showSignedUpDialog("You are now signed up! Welcome!");
+        }
+        else{
+        	//TODO: Take care of error
+        }
+	}
+	
+	public void showSignedUpDialog(String message){
+		AlertDialog.Builder builder = new AlertDialog.Builder(SignupActivity.this);
+		builder.setMessage(message);
+		builder.setPositiveButton("OK", new DialogInterface.OnClickListener(){
+			@Override
+			public void onClick(DialogInterface arg0, int arg1) {
+				finish();
+			}
+		});
+		AlertDialog dialog = builder.create();
+		dialog.show();
 	}
 }
