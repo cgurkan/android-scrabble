@@ -8,7 +8,6 @@ import java.net.Socket;
 import java.util.Observable;
 
 import android.content.Context;
-import android.widget.Toast;
 
 import util.SendObject;
 import util.SendableAction;
@@ -27,7 +26,6 @@ public class LoginModel extends Observable{
 	
 	public void sendLoginRequest(String username){
 		SendObject retrieved = null;
-			showMessage(context.getString(android.scrabble.R.string.serverip));
 		try{
 			SendObject object = new SendObject(SendableAction.LOGIN, username);
 			Socket s = new Socket(context.getString(android.scrabble.R.string.serverip), 7896);
@@ -38,8 +36,6 @@ public class LoginModel extends Observable{
 			s.setSoTimeout(10000);	//	wait max 10 seconds to get response
 			
 			retrieved = getServerAnswer(s);
-			
-			showMessage("r done");
 			s.close();
 		}
 		catch(IOException io){
@@ -89,12 +85,4 @@ public class LoginModel extends Observable{
 		
 		return (LOGIN_OK+1);	//error
 	}
-	
-	public void showMessage(String s){
-    	CharSequence text = s;
-    	int duration = Toast.LENGTH_LONG;
-
-    	Toast toast = Toast.makeText(context, text, duration);
-    	toast.show();
-    }
 }
