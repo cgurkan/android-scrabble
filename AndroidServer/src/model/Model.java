@@ -19,26 +19,23 @@ public class Model {
 		
 	}
 
-	public void pass() {
+	public void pass(int gameID) {
 		// TODO Auto-generated method stub
 		
 	}
 
-	public void guitGame() {
+	public void guitGame(int gameID) {
 		// TODO Auto-generated method stub
 		
 	}
 
-	public void placeWord() {
+	public void placeWord(int gameID) {
 		// TODO Auto-generated method stub
 		
 	}
 
-	public void swap() {
+	public void swap(int gameID) {
 		// TODO Auto-generated method stub
 		
 	}
-	
-	
-
 }

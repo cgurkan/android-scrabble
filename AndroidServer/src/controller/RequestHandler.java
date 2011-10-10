@@ -13,9 +13,9 @@ import util.SendObject;
 
 /**
  * Class that represents a "Server".
- * The server holds a objectcket which the phones connect to.
+ * The server holds a objectsocket which the phones connect to.
  * 
- * The server starts a new Thread (ServerController) which listens to the objectckets,
+ * The server starts a new Thread (ServerController) which listens to the objectsockets,
  * and take care of all info. The ServerController alobject makes sure that the server
  * listens to the models that it uses.
  * 
@@ -40,6 +40,7 @@ public class RequestHandler extends Thread implements Runnable{
 
 	@Override
 	public void run() {
+		int i = 0;
 		switch(object.getAction()){
 		case LOGIN:
 			String s = (String)object.getObject();
@@ -56,16 +57,16 @@ public class RequestHandler extends Thread implements Runnable{
 			m.signUp(s3);
 			break;
 		case PLACE_WORD:
-			m.placeWord();
+			m.placeWord(i);
 			break;
 		case QUIT_GAME:
-			m.guitGame();
+			m.guitGame(i);
 			break;
 		case PASS:
-			m.pass();
+			m.pass(i);
 			break;
 		case SWAP:
-			m.swap();
+			m.swap(i);
 			break;
 		default:
 			break;
