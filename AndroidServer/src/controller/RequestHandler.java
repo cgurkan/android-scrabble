@@ -4,8 +4,7 @@ import java.net.Socket;
 import java.util.Observable;
 import java.util.Observer;
 
-import model.GameLogic;
-import model.UserLogic;
+import model.Model;
 import network.ServerOutput;
 
 import util.ErrorHandler;
@@ -20,22 +19,18 @@ import util.SendObject;
  * and take care of all info. The ServerController alobject makes sure that the server
  * listens to the models that it uses.
  * 
- * @author Magnus
+ * @author 
  */
-public class RequestHandler extends Thread implements Runnable, Observer{
+public class RequestHandler extends Thread implements Runnable{
 
 	private ServerOutput output = null;	//	The Thread that waits for output
 	private Socket socket;
 	private SendObject object;
 	
-	private UserLogic ul = null;
-	private GameLogic gl = null;
+	private Model m = null;
 	
 	public RequestHandler(Socket s, SendObject obj){
-		ul = new UserLogic();
-		ul.addObserver(this);
-		gl = new GameLogic();
-		gl.addObserver(this);
+		m = new Model();
 		
 		output = new ServerOutput();
 		object = obj;
@@ -48,21 +43,30 @@ public class RequestHandler extends Thread implements Runnable, Observer{
 		switch(object.getAction()){
 		case LOGIN:
 			String s = (String)object.getObject();
-			ul.login(s);
+			m.login(s);
 			break;
 		case LOGOUT:
 			String s2 = (String)object.getObject();
-			ul.logout(s2);
+			m.logout(s2);
 			break;
 		case SEARCH_PLAYER:
 			break;
 		case SIGN_UP:
 			String s3 = (String)object.getObject();
-			ul.signUp(s3);
+			m.signUp(s3);
 			break;
-		/*case GAME_DATA:
-			//TODO: do gamelogic
-			break;*/
+		case PLACE_WORD:
+			m.placeWord();
+			break;
+		case QUIT_GAME:
+			m.guitGame();
+			break;
+		case PASS:
+			m.pass();
+			break;
+		case SWAP:
+			m.swap();
+			break;
 		default:
 			break;
 		}
