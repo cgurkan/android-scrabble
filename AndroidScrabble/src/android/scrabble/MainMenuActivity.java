@@ -18,9 +18,9 @@ public class MainMenuActivity extends Activity implements OnClickListener{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
         
-        UserData.init(getBaseContext().getString(android.scrabble.R.string.serverip));
+        //UserData.init(getBaseContext().getString(android.scrabble.R.string.serverip));
 
-        startActivity(new Intent(MainMenuActivity.this, LoginActivity.class));
+        //startActivity(new Intent(MainMenuActivity.this, LoginActivity.class));
         
         Button settings = (Button)(findViewById(R.id.settingsButton));
         settings.setOnClickListener(this);
@@ -54,10 +54,8 @@ public class MainMenuActivity extends Activity implements OnClickListener{
     }
 
 	@Override
-	public void onClick(View arg0) {
-		// TODO Auto-generated method stub
-        debug(UserData.socket.isConnected()+"");
-        //startActivity(new Intent(MainMenuActivity.this, SettingsViewActivity.class));
+	public void onClick(View view){
+        startActivity(new Intent(MainMenuActivity.this, SettingsViewActivity.class));
 	}
 	
 	 public void debug(String s){

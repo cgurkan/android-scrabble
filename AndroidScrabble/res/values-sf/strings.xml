@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="hello">Hei maailama, AndroidScrabbleActivity!</string>
+    <string name="app_name">Raapia</string>
+    <string name="new_game">Uusi peli</string>
+    <string name="settings">Asetukset</string>
+    <string name="help">Apua</string>
+    <string name="about">Noin</string>
+    <string name="account">Tili</string>
+    <string name="login_header">Anna käyttäjätunnus login:</string>
+    <string name="login_submit">Kirjaudu sisään!</string>
+    <string name="signup_header">Syötä haluamasi käyttäjätunnus:</string>
+    <string name="signup_submit">Rekisteröidy!</string>
+    <string name="serverip">46.239.108.240</string>
+    <string name="lang_desc">Valitse kieli</string>
+    <string-array name="langs">
+        <item>English</item>
+        <item>Svenska</item>
+        <item>Suomi</item>
+        <item>Deutsch</item>
+    </string-array>
+</resources>
