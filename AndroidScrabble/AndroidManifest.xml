@@ -20,7 +20,10 @@
 	    <activity android:name=".SignupActivity">
 	    </activity>
 		
-        <activity android:name=".SettingsViewActivity"> 
+        <activity android:name=".SettingsViewActivity">
+    		<intent-filter>
+    			<action android:name="android.intent.action.SETTINGS" />    			
+    		</intent-filter>
         </activity>
     </application>
     <uses-permission android:name="android.permission.INTERNET" />
