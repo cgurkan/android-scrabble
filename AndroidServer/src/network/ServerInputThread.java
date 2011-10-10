@@ -45,7 +45,7 @@ public class ServerInputThread extends Thread implements Runnable{
 					Socket socket = serverSocket.accept();
 					ObjectInputStream in = new ObjectInputStream(socket.getInputStream());
 					
-					SendObject so = ((SendObject)(in.readObject()));
+					SendObject so = ((SendObject)(in.readUnshared()));
 					new RequestHandler(socket, so).start();
 					
 					wait = false;

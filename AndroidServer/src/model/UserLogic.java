@@ -6,6 +6,8 @@ import java.util.LinkedList;
 import java.util.List;
 
 import util.ErrorHandler;
+import util.SendObject;
+import util.SendableAction;
 
 
 /**
@@ -76,9 +78,10 @@ public class UserLogic extends Logic{
 			result = username+" is already logged in on another device";
 		}
 		
+		SendObject obj = new SendObject(SendableAction.LOGIN, result);
 		//	return the data to the Controller
 		setChanged();
-		notifyObservers(result);
+		notifyObservers(obj);
 	}
 	
 	/**
@@ -99,9 +102,10 @@ public class UserLogic extends Logic{
 			result = "You are now logged out";
 		}
 		
+		SendObject obj = new SendObject(SendableAction.LOGOUT, result);
 		//	return the data to the Controller
 		setChanged();
-		notifyObservers(result);
+		notifyObservers(obj);
 	}
 
 	/**
@@ -136,10 +140,11 @@ public class UserLogic extends Logic{
 		catch(SQLException e){	//	report all errors!
 			ErrorHandler.report("The following SQL-error(s) occured in UserLogic#getUsersOnline(): "+e.getMessage());
 		}
-		
+
+		SendObject obj = new SendObject(SendableAction.LOGOUT, result);
 		//	return data to Controller
 		setChanged();
-		notifyObservers(result);
+		notifyObservers(obj);
 	}
 
 	/**
