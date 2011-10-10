@@ -19,15 +19,15 @@ public class Model {
 	}
 
 	public void login(String s) {
-		// TODO Auto-generated method stub
+		ul.login(s);
 	}
 
 	public void logout(String s2) {
-		// TODO Auto-generated method stub
+		ul.logout(s2);
 	}
 
 	public void signUp(String s3) {
-		// TODO Auto-generated method stub
+		ul.signUp(s3);
 	}
 
 	public void pass(int gameID) {
