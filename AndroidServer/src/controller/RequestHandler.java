@@ -59,6 +59,9 @@ public class RequestHandler extends Thread implements Runnable{
 		case PLACE_WORD:
 			m.placeWord(i);
 			break;
+		case START_GAME:
+			m.startGame();
+			break;
 		case QUIT_GAME:
 			m.guitGame(i);
 			break;

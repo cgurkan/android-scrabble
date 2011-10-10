@@ -15,6 +15,7 @@ public enum SendableAction implements Serializable{
 	SEARCH_PLAYER,
 	SIGN_UP,
 	PLACE_WORD,
+	START_GAME,
 	QUIT_GAME,
 	PASS,
 	SWAP
