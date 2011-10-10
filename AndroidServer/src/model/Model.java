@@ -17,6 +17,10 @@ public class Model {
 	public GameModel getModel(int gameID){
 		return modelList.get(gameID);
 	}
+	
+	public int nextID(){
+		return modelList.size()+1;
+	}
 
 	public void login(String s) {
 		ul.login(s);
@@ -46,8 +50,7 @@ public class Model {
 		// TODO Auto-generated method stub
 	}
 
-	public void startGame() {
-		// TODO Auto-generated method stub
-		modelList.put(1, new GameModel());
+	public void startGame(String name1, String name2) {
+		modelList.put(nextID(), new GameModel(name1, name2));
 	}
 }

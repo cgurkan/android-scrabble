@@ -19,12 +19,16 @@ public class GameModel extends Logic implements IGame{
 	
 	private Database db = null;
 	private int lettersLeft = 300;
+	private int pass = 0;
+	private String turn = null;
+	private Player p1 = null;
+	private Player p2 = null;
 	
-	/*allt ett spel behöver samt vilket state det är i* (all data som rör det specifika spelet)*/
-	/*En specifikt spelklass med metoder som gäller ETT spel*/
 	
-	public GameModel(){
+	public GameModel(String name1, String name2){
 		db = getDatabase();	//	Get the inherited database.
+		p1 = new Player(name1);
+		p2 = new Player(name2);
 	}
 	
 	public final class GameConstats{
@@ -39,8 +43,11 @@ public class GameModel extends Logic implements IGame{
 	}
 	
 	@Override
-	public void startGame(String host, String opp) {
-		String insGame = "INSERT INTO game VALUES(NULL, '"+host+"', '"+opp+"')";
+	public void startGame() {
+		//TODO: give the turn to on of the players
+		changeTurn();
+		
+		String insGame = "INSERT INTO game VALUES(NULL, '"+p1.getUsername()+"', '"+p2.getUsername()+"')";
 		
 		try{
 			db.execUpdate(insGame);
@@ -57,12 +64,34 @@ public class GameModel extends Logic implements IGame{
 		
 		if(lettersLeft > i){
 			query = "SELECT char FROM english ORDER BY RAND() LIMIT 'i'";
+			if(turn == p1.getUsername()){
+				p1.setLetters(7);
+			}
+			else if(turn == p2.getUsername()){
+				p2.setLetters(7);
+			}
 		}
 		else if(lettersLeft != 0){
 			query = "SELECT char FROM english ORDER BY RAND() LIMIT 'lettersLeft'";
+			if(turn == p1.getUsername()){
+				p1.setLetters(p1.getLetters()-i+lettersLeft);
+			}
+			else if(turn == p2.getUsername()){
+				p2.setLetters(p2.getLetters()-i+lettersLeft);
+			}
 		}
 		else{
-			//TODO: when lettersLeft = 0, how do we check the winner? Can the players play with own letters?
+			if(p1.getLetters() == 0 || p2.getLetters() == 0){
+				endGame();
+				return null;
+			}
+			else if(i == 0){
+				pass++;
+			}
+			
+			if(pass == 4){
+				return null;
+			}
 		}
 		
 		try {
@@ -97,5 +126,19 @@ public class GameModel extends Logic implements IGame{
 		}
 		
 		return points;
-	}	
+	}
+	
+	public void changeTurn(){
+		if(turn == p1.getUsername()){
+			turn = p2.getUsername();
+		}
+		else{
+			turn = p1.getUsername();
+		}
+	}
+	
+	public int endGame(){
+		//TODO: implement this
+		return 0;
+	}
 }

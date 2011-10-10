@@ -13,9 +13,13 @@ public interface IGame {
 	
 	public Board createBoard(String host, String opp);
 	
-	public void startGame(String host, String opp);
+	public void startGame();
 	
 	public int receivePoints(String s);
 	
 	public List<Character> generateLetters(int i);
+	
+	public int endGame();
+	
+	public void changeTurn();
 }
