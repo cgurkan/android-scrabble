@@ -17,11 +17,8 @@ import model.data.Board;
  *
  */
 public class GameLogic extends Logic{
-
-	/*En generell spelklass med metoder som gäller ALLA spel*/
 	
 	private Database db = null;
-	private int lettersLeft = 300;	// TODO: change this
 	
 	public GameLogic(){
 		super();
