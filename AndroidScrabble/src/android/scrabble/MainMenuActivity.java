@@ -3,8 +3,11 @@ package android.scrabble;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.widget.Button;
 
-public class MainMenuActivity extends Activity {
+public class MainMenuActivity extends Activity implements OnClickListener{
 	
 	/** Called when the activity is first created. */
     @Override
@@ -13,6 +16,9 @@ public class MainMenuActivity extends Activity {
         setContentView(R.layout.main);
 
         startActivity(new Intent(MainMenuActivity.this, LoginActivity.class));
+        
+        Button settings = (Button)(findViewById(R.id.settingsButton));
+        settings.setOnClickListener(this);
     }
 
     @Override
@@ -40,4 +46,10 @@ public class MainMenuActivity extends Activity {
         super.onDestroy();
         // The activity is about to be destroyed.
     }
+
+	@Override
+	public void onClick(View arg0) {
+		// TODO Auto-generated method stub
+        startActivity(new Intent(MainMenuActivity.this, SettingsViewActivity.class));
+	}
 }

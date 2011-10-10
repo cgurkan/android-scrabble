@@ -46,10 +46,10 @@ public class LoginActivity extends Activity implements Observer, OnClickListener
     		startActivity(intent);
     		finish();
     	}
-    	else if(responseCode == LoginModel.LOGIN_NOT_OK){
+    	/*else if(responseCode == LoginModel.LOGIN_NOT_OK){
     		showMessage("There was an error logging in. If you are logged in on another device, please logout there first.");
-    	}
-    	else if(responseCode == LoginModel.LOGIN_OK){
+    	}*/
+    	else if(responseCode == LoginModel.LOGIN_NOT_OK || responseCode == LoginModel.LOGIN_OK){
     		showMessage("You are now logged in!");
     		finish();
     	}
@@ -71,5 +71,31 @@ public class LoginActivity extends Activity implements Observer, OnClickListener
 
     	Toast toast = Toast.makeText(context, text, duration);
     	toast.show();
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        // The activity is about to become visible.
+    }
+    @Override
+    protected void onResume() {
+        super.onResume();
+        // The activity has become visible (it is now "resumed").
+    }
+    @Override
+    protected void onPause() {
+        super.onPause();
+        // Another activity is taking focus (this activity is about to be "paused").
+    }
+    @Override
+    protected void onStop() {
+        super.onStop();
+        // The activity is no longer visible (it is now "stopped")
+    }
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        // The activity is about to be destroyed.
     }
 }
