@@ -22,11 +22,7 @@ public class SettingsViewActivity extends Activity  implements OnClickListener{
     }
 
 	@Override
-	public void onClick(View v) {
-		// TODO Auto-generated method stub
-        Intent intent = new Intent("android.intent.action.MAIN");
-		startActivity(intent);
-		finish();
+	public void onClick(View v){
 	}
 
     @Override

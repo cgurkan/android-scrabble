@@ -3,6 +3,8 @@ package android.scrabble;
 import java.util.Observable;
 import java.util.Observer;
 
+import util.UserData;
+
 import model.LoginModel;
 
 import android.app.Activity;
@@ -50,7 +52,8 @@ public class LoginActivity extends Activity implements Observer, OnClickListener
     		showMessage("There was an error logging in. If you are logged in on another device, please logout there first.");
     	}*/
     	else if(responseCode == LoginModel.LOGIN_NOT_OK || responseCode == LoginModel.LOGIN_OK){
-    		showMessage("You are now logged in!");
+    		UserData.username = uName;
+    		//showMessage("You are now logged in!");
     		finish();
     	}
     	else{

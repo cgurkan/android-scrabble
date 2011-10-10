@@ -1,11 +1,14 @@
 package android.scrabble;
 
+import util.UserData;
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
+import android.widget.Toast;
 
 public class MainMenuActivity extends Activity implements OnClickListener{
 	
@@ -14,6 +17,8 @@ public class MainMenuActivity extends Activity implements OnClickListener{
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
+        
+        UserData.init(getBaseContext().getString(android.scrabble.R.string.serverip));
 
         startActivity(new Intent(MainMenuActivity.this, LoginActivity.class));
         
@@ -30,6 +35,7 @@ public class MainMenuActivity extends Activity implements OnClickListener{
     protected void onResume() {
         super.onResume();
         // The activity has become visible (it is now "resumed").
+        debug("resume");
     }
     @Override
     protected void onPause() {
@@ -50,6 +56,16 @@ public class MainMenuActivity extends Activity implements OnClickListener{
 	@Override
 	public void onClick(View arg0) {
 		// TODO Auto-generated method stub
-        startActivity(new Intent(MainMenuActivity.this, SettingsViewActivity.class));
+        debug(UserData.socket.isConnected()+"");
+        //startActivity(new Intent(MainMenuActivity.this, SettingsViewActivity.class));
 	}
+	
+	 public void debug(String s){
+	    Context context = getApplicationContext();
+	    CharSequence text = s;
+	    int duration = Toast.LENGTH_SHORT;
+
+	    Toast toast = Toast.makeText(context, text, duration);
+    	toast.show();
+	 }
 }
