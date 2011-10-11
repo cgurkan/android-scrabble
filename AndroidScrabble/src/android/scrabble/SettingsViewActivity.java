@@ -6,33 +6,68 @@ import android.app.Activity;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.AdapterView.OnItemSelectedListener;
+import android.view.View.OnClickListener;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.Spinner;
 
-public class SettingsViewActivity extends Activity  implements OnItemSelectedListener{
+public class SettingsViewActivity extends Activity  implements OnClickListener{
 	
     /** Called when the activity is first created. */
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.settings_menu);
-        
 
-        Spinner languages = (Spinner)(findViewById(R.id.lang));
+        initLangSpinner();
+        
+        Button save = ((Button)(findViewById(R.id.save)));
+        save.setOnClickListener(this);
+    }
+	
+	private void initLangSpinner() {
+		Spinner languages = (Spinner)(findViewById(R.id.lang));
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(
                 this, R.array.langs, android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+        int pos = getSelectedPosition(adapter);
+        
         languages.setAdapter(adapter);
-        languages.setOnItemSelectedListener(this);
-    }
-	
-	@Override
-	public void onItemSelected(AdapterView<?> parent, View view, int pos,
-			long id) {
-		String item = (String) parent.getItemAtPosition(pos);
+        languages.setSelection((pos < 0 ? 0 : pos));
+	}
+
+	private int getSelectedPosition(ArrayAdapter<CharSequence> adapter) {
+
+		Configuration config = getBaseContext().getResources().getConfiguration();
+		Locale l = config.locale;
 		
+		String country = getString(l);
+
+        for(int i = 0; i<adapter.getCount(); i++){
+        	if(adapter.getItem(i).equals(country)){
+        		return i;
+        	}
+        }
+        
+        return -1;
+	}
+
+	private String getString(Locale l) {
+
+		if(l.equals(Locale.ENGLISH)){
+			return "English";
+		}
+		else if(l.equals(Locale.US)){
+			return "English";
+		}
+		else if(l.equals(Locale.GERMAN)){
+			return "Deutsch";
+		}
+		return null;
+	}
+	
+	public Locale getLocale(String item){
 		Locale locale = null;
 		if(item.equalsIgnoreCase("English")){
 			locale = Locale.ENGLISH;
@@ -40,7 +75,10 @@ public class SettingsViewActivity extends Activity  implements OnItemSelectedLis
 		else if(item.equalsIgnoreCase("Deutsch")){
 			locale = Locale.GERMAN;
 		}
-		
+		return locale;
+	}
+	
+	public void setLocale(Locale locale){
 		if(locale != null){
 			Locale.setDefault(locale);
 			Configuration config = getBaseContext().getResources().getConfiguration();
@@ -48,18 +86,6 @@ public class SettingsViewActivity extends Activity  implements OnItemSelectedLis
 				config.locale = locale;
 				getBaseContext().getResources().updateConfiguration(config, null);
 			}
-		}
-	}
-
-	@Override
-	public void onNothingSelected(AdapterView<?> arg0) {
-		// TODO Auto-generated method stub
-		Locale locale = Locale.getDefault();
-		Locale.setDefault(locale);
-		Configuration config = getBaseContext().getResources().getConfiguration();
-		if(!config.locale.equals(locale)){
-			config.locale = locale;
-			getBaseContext().getResources().updateConfiguration(config, null);
 		}
 	}
 
@@ -88,4 +114,16 @@ public class SettingsViewActivity extends Activity  implements OnItemSelectedLis
         super.onDestroy();
         // The activity is about to be destroyed.
     }
+
+	@Override
+	public void onClick(View v) {
+		
+		Spinner l = ((Spinner)(findViewById(R.id.lang)));
+		String item = (String)l.getSelectedItem();
+		
+		Locale locale = getLocale(item);
+		setLocale(locale);
+		
+		finish();
+	}
 }

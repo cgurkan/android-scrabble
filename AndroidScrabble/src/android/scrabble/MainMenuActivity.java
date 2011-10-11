@@ -1,6 +1,5 @@
 package android.scrabble;
 
-import util.UserData;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -8,6 +7,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 public class MainMenuActivity extends Activity implements OnClickListener{
@@ -35,7 +35,7 @@ public class MainMenuActivity extends Activity implements OnClickListener{
     protected void onResume() {
         super.onResume();
         // The activity has become visible (it is now "resumed").
-        debug("resume");
+        updateLocale();
     }
     @Override
     protected void onPause() {
@@ -56,6 +56,26 @@ public class MainMenuActivity extends Activity implements OnClickListener{
 	@Override
 	public void onClick(View view){
         startActivity(new Intent(MainMenuActivity.this, SettingsViewActivity.class));
+	}
+	
+	public void updateLocale(){
+		/*
+		 * Update all button-texts and so on
+		 */
+		TextView header = ((TextView)(findViewById(R.id.appName)));
+		header.setText(getString(R.string.app_name));
+		
+		Button newGame = ((Button)(findViewById(R.id.newGameButton)));
+		newGame.setText(getString(R.string.new_game));
+
+		Button settings = ((Button)(findViewById(R.id.settingsButton)));
+		settings.setText(getString(R.string.settings));
+
+		Button help = ((Button)(findViewById(R.id.helpButton)));
+		help.setText(getString(R.string.help));
+
+		Button about = ((Button)(findViewById(R.id.aboutButton)));
+		about.setText(getString(R.string.about));
 	}
 	
 	 public void debug(String s){

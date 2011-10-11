@@ -19,4 +19,5 @@
         <item>Suomi</item>
         <item>Deutsch</item>
     </string-array>
+    <string name="settings_save">Sparen!</string>
 </resources>
