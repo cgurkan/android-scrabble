@@ -3,6 +3,8 @@ package controller;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
+
+import network.RequestHandler;
 import model.Model;
 
 import util.ErrorHandler;
