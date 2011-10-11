@@ -15,14 +15,14 @@ import util.SendableAction;
  * 
  * @author Magnus
  */
-public class UserLogic extends Logic{
+public class UserManager extends Logic{
 
 	private Database db = null;
 	
 	/**
 	 * Creates new UserLogic from existing Logic.
 	 */
-	public UserLogic(){
+	public UserManager(){
 		super();
 		db = getDatabase();	//	Get the inherited database.
 	}

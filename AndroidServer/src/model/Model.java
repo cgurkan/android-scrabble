@@ -6,11 +6,11 @@ import java.util.HashMap;
 //TODO: should return a response object to the requestHandler!
 public class Model {
 
-	private UserLogic ul = null;
+	private UserManager ul = null;
 	private HashMap<Integer, GameModel> modelList;
 	
 	public Model(){
-		ul = new UserLogic();
+		ul = new UserManager();
 		modelList = new HashMap<Integer, GameModel>();
 	}
 	
