@@ -2,15 +2,17 @@ package model;
 
 import java.util.HashMap;
 
+import util.ResponseObject;
+
 //TODO: should be the all mighty model that create gameModels for every game. This is the only class that the requestHandler communicate with. (on modelside) Needs to manage a list of all games seperated with GameIDs.
 //TODO: should return a response object to the requestHandler!
 public class Model {
 
-	private UserManager ul = null;
+	private UserManager usermanager = null;
 	private HashMap<Integer, GameModel> modelList;
 	
 	public Model(){
-		ul = new UserManager();
+		usermanager = new UserManager();
 		modelList = new HashMap<Integer, GameModel>();
 	}
 	
@@ -22,16 +24,16 @@ public class Model {
 		return modelList.size()+1;
 	}
 
-	public void login(String s) {
-		ul.login(s);
+	public ResponseObject login(String s) {
+		return usermanager.login(s);
 	}
 
-	public void logout(String s2) {
-		ul.logout(s2);
+	public ResponseObject logout(String s2) {
+		return usermanager.logout(s2);
 	}
 
-	public void signUp(String s3) {
-		ul.signUp(s3);
+	public ResponseObject signUp(String s3) {
+		return usermanager.signUp(s3);
 	}
 
 	public void pass(int gameID) {

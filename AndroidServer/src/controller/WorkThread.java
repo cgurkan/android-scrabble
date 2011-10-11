@@ -10,6 +10,7 @@ import model.Model;
 import util.ErrorHandler;
 import util.ListListener;
 import util.ListenableList;
+import util.ResponseObject;
 import util.SendObject;
 
 public class WorkThread extends Thread implements ListListener{
@@ -46,22 +47,24 @@ public class WorkThread extends Thread implements ListListener{
 	}
 	
 	public void work(SendObject object){
-int i = 0;
+		
+		ResponseObject data = null;
+		int i = 0;
 		
 		switch(object.getAction()){
 		case LOGIN:
 			String s = (String)object.getObject();
-			model.login(s);
+			data = model.login(s);
 			break;
 		case LOGOUT:
 			String s2 = (String)object.getObject();
-			model.logout(s2);
+			data = model.logout(s2);
 			break;
 		case SEARCH_PLAYER:
 			break;
 		case SIGN_UP:
 			String s3 = (String)object.getObject();
-			model.signUp(s3);
+			data = model.signUp(s3);
 			break;
 		case PLACE_WORD:
 			model.placeWord(i);
@@ -82,7 +85,7 @@ int i = 0;
 			break;
 		}
 		
-		send(null);
+		send(data);
 	}
 	
 	public void send(Object object){

@@ -6,7 +6,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 import util.ErrorHandler;
-import util.SendObject;
+import util.ResponseObject;
 import util.SendableAction;
 
 
@@ -34,8 +34,9 @@ public class UserManager extends Logic{
 	 * when finished.
 	 * 
 	 * @param username the name of the user that wants to be logged in.
+	 * @return 
 	 */
-	public void login(String username){
+	public ResponseObject login(String username){
 		
 		String result = "";	//	The result sent back to the Controller.
 		
@@ -78,18 +79,17 @@ public class UserManager extends Logic{
 			result = username+" is already logged in on another device";
 		}
 		
-		SendObject obj = new SendObject(SendableAction.LOGIN, result);
-		//	return the data to the Controller
-		setChanged();
-		notifyObservers(obj);
+		ResponseObject obj = new ResponseObject(SendableAction.LOGIN, result);
+		return obj;
 	}
 	
 	/**
 	 * Logs a user out. The user is successfully logged out if no SQL errors occur.
 	 * 
 	 * @param username the name of the user that is being logged out.
+	 * @return 
 	 */
-	public void logout(String username){
+	public ResponseObject logout(String username){
 		
 		String result = "";
 		int logIn = setLogin(username, false);	// set player to be offline
@@ -102,10 +102,8 @@ public class UserManager extends Logic{
 			result = "You are now logged out";
 		}
 		
-		SendObject obj = new SendObject(SendableAction.LOGOUT, result);
-		//	return the data to the Controller
-		setChanged();
-		notifyObservers(obj);
+		ResponseObject obj = new ResponseObject(SendableAction.LOGOUT, result);
+		return obj;
 	}
 
 	/**
@@ -114,8 +112,9 @@ public class UserManager extends Logic{
 	 * Controller.
 	 * 
 	 * @param username the username that the user wants to register.
+	 * @return 
 	 */
-	public void signUp(String username){
+	public ResponseObject signUp(String username){
 		String result = "";
 		String query = "SELECT * FROM player WHERE name = '"+username+"'";
 		
@@ -141,18 +140,17 @@ public class UserManager extends Logic{
 			ErrorHandler.report("The following SQL-error(s) occured in UserLogic#getUsersOnline(): "+e.getMessage());
 		}
 
-		SendObject obj = new SendObject(SendableAction.LOGOUT, result);
-		//	return data to Controller
-		setChanged();
-		notifyObservers(obj);
+		ResponseObject obj = new ResponseObject(SendableAction.LOGOUT, result);
+		return obj;
 	}
 
 	/**
 	 * Gets all users online.
 	 * Returns the list of users to the Controller.
+	 * @return 
 	 * 
 	 */
-	public void getUsersOnline(){
+	public ResponseObject getUsersOnline(){
 		List<String> users = new LinkedList<String>();	//	all users
 		String query = "SELECT * FROM player WHERE isOnline = 1";
 		
@@ -165,10 +163,8 @@ public class UserManager extends Logic{
 		catch(SQLException e){	//	report all errors!
 			ErrorHandler.report("The following SQL-error(s) occured in UserLogic#getUsersOnline(): "+e.getMessage());
 		}
-		
-		//	return the data to the controller
-		setChanged();
-		notifyObservers(users);
+		ResponseObject object = new ResponseObject(SendableAction.SEARCH_PLAYER, users);
+		return object;
 	}
 	
 	/**
