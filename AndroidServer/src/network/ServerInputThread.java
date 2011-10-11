@@ -1,14 +1,12 @@
 package network;
 
 import java.io.IOException;
-import java.io.ObjectInputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
 
-import controller.RequestHandler;
+import controller.WorkThread;
 
 import util.ErrorHandler;
-import util.SendObject;
 
 /**
  * Server-thread that listens to the ServerSocket that the server provides.
@@ -43,10 +41,8 @@ public class ServerInputThread extends Thread implements Runnable{
 				if(!wait){
 					wait = true;
 					Socket socket = serverSocket.accept();
-					ObjectInputStream in = new ObjectInputStream(socket.getInputStream());
 					
-					SendObject so = ((SendObject)(in.readUnshared()));
-					new RequestHandler(socket, so).start();
+					new WorkThread(socket).start(); //	Start new client-thread
 					
 					wait = false;
 				}
@@ -54,10 +50,6 @@ public class ServerInputThread extends Thread implements Runnable{
 			catch(IOException e){
 				ErrorHandler.report("Error in server-thread (I/O): "+e.getMessage());
 				e.printStackTrace();
-				wait = false;
-			}
-			catch (ClassNotFoundException e) {
-				ErrorHandler.report("Error in server-thread (ClassNotFound): "+e.getMessage());
 				wait = false;
 			}
 		}

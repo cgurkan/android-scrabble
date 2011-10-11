@@ -12,7 +12,6 @@ public class ServerOutput {
 	
 	public void send(Socket s, Object object) throws IOException{
 		ObjectOutputStream stream = new ObjectOutputStream(s.getOutputStream());
-		stream.writeUnshared(object);
-		stream.flush();
+		
 	}
 }
