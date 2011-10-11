@@ -18,6 +18,8 @@
         <item>Svenska</item>
         <item>Suomi</item>
         <item>Deutsch</item>
+        <item>Italiano</item>
+        <item>Française</item>
     </string-array>
     <string name="settings_save">Save!</string>
 </resources>

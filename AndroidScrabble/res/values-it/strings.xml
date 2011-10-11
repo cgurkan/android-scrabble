@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="hello">Ciao a tutti, AndroidScrabbleActivity!</string>
+    <string name="app_name">Scarabeo</string>
+    <string name="new_game">Nuovo Gioco</string>
+    <string name="settings">Preferenze</string>
+    <string name="help">Aiuto</string>
+    <string name="about">Circa</string>
+    <string name="account">Conto</string>
+    <string name="login_header">Inserisci il nome utente:</string>
+    <string name="login_submit">Login!</string>
+    <string name="signup_header">Inserisci il tuo nome utente desiderato:</string>
+    <string name="signup_submit">Registrati!</string>
+    <string name="lang_desc">Selezionare Lingua</string>
+    <string name="settings_save">Salvare!</string>
+</resources>

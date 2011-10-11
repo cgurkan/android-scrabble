@@ -11,12 +11,6 @@
     <string name="login_submit">Logga in!</string>
     <string name="signup_header">Ange önskat användarnamn:</string>
     <string name="signup_submit">Registrera!</string>
-    <string name="serverip">46.239.108.240</string>
     <string name="lang_desc">Välj språk</string>
-    <string-array name="langs">
-        <item>English</item>
-        <item>Svenska</item>
-        <item>Suomi</item>
-        <item>Deutsch</item>
-    </string-array>
+    <string name="settings_save">Spara!</string>
 </resources>

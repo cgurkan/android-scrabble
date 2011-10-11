@@ -11,12 +11,6 @@
     <string name="login_submit">Log in!</string>
     <string name="signup_header">Enter desired username:</string>
     <string name="signup_submit">Sign up!</string>
-    <string name="serverip">46.239.108.240</string>
     <string name="lang_desc">Choose language</string>
-    <string-array name="langs">
-        <item>English</item>
-        <item>Svenska</item>
-        <item>Suomi</item>
-        <item>Deutsch</item>
-    </string-array>
+    <string name="settings_save">Save!</string>
 </resources>

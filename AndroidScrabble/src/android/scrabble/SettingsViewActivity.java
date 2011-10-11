@@ -13,7 +13,7 @@ import android.widget.Spinner;
 
 public class SettingsViewActivity extends Activity  implements OnClickListener{
 	
-    /** Called when the activity is first created. */
+	/** Called when the activity is first created. */
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -64,6 +64,19 @@ public class SettingsViewActivity extends Activity  implements OnClickListener{
 		else if(l.equals(Locale.GERMAN)){
 			return "Deutsch";
 		}
+		else if(l.equals(Locale.SIMPLIFIED_CHINESE)){
+			return "Svenska";
+		}
+		else if(l.equals(Locale.TAIWAN)){
+			return "Suomi";
+		}
+		else if(l.equals(Locale.ITALIAN)){
+			return "Italiano";
+		}
+		else if(l.equals(Locale.FRENCH)){
+			return "Française";
+		}
+		
 		return null;
 	}
 	
@@ -74,6 +87,18 @@ public class SettingsViewActivity extends Activity  implements OnClickListener{
 		}
 		else if(item.equalsIgnoreCase("Deutsch")){
 			locale = Locale.GERMAN;
+		}
+		else if(item.equalsIgnoreCase("Svenska")){
+			locale = Locale.SIMPLIFIED_CHINESE;
+		}
+		else if(item.equalsIgnoreCase("Suomi")){
+			locale = Locale.TAIWAN;
+		}
+		else if(item.equalsIgnoreCase("Italiano")){
+			locale = Locale.ITALIAN;
+		}
+		else if(item.equalsIgnoreCase("Française")){
+			locale = Locale.FRENCH;
 		}
 		return locale;
 	}
@@ -114,7 +139,7 @@ public class SettingsViewActivity extends Activity  implements OnClickListener{
         super.onDestroy();
         // The activity is about to be destroyed.
     }
-
+    
 	@Override
 	public void onClick(View v) {
 		

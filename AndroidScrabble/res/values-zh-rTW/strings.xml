@@ -11,12 +11,6 @@
     <string name="login_submit">Kirjaudu sisään!</string>
     <string name="signup_header">Syötä haluamasi käyttäjätunnus:</string>
     <string name="signup_submit">Rekisteröidy!</string>
-    <string name="serverip">46.239.108.240</string>
     <string name="lang_desc">Valitse kieli</string>
-    <string-array name="langs">
-        <item>English</item>
-        <item>Svenska</item>
-        <item>Suomi</item>
-        <item>Deutsch</item>
-    </string-array>
+    <string name="settings_save">Tallenna!</string>
 </resources>
