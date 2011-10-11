@@ -1,4 +1,4 @@
-package model.objects;
+package util;
 
 public class ResponseObject {
 

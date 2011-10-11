@@ -67,7 +67,7 @@ int i = 0;
 			model.placeWord(i);
 			break;
 		case START_GAME:
-			model.startGame();
+			//model.startGame();
 			break;
 		case QUIT_GAME:
 			model.guitGame(i);

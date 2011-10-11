@@ -7,12 +7,6 @@ import util.SendObject;
 
 
 /**
- * Class that represents a "Server".
- * The server holds a objectsocket which the phones connect to.
- * 
- * The server starts a new Thread (ServerController) which listens to the objectsockets,
- * and take care of all info. The ServerController alobject makes sure that the server
- * listens to the models that it uses.
  * 
  * @author 
  */
