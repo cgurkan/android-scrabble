@@ -9,7 +9,7 @@ import java.util.Observable;
 
 import android.content.Context;
 
-import util.SendObject;
+import util.ResponseObject;
 import util.SendableAction;
 
 public class SignupModel extends Observable{
@@ -24,9 +24,9 @@ public class SignupModel extends Observable{
 	}
 	
 	public void sendLoginRequest(String username){
-		SendObject retrieved = null;
+		ResponseObject retrieved = null;
 		try{
-			SendObject object = new SendObject(SendableAction.SIGN_UP, username);
+			ResponseObject object = new ResponseObject(SendableAction.SIGN_UP, username);
 			Socket s = new Socket(context.getString(android.scrabble.R.string.serverip), 7896);
 			
 			ObjectOutputStream out = new ObjectOutputStream(s.getOutputStream());
@@ -46,13 +46,13 @@ public class SignupModel extends Observable{
 		super.notifyObservers(res);
 	}
 
-	private SendObject getServerAnswer(Socket s) {
-		SendObject data = null;
+	private ResponseObject getServerAnswer(Socket s) {
+		ResponseObject data = null;
 		try {
 			ObjectInputStream is = new ObjectInputStream(s.getInputStream());
 			
 			do{
-				data = (SendObject)is.readUnshared();
+				data = (ResponseObject)is.readUnshared();
 			}while(data == null);
 		}
 		catch(ClassNotFoundException e){
@@ -67,7 +67,7 @@ public class SignupModel extends Observable{
 		return data;
 	}
 
-	private Integer evaluate(SendObject obj, String username) {
+	private Integer evaluate(ResponseObject obj, String username) {
 		String[] possibleOutcome = {
 				"Sorry, the username "+username+" is already taken. Please choose another one.",
 				"You are now signed up, welcome "+username

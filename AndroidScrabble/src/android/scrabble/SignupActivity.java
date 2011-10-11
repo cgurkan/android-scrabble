@@ -41,8 +41,13 @@ public class SignupActivity extends Activity implements Observer, OnClickListene
 	public void onClick(View v){
         EditText input = (EditText)(findViewById(R.id.username));
         
-        model.sendLoginRequest(input.getText().toString());
-	}
+        if(input.getText().toString().trim().equals("") || input.getText().toString().trim().equals(" ")){
+        	setTakenName(input.getText().toString(), "already");
+        }
+        else{
+        	model.sendLoginRequest(input.getText().toString());
+        }
+    }
 	
 	public void setTakenName(String username, String exist){
         TextView nameTaken = (TextView)(findViewById(R.id.nameTaken));

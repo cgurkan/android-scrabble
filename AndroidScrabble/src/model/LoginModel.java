@@ -9,7 +9,7 @@ import java.util.Observable;
 
 import android.content.Context;
 
-import util.SendObject;
+import util.ResponseObject;
 import util.SendableAction;
 
 public class LoginModel extends Observable{
@@ -25,9 +25,9 @@ public class LoginModel extends Observable{
 	}
 	
 	public void sendLoginRequest(String username){
-		SendObject retrieved = null;
+		ResponseObject retrieved = null;
 		try{
-			SendObject object = new SendObject(SendableAction.LOGIN, username);
+			ResponseObject object = new ResponseObject(SendableAction.LOGIN, username);
 			Socket s = new Socket(context.getString(android.scrabble.R.string.serverip), 7896);
 			
 			ObjectOutputStream out = new ObjectOutputStream(s.getOutputStream());
@@ -47,13 +47,13 @@ public class LoginModel extends Observable{
 		super.notifyObservers(returnData);
 	}
 
-	private SendObject getServerAnswer(Socket s) {
-		SendObject data = null;
+	private ResponseObject getServerAnswer(Socket s) {
+		ResponseObject data = null;
 		try {
 			ObjectInputStream is = new ObjectInputStream(s.getInputStream());
 			
 			do{
-				data = (SendObject)is.readUnshared();
+				data = (ResponseObject)is.readUnshared();
 			}while(data == null);
 		}
 		catch(ClassNotFoundException e){
@@ -69,7 +69,7 @@ public class LoginModel extends Observable{
 		return data;
 	}
 	
-	private Integer evaluate(SendObject obj, String username) {
+	private Integer evaluate(ResponseObject obj, String username) {
 
 		String[] possibleOutcome = {
 				"The requested username "+username+" does not exist. Please sign up!",

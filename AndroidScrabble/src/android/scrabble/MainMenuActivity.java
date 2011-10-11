@@ -1,5 +1,6 @@
 package android.scrabble;
 
+import util.UserData;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -19,8 +20,8 @@ public class MainMenuActivity extends Activity implements OnClickListener{
         setContentView(R.layout.main);
         
         //UserData.init(getBaseContext().getString(android.scrabble.R.string.serverip));
-
-        //startActivity(new Intent(MainMenuActivity.this, LoginActivity.class));
+        
+        startLoginScreen();
         
         Button settings = (Button)(findViewById(R.id.settingsButton));
         settings.setOnClickListener(this);
@@ -35,6 +36,10 @@ public class MainMenuActivity extends Activity implements OnClickListener{
     protected void onResume() {
         super.onResume();
         // The activity has become visible (it is now "resumed").
+        
+        if(UserData.username == ""){
+        	startLoginScreen();
+        }
         updateLocale();
     }
     @Override
@@ -60,7 +65,7 @@ public class MainMenuActivity extends Activity implements OnClickListener{
 	
 	public void updateLocale(){
 		/*
-		 * Update all button-texts and so on
+		 * Update all button-texts and so on, with the proper language
 		 */
 		TextView header = ((TextView)(findViewById(R.id.appName)));
 		header.setText(getString(R.string.app_name));
@@ -76,6 +81,10 @@ public class MainMenuActivity extends Activity implements OnClickListener{
 
 		Button about = ((Button)(findViewById(R.id.aboutButton)));
 		about.setText(getString(R.string.about));
+	}
+	
+	public void startLoginScreen(){
+		startActivity(new Intent(MainMenuActivity.this, LoginActivity.class));
 	}
 	
 	 public void debug(String s){
