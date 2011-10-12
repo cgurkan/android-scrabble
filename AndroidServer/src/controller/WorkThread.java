@@ -34,7 +34,9 @@ public class WorkThread extends Thread implements ListListener{
 		while(true){
 			try {
 				while(tasks.size() == 0){
-					wait();
+					synchronized(this){
+						wait();
+					}
 				}
 				
 				work(tasks.get(0));
@@ -100,6 +102,8 @@ public class WorkThread extends Thread implements ListListener{
 
 	@Override
 	public void listChanged() {
-		notifyAll();
+		synchronized(this){
+			notifyAll();
+		}
 	}
 }

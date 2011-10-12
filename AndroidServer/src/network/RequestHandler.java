@@ -30,8 +30,11 @@ public class RequestHandler extends Thread implements Runnable{
 
 		while(true){
 			try{
-				SendObject so = ((SendObject)(ois.readUnshared()));
-				tasks.add(so);
+				Object o = ois.readUnshared();
+				if(o.getClass().equals(SendObject.class)){
+					SendObject so = ((SendObject)(o));
+					tasks.add(so);
+				}
 			}
 			catch(IOException e){
 				e.printStackTrace();
