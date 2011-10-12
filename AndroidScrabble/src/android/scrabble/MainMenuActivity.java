@@ -35,6 +35,9 @@ public class MainMenuActivity extends Activity implements OnClickListener, OnMen
         about.setOnClickListener(this);
     }
 
+    /*
+     * Create a menu and set a listener to the "logout"-button
+     */
     @Override
     public boolean onCreateOptionsMenu(Menu menu){
     	MenuInflater inflater = getMenuInflater();
@@ -48,30 +51,41 @@ public class MainMenuActivity extends Activity implements OnClickListener, OnMen
         super.onStart();
         // The activity is about to become visible.
     }
+    
     @Override
     protected void onResume() {
         super.onResume();
         // The activity has become visible (it is now "resumed").
         
+        //Check if the user is logged in every time the mainmenu resumes 
         if(UserData.username == ""){
         	startLoginScreen();
         }
-        updateLocale();
+        updateLocale();	//	update text depending on language
     }
+    
     @Override
     protected void onPause() {
         super.onPause();
         // Another activity is taking focus (this activity is about to be "paused").
     }
+    
     @Override
     protected void onStop() {
         super.onStop();
         // The activity is no longer visible (it is now "stopped")
     }
+    
     @Override
     protected void onDestroy() {
         super.onDestroy();
         // The activity is about to be destroyed.
+    }
+    
+    //	Update the text on the "logout"-button when the menu is opened
+    public boolean onMenuOpened(int featureId, Menu menu){
+		menu.getItem(0).setTitle(getString(R.string.logout));
+    	return true;
     }
 
 	@Override
@@ -91,7 +105,7 @@ public class MainMenuActivity extends Activity implements OnClickListener, OnMen
 	}	
 
 	@Override
-	public boolean onMenuItemClick(MenuItem item) {
+	public boolean onMenuItemClick(MenuItem item){
 		switch(item.getItemId()){
 			case R.id.logout:
 				startActivity(new Intent(MainMenuActivity.this, LogoutActivity.class));
@@ -100,10 +114,10 @@ public class MainMenuActivity extends Activity implements OnClickListener, OnMen
 		return true;
 	}
 	
+	/*
+	 * Update all button-texts and so on, with the proper language
+	 */
 	public void updateLocale(){
-		/*
-		 * Update all button-texts and so on, with the proper language
-		 */
 		TextView header = ((TextView)(findViewById(R.id.appName)));
 		header.setText(getString(R.string.app_name));
 		
@@ -120,11 +134,15 @@ public class MainMenuActivity extends Activity implements OnClickListener, OnMen
 		about.setText(getString(R.string.about));
 	}
 	
+	/*
+	 * Start the login-screen every time the user isn't logged in
+	 */
 	public void startLoginScreen(){
+		
 		startActivity(new Intent(MainMenuActivity.this, LoginActivity.class));
 	}
 	
-	 public void debug(String s){
+	public void debug(String s){
 	    Context context = getBaseContext();
 	    CharSequence text = s;
 	    int duration = Toast.LENGTH_SHORT;

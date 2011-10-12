@@ -27,4 +27,5 @@
     peli on menetetty, sorry! :( \n
     </string>
     <string name="author_title">Tekijät:</string>
+    <string name="logout">Kirjaudu ulos!</string>
 </resources>

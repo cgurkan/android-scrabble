@@ -27,4 +27,5 @@
     le jeu est perdu, désolé! :( \n
     </string>
     <string name="author_title">Auteurs:</string>
+    <string name="logout">Déconnexion</string>
 </resources>
