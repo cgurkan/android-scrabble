@@ -13,4 +13,17 @@
     <string name="signup_submit">Registrieren!</string>
     <string name="lang_desc">Wählen Sie eine Sprache</string>
     <string name="settings_save">Sparen!</string>
+    <string name="help_text">
+    Diese App können Sie das Spiel spielen Scrabble. \n
+    Im Hauptfenster können Sie entscheiden, was Sie tun möchten. \n \n
+    
+    So ändern Sie die Einstellungen der App (Sprache und so), drücken Sie die "Einstellungen"-Taste. \n
+    Um diesen zu helfen, drücken Sie die "Hilfe"-Taste. \n
+    Um Kredite und Sachen über die App drücken Sie die "about"-Taste. \n \n
+    
+    Um ein neues Spiel starten, drücken Sie die "Neues Spiel"-Taste. \n
+    Wenn die Taste gedrückt ist, können Sie Wörterbuch und benutzerfreundliche gegen. \n spielen
+    Sobald das Spiel gestartet wird, NICHT Schalten Sie das Gerät! Wenn das Telefon verliert die Verbindung zum Server
+    das Spiel ist verloren, sorry! :( \n
+    </string>
 </resources>

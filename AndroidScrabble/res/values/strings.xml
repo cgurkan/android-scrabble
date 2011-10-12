@@ -22,4 +22,17 @@
         <item>Française</item>
     </string-array>
     <string name="settings_save">Save!</string>
+    <string name="help_text">
+    This app lets you play the game scrabble.\n
+    In the main window you can choose what you want to do.\n\n
+    
+    To change the settings of the app, (language and so), press the "Settings"-button.\n
+    To view this help, press the "help"-button.\n
+    To view credits and stuff about the app press the "about"-button.\n\n
+    
+    To start a new game, press the "new game"-button.\n
+    When the button is pressed, you can choose dictionary and user to play against.\n
+    Once the game is started, DONT TURN OFF THE PHONE! If the phone loses connection to the server
+    the game is lost, sorry! :( \n
+    </string>
 </resources>

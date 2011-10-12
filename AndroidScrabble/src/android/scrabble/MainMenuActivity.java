@@ -26,6 +26,9 @@ public class MainMenuActivity extends Activity implements OnClickListener{
         
         Button help = (Button)(findViewById(R.id.helpButton));
         help.setOnClickListener(this);
+        
+        Button help = (Button)(findViewById(R.id.helpButton));
+        help.setOnClickListener(this);
     }
 
     @Override
