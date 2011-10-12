@@ -1,6 +1,5 @@
 package android.scrabble;
 
-import android.R;
 import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
@@ -12,7 +11,7 @@ public class HelpViewActivity extends Activity{
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout);
+        setContentView(R.layout.help_menu);
     }
 
     @Override

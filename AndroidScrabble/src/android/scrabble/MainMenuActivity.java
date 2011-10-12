@@ -21,12 +21,10 @@ public class MainMenuActivity extends Activity implements OnClickListener{
         
         //UserData.init(getBaseContext().getString(android.scrabble.R.string.serverip));
         
-        startLoginScreen();
-        
         Button settings = (Button)(findViewById(R.id.settingsButton));
         settings.setOnClickListener(this);
         
-        Button help = (Button)(findViewById(R.id.settingsButton));
+        Button help = (Button)(findViewById(R.id.helpButton));
         help.setOnClickListener(this);
     }
 
@@ -40,7 +38,6 @@ public class MainMenuActivity extends Activity implements OnClickListener{
         super.onResume();
         // The activity has become visible (it is now "resumed").
         
-        debug(UserData.username);
         if(UserData.username == ""){
         	startLoginScreen();
         }
@@ -70,7 +67,6 @@ public class MainMenuActivity extends Activity implements OnClickListener{
 				startActivity(new Intent(MainMenuActivity.this, SettingsViewActivity.class));
 				break;
 			case R.id.helpButton:
-				debug("blööööööö");
 				startActivity(new Intent(MainMenuActivity.this, HelpViewActivity.class));
 				break;
 		}
