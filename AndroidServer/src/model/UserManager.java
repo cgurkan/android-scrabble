@@ -59,7 +59,7 @@ public class UserManager extends Logic{
 					int logIn = setLogin(username, true);	// set player to be online
 					
 					if(logIn != Database.QUERY_OK){	//	if something went wrong with the query, report error.
-						result = "Could not set your log in status, query is QUERY_NOT_OK. Check if username exists?";
+						result = "Could not set your login-status, query is QUERY_NOT_OK. Check if username exists?";
 						ErrorHandler.report(result);
 					}
 					else{	// Everything is checked and fine.

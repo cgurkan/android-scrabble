@@ -1,4 +1,5 @@
 package network;
+import java.io.EOFException;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.net.Socket;
@@ -14,8 +15,10 @@ public class RequestHandler extends Thread implements Runnable{
 	
 	private ObjectInputStream ois;
 	private List<SendObject> tasks;
+	private Socket socket;
 	
 	public RequestHandler(Socket s, List<SendObject> t){
+		socket = s;
 		tasks = t;
 		try{
 			ois = new ObjectInputStream(s.getInputStream());
@@ -30,10 +33,26 @@ public class RequestHandler extends Thread implements Runnable{
 
 		while(true){
 			try{
-				Object o = ois.readUnshared();
-				if(o.getClass().equals(SendObject.class)){
-					SendObject so = ((SendObject)(o));
-					tasks.add(so);
+				if(socket.isConnected()){
+					Object o = ois.readUnshared();
+					System.out.println(o.toString());
+					if(o.getClass().equals(SendObject.class)){
+						SendObject so = ((SendObject)(o));
+						tasks.add(so);
+					}
+				}
+			}
+			catch(EOFException e){
+				/*
+				 * This will happen every time it waits for input.
+				 * That is not an error, this is the way java tells
+				 * the system that the stream is empty.
+				 */
+				try{
+					sleep(500);
+				}
+				catch(InterruptedException e1){
+					e1.printStackTrace();
 				}
 			}
 			catch(IOException e){
