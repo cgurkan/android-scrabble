@@ -10,6 +10,7 @@ import java.util.Observable;
 import android.content.Context;
 
 import util.ResponseObject;
+import util.SendObject;
 import util.SendableAction;
 
 public class SignupModel extends Observable{
@@ -26,7 +27,7 @@ public class SignupModel extends Observable{
 	public void sendLoginRequest(String username){
 		ResponseObject retrieved = null;
 		try{
-			ResponseObject object = new ResponseObject(SendableAction.SIGN_UP, username);
+			SendObject object = new SendObject(SendableAction.SIGN_UP, username);
 			Socket s = new Socket(context.getString(android.scrabble.R.string.serverip), 7896);
 			
 			ObjectOutputStream out = new ObjectOutputStream(s.getOutputStream());
