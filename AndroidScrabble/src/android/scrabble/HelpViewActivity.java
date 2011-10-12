@@ -12,7 +12,7 @@ public class HelpViewActivity extends Activity{
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.preference_category);
+        setContentView(R.layout);
     }
 
     @Override

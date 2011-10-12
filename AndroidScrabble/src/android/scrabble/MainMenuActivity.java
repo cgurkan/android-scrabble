@@ -25,6 +25,9 @@ public class MainMenuActivity extends Activity implements OnClickListener{
         
         Button settings = (Button)(findViewById(R.id.settingsButton));
         settings.setOnClickListener(this);
+        
+        Button help = (Button)(findViewById(R.id.settingsButton));
+        help.setOnClickListener(this);
     }
 
     @Override
@@ -37,6 +40,7 @@ public class MainMenuActivity extends Activity implements OnClickListener{
         super.onResume();
         // The activity has become visible (it is now "resumed").
         
+        debug(UserData.username);
         if(UserData.username == ""){
         	startLoginScreen();
         }
@@ -60,7 +64,16 @@ public class MainMenuActivity extends Activity implements OnClickListener{
 
 	@Override
 	public void onClick(View view){
-        startActivity(new Intent(MainMenuActivity.this, SettingsViewActivity.class));
+		
+		switch(view.getId()){
+			case R.id.settingsButton:
+				startActivity(new Intent(MainMenuActivity.this, SettingsViewActivity.class));
+				break;
+			case R.id.helpButton:
+				debug("blööööööö");
+				startActivity(new Intent(MainMenuActivity.this, HelpViewActivity.class));
+				break;
+		}
 	}
 	
 	public void updateLocale(){
@@ -88,7 +101,7 @@ public class MainMenuActivity extends Activity implements OnClickListener{
 	}
 	
 	 public void debug(String s){
-	    Context context = getApplicationContext();
+	    Context context = getBaseContext();
 	    CharSequence text = s;
 	    int duration = Toast.LENGTH_SHORT;
 

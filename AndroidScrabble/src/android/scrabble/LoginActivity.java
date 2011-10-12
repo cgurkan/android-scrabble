@@ -53,7 +53,7 @@ public class LoginActivity extends Activity implements Observer, OnClickListener
     	}*/
     	else if(responseCode == LoginModel.LOGIN_NOT_OK || responseCode == LoginModel.LOGIN_OK){
     		UserData.username = uName;
-    		//showMessage("You are now logged in!");
+    		showMessage("You are now logged in!");
     		finish();
     	}
     	else{
