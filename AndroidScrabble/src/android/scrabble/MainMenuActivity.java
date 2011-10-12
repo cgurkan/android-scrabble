@@ -23,8 +23,6 @@ public class MainMenuActivity extends Activity implements OnClickListener, OnMen
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
         
-        //UserData.init(getBaseContext().getString(android.scrabble.R.string.serverip));
-        
         Button settings = (Button)(findViewById(R.id.settingsButton));
         settings.setOnClickListener(this);
         
@@ -57,10 +55,15 @@ public class MainMenuActivity extends Activity implements OnClickListener, OnMen
         super.onResume();
         // The activity has become visible (it is now "resumed").
         
-        //Check if the user is logged in every time the mainmenu resumes 
+        //Check if the user is logged in every time the main menu resumes 
         if(UserData.username == ""){
         	startLoginScreen();
+        	UserData.killSocket();
         }
+        else{
+        	UserData.init(getBaseContext().getString(android.scrabble.R.string.serverip));
+        }
+        
         updateLocale();	//	update text depending on language
     }
     
@@ -138,7 +141,6 @@ public class MainMenuActivity extends Activity implements OnClickListener, OnMen
 	 * Start the login-screen every time the user isn't logged in
 	 */
 	public void startLoginScreen(){
-		
 		startActivity(new Intent(MainMenuActivity.this, LoginActivity.class));
 	}
 	
