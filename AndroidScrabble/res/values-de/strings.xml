@@ -26,4 +26,5 @@
     Sobald das Spiel gestartet wird, NICHT Schalten Sie das Gerät! Wenn das Telefon verliert die Verbindung zum Server
     das Spiel ist verloren, sorry! :( \n
     </string>
+    <string name="author_title">Autoren:</string>
 </resources>

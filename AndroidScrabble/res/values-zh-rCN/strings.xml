@@ -26,4 +26,5 @@
     När spelet startas, STÄNG INTE av telefonen! Om telefonen tappar anslutningen till servern
     spelet är förlorat, sorry! :( \n
     </string>
+    <string name="author_title">Skapare:</string>
 </resources>

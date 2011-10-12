@@ -27,8 +27,8 @@ public class MainMenuActivity extends Activity implements OnClickListener{
         Button help = (Button)(findViewById(R.id.helpButton));
         help.setOnClickListener(this);
         
-        Button help = (Button)(findViewById(R.id.helpButton));
-        help.setOnClickListener(this);
+        Button about = (Button)(findViewById(R.id.aboutButton));
+        about.setOnClickListener(this);
     }
 
     @Override
@@ -71,6 +71,9 @@ public class MainMenuActivity extends Activity implements OnClickListener{
 				break;
 			case R.id.helpButton:
 				startActivity(new Intent(MainMenuActivity.this, HelpViewActivity.class));
+				break;
+			case R.id.aboutButton:
+				startActivity(new Intent(MainMenuActivity.this, AboutViewActivity.class));
 				break;
 		}
 	}

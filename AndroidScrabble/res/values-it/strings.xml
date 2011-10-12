@@ -26,4 +26,5 @@
     Una volta che il gioco viene avviato, NON SPEGNERE IL TELEFONO! Se il telefono perde la connessione al server
     la partita è persa, mi spiace! :( \n
     </string>
+    <string name="author_title">Autori:</string>
 </resources>

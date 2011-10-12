@@ -26,4 +26,5 @@
     Kun peli alkaa, älä puhelimen sammuttamista! Jos puhelin menettää yhteyden palvelimeen
     peli on menetetty, sorry! :( \n
     </string>
+    <string name="author_title">Tekijät:</string>
 </resources>
