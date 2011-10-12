@@ -7,13 +7,15 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
+import android.view.MenuItem;
+import android.view.MenuItem.OnMenuItemClickListener;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class MainMenuActivity extends Activity implements OnClickListener{
+public class MainMenuActivity extends Activity implements OnClickListener, OnMenuItemClickListener{
 	
 	/** Called when the activity is first created. */
     @Override
@@ -37,6 +39,7 @@ public class MainMenuActivity extends Activity implements OnClickListener{
     public boolean onCreateOptionsMenu(Menu menu){
     	MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.menu, menu);
+        menu.getItem(0).setOnMenuItemClickListener(this);
         return true;
     }
     
@@ -85,6 +88,16 @@ public class MainMenuActivity extends Activity implements OnClickListener{
 				startActivity(new Intent(MainMenuActivity.this, AboutViewActivity.class));
 				break;
 		}
+	}	
+
+	@Override
+	public boolean onMenuItemClick(MenuItem item) {
+		switch(item.getItemId()){
+			case R.id.logout:
+				startActivity(new Intent(MainMenuActivity.this, LogoutActivity.class));
+				break;
+		}
+		return true;
 	}
 	
 	public void updateLocale(){
