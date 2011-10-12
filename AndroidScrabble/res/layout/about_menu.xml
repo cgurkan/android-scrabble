@@ -8,6 +8,9 @@
 		<TextView android:text="@string/app_name" android:gravity="center|right"
 			android:layout_height="50dp" android:textAppearance="?android:attr/textAppearanceLarge"
 			android:id="@+id/textView1" android:layout_width="188dp"></TextView>
+		<TextView android:text="  " android:layout_height="wrap_content"
+			android:layout_width="wrap_content" android:textAppearance="?android:attr/textAppearanceSmall"
+			android:id="@+id/textView5"></TextView>
 		<TextView android:text="@string/version"
 			android:textAppearance="?android:attr/textAppearanceLarge"
 			android:id="@+id/textView2" android:layout_height="match_parent"
@@ -20,5 +23,5 @@
 	<TextView android:text="@string/authors"
 		android:textAppearance="?android:attr/textAppearanceMedium"
 		android:id="@+id/textView4" android:layout_width="match_parent"
-		android:layout_height="70dp"></TextView>
+		android:gravity="bottom" android:layout_height="75dp"></TextView>
 </LinearLayout>

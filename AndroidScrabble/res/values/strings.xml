@@ -35,9 +35,8 @@
     Once the game is started, DONT TURN OFF THE PHONE! If the phone loses connection to the server
     the game is lost, sorry! :( \n
     </string>
-    <string name="version">  0.1</string>
+    <string name="version">0.1</string>
     <string name="author_title">Authors:</string>
-    <string name="authors">
-	Magnus Larsson\nMarika Hansson\nMathias Forssén
-	</string>
+    <string name="authors">Magnus Larsson\nMarika Hansson\nMathias Forssén</string>
+    <string name="logout">Log out!</string>
 </resources>
