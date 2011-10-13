@@ -17,9 +17,9 @@ public class RequestHandler extends Thread implements Runnable{
 	private List<SendObject> tasks;
 	private Socket socket;
 	
-	public RequestHandler(Socket s, List<SendObject> t){
+	public RequestHandler(Socket s, List<SendObject> t2){
 		socket = s;
-		tasks = t;
+		tasks = t2;
 		try{
 			ois = new ObjectInputStream(s.getInputStream());
 		}
