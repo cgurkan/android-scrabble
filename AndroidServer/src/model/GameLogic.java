@@ -28,20 +28,15 @@ public class GameLogic extends Logic{
 	public boolean checkWord(WordObject o){
 		String query = "SELECT * FROM words WHERE word = 'o.getWord()' LIMIT 1";
 		boolean result = false;
-		boolean notDone = true;
 		
-		while(notDone){
-			try {
-				ResultSet set = db.execQuery(query);
-				if(set.next()){
-					result = true;
-				}
-				notDone = false;
-			} catch (SQLException e) {
-				e.printStackTrace();
+		try {
+			ResultSet set = db.execQuery(query);
+			if(set.next()){
+				result = true;
 			}
+		} catch (SQLException e) {
+			e.printStackTrace();
 		}
-		
 		return result;
 	}
 }
