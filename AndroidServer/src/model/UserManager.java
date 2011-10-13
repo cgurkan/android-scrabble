@@ -76,7 +76,8 @@ public class UserManager extends Logic{
 			}
 		}
 		else{	//	If the user is already logged in, do the following...
-			result = username+" is already logged in on another device";
+			//result = username+" is already logged in on another device";
+			result = "You are now logged in as "+username;
 		}
 		
 		ResponseObject obj = new ResponseObject(SendableAction.LOGIN, result);

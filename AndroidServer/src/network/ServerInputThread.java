@@ -7,6 +7,8 @@ import java.net.Socket;
 import controller.WorkThread;
 
 import util.ErrorHandler;
+import util.NamedConnection;
+import util.OnlineList;
 
 /**
  * Server-thread that listens to the ServerSocket that the server provides.
@@ -41,7 +43,8 @@ public class ServerInputThread extends Thread implements Runnable{
 				if(!wait){
 					wait = true;
 					Socket socket = serverSocket.accept();
-					
+										
+					// TODO: check if it is a login/logout/signup. if it isn't, 
 					new WorkThread(socket).start(); //	Start new client-thread
 					
 					wait = false;

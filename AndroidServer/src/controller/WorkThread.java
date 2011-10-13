@@ -10,14 +10,18 @@ import model.Model;
 import util.ErrorHandler;
 import util.ListListener;
 import util.ListenableList;
+import util.NamedConnection;
+import util.OnlineList;
 import util.ResponseObject;
 import util.SendObject;
+import util.SendableAction;
 
 public class WorkThread extends Thread implements ListListener{
 
 	private ObjectOutputStream oos = null;
 	private ListenableList<SendObject> tasks;
 	private Model model = null;
+	private Socket socket;
 	
 	public WorkThread(Socket socket) throws IOException{
 		oos = new ObjectOutputStream(socket.getOutputStream());
@@ -26,6 +30,8 @@ public class WorkThread extends Thread implements ListListener{
 		tasks.addListListener(this);
 		
 		model = new Model();
+		
+		this.socket = socket;
 		
 		new RequestHandler(socket, tasks).start();
 	}
@@ -85,6 +91,17 @@ public class WorkThread extends Thread implements ListListener{
 			break;
 		default:
 			break;
+		}
+
+		boolean login = (object.getAction().equals(SendableAction.LOGIN) && data.getObject().toString().startsWith("You are now logged in as "+object.getName()));
+		boolean signup = (object.getAction().equals(SendableAction.SIGN_UP) && data.getObject().toString().startsWith("You are now signed up, welcome "+object.getName()));
+		boolean logout = (object.getAction().equals(SendableAction.LOGOUT) && data.getObject().toString().startsWith("You are now logged out"));
+		
+		if(login || signup){
+			OnlineList.getInstance().add(new NamedConnection(object.getObject().toString(), socket));
+		}
+		else if(logout){
+			OnlineList.getInstance().remove(object.getObject().toString(), socket);
 		}
 		
 		send(data);
