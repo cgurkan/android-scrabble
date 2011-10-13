@@ -2,6 +2,7 @@ package model;
 
 import java.util.List;
 
+import util.Player;
 import util.WordObject;
 import model.data.Board;
 
@@ -17,7 +18,7 @@ public interface IGame {
 	
 	public void startGame();
 	
-	public int receivePoints(String s);
+	public Player receivePoints(String s);
 	
 	public List<Character> generateLetters(int i);
 	

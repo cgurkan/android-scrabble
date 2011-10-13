@@ -8,6 +8,7 @@ import java.util.List;
 import model.data.Board;
 
 import util.ErrorHandler;
+import util.Player;
 import util.WordObject;
 
 /**
@@ -113,7 +114,7 @@ public class GameModel extends Logic implements IGame{
 	}
 
 	@Override
-	public int receivePoints(String s) {
+	public Player receivePoints(String s) {
 		int letters = s.length();
 		int points = 0;
 		pass = 0;
@@ -129,8 +130,14 @@ public class GameModel extends Logic implements IGame{
 			}
 			letters--;
 		}
-		
-		return points;
+		if(turn == p1.getUsername()){
+			p1.addPoints(points);
+			return p1;
+		}
+		else{
+			p2.addPoints(points);
+			return p2;
+		}
 	}
 	
 	public void changeTurn(){
