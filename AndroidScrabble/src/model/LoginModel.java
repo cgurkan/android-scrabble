@@ -12,6 +12,7 @@ import android.content.Context;
 import util.ResponseObject;
 import util.SendObject;
 import util.SendableAction;
+import util.UserData;
 
 public class LoginModel extends Observable{
 	
@@ -28,7 +29,7 @@ public class LoginModel extends Observable{
 	public void sendLoginRequest(String username){
 		ResponseObject retrieved = null;
 		try{
-			SendObject object = new SendObject(SendableAction.LOGIN, username);
+			SendObject object = new SendObject(SendableAction.LOGIN, username, UserData.username);
 			Socket s = new Socket(context.getString(android.scrabble.R.string.serverip), 7896);
 			
 			ObjectOutputStream out = new ObjectOutputStream(s.getOutputStream());

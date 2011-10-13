@@ -10,6 +10,7 @@ import java.util.Observable;
 import util.ResponseObject;
 import util.SendObject;
 import util.SendableAction;
+import util.UserData;
 import android.content.Context;
 
 public class LogoutModel extends Observable{
@@ -23,7 +24,7 @@ public class LogoutModel extends Observable{
 	public void sendLogoutRequest(String username){
 		ResponseObject retrieved = null;
 		try{
-			SendObject object = new SendObject(SendableAction.LOGOUT, username);
+			SendObject object = new SendObject(SendableAction.LOGOUT, username, UserData.username);
 			Socket s = new Socket(context.getString(android.scrabble.R.string.serverip), 7896);
 			
 			ObjectOutputStream out = new ObjectOutputStream(s.getOutputStream());

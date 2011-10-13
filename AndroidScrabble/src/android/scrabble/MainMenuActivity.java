@@ -61,7 +61,7 @@ public class MainMenuActivity extends Activity implements OnClickListener, OnMen
         	UserData.killSocket();
         }
         else{
-        	UserData.init(getBaseContext().getString(android.scrabble.R.string.serverip));
+        	//UserData.init(getBaseContext().getString(android.scrabble.R.string.serverip));
         }
         
         updateLocale();	//	update text depending on language
