@@ -75,8 +75,7 @@ public class UserManager extends Logic{
 			}
 		}
 		else{	//	If the user is already logged in, do the following...
-			//result = username+" is already logged in on another device";
-			result = "You are now logged in as "+username;
+			result = username+" is already logged in on another device";
 		}
 		
 		ResponseObject obj = new ResponseObject(SendableAction.LOGIN, result);
@@ -152,7 +151,7 @@ public class UserManager extends Logic{
 	 */
 	public ResponseObject getUsersOnline(){
 		
-		ResponseObject object = new ResponseObject(SendableAction.PLAYERS_ONLINE, OnlineList.getInstance().getList());
+		ResponseObject object = new ResponseObject(SendableAction.PLAYERS_ONLINE, OnlineList.getInstance().getArray());
 		return object;
 	}
 	

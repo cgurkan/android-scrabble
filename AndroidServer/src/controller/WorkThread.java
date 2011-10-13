@@ -104,7 +104,8 @@ public class WorkThread extends Thread implements ListListener{
 			OnlineList.getInstance().add(new NamedConnection(object.getObject().toString(), socket));
 		}
 		else if(logout){
-			OnlineList.getInstance().remove(object.getObject().toString(), socket);
+			OnlineList.getInstance().remove(object.getObject().toString());
+			System.out.println("logout");
 		}
 		
 		send(data);

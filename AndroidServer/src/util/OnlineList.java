@@ -26,11 +26,11 @@ public class OnlineList {
 		connections.add(nc);
 	}
 	
-	public void remove(String name, Socket s){
+	public void remove(String name){
 		ListIterator<NamedConnection> it = connections.listIterator();
 		while(it.hasNext()){
 			NamedConnection nc = it.next();
-			if(nc.getSocket().equals(s) && nc.getName().equals(name)){
+			if(nc.getName().equals(name)){
 				it.remove();
 				break;
 			}
@@ -52,5 +52,9 @@ public class OnlineList {
 			list.add(nc.getName());
 		}
 		return list;
+	}
+	
+	public String[] getArray(){
+		return getList().toArray(new String[0]);
 	}
 }
