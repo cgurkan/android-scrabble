@@ -1,18 +1,21 @@
 package model;
 
 import java.util.HashMap;
+import java.util.List;
 
 import util.ResponseObject;
+import util.WordObject;
 
-//TODO: should be the all mighty model that create gameModels for every game. This is the only class that the requestHandler communicate with. (on modelside) Needs to manage a list of all games seperated with GameIDs.
-//TODO: should return a response object to the requestHandler!
+
 public class Model {
 
 	private UserManager usermanager = null;
+	private GameLogic gameLogic = null;
 	private HashMap<Integer, GameModel> modelList;
 	
 	public Model(){
 		usermanager = new UserManager();
+		gameLogic = new GameLogic();
 		modelList = new HashMap<Integer, GameModel>();
 	}
 	
@@ -37,22 +40,32 @@ public class Model {
 	}
 
 	public void pass(int gameID) {
-		// TODO Auto-generated method stub
+		GameModel gm = modelList.get(gameID);
+		gm.pass();
 	}
 
 	public void guitGame(int gameID) {
-		// TODO Auto-generated method stub
+		GameModel gm = modelList.get(gameID);
+		gm.endGame();
 	}
 
-	public void placeWord(int gameID) {
-		// TODO Auto-generated method stub
+	public void placeWord(int gameID, WordObject wo) {
+		GameModel gm = modelList.get(gameID);
+		if(gameLogic.checkWord(wo)){
+			gm.placeWord(wo);
+		}
+		else{
+			//TODO: what to return???
+		}
 	}
 
-	public void swap(int gameID) {
-		// TODO Auto-generated method stub
+	public List<Character> swap(int gameID, int i) {
+		GameModel gm = modelList.get(gameID);
+		return gm.generateLetters(i);
 	}
 
 	public void startGame(String name1, String name2) {
-		modelList.put(nextID(), new GameModel(name1, name2));
+		int ID = nextID();
+		modelList.put(ID, new GameModel(name1, name2, ID));
 	}
 }
