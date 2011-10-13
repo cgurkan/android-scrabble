@@ -35,6 +35,9 @@
         
         <activity android:name=".GameSettingsActivity">
         </activity>
+        
+        <activity android:name=".GameBoardActivity">
+        </activity>
     </application>
     <uses-permission android:name="android.permission.INTERNET" />
 </manifest>
