@@ -23,7 +23,7 @@ public class Model {
 		return modelList.get(gameID);
 	}
 	
-	public int nextID(){
+	private int nextID(){
 		return modelList.size()+1;
 	}
 
@@ -39,17 +39,19 @@ public class Model {
 		return usermanager.signUp(s3);
 	}
 
-	public void pass(int gameID) {
+	public ResponseObject pass(int gameID) {
 		GameModel gm = modelList.get(gameID);
 		gm.pass();
+		return null;
 	}
 
-	public void guitGame(int gameID) {
+	public ResponseObject guitGame(int gameID) {
 		GameModel gm = modelList.get(gameID);
 		gm.endGame();
+		return null;
 	}
 
-	public void placeWord(int gameID, WordObject wo) {
+	public ResponseObject placeWord(int gameID, WordObject wo) {
 		GameModel gm = modelList.get(gameID);
 		if(gameLogic.checkWord(wo)){
 			gm.placeWord(wo);
@@ -57,16 +59,19 @@ public class Model {
 		else{
 			//TODO: what to return???
 		}
+		return null;
 	}
 
-	public List<Character> swap(int gameID, int i) {
+	public ResponseObject swap(int gameID, int i) {
 		GameModel gm = modelList.get(gameID);
-		return gm.generateLetters(i);
+		gm.generateLetters(i);
+		return null;
 	}
 
-	public void startGame(String name1, String name2) {
+	public ResponseObject startGame(String name1, String name2) {
 		int ID = nextID();
 		modelList.put(ID, new GameModel(name1, name2, ID));
+		return null;
 	}
 
 	public ResponseObject getPlayersOnline() {

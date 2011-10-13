@@ -1,6 +1,8 @@
 package model;
 
 import java.util.List;
+
+import util.WordObject;
 import model.data.Board;
 
 /**
@@ -22,4 +24,8 @@ public interface IGame {
 	public int endGame();
 	
 	public void changeTurn();
+	
+	public void pass();
+	
+	public void placeWord(WordObject word);
 }
