@@ -68,6 +68,9 @@ public class WorkThread extends Thread implements ListListener{
 			String s2 = (String)object.getObject();
 			data = model.logout(s2);
 			break;
+		case PLAYERS_ONLINE:
+			data = model.getPlayersOnline();
+			break;
 		case SEARCH_PLAYER:
 			break;
 		case SIGN_UP:
@@ -75,7 +78,7 @@ public class WorkThread extends Thread implements ListListener{
 			data = model.signUp(s3);
 			break;
 		case PLACE_WORD:
-			model.placeWord(i);
+			//model.placeWord(i);
 			break;
 		case START_GAME:
 			//model.startGame();
@@ -87,14 +90,14 @@ public class WorkThread extends Thread implements ListListener{
 			model.pass(i);
 			break;
 		case SWAP:
-			model.swap(i);
+			//model.swap(i);
 			break;
 		default:
 			break;
 		}
 
-		boolean login = (object.getAction().equals(SendableAction.LOGIN) && data.getObject().toString().startsWith("You are now logged in as "+object.getName()));
-		boolean signup = (object.getAction().equals(SendableAction.SIGN_UP) && data.getObject().toString().startsWith("You are now signed up, welcome "+object.getName()));
+		boolean login = (object.getAction().equals(SendableAction.LOGIN) && data.getObject().toString().startsWith("You are now logged in as "+object.getObject().toString()));
+		boolean signup = (object.getAction().equals(SendableAction.SIGN_UP) && data.getObject().toString().startsWith("You are now signed up, welcome "+object.getObject().toString()));
 		boolean logout = (object.getAction().equals(SendableAction.LOGOUT) && data.getObject().toString().startsWith("You are now logged out"));
 		
 		if(login || signup){

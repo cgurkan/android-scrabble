@@ -68,4 +68,8 @@ public class Model {
 		int ID = nextID();
 		modelList.put(ID, new GameModel(name1, name2, ID));
 	}
+
+	public ResponseObject getPlayersOnline() {
+		return usermanager.getUsersOnline();
+	}
 }

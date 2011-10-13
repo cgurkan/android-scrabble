@@ -7,9 +7,6 @@ import java.net.Socket;
 import controller.WorkThread;
 
 import util.ErrorHandler;
-import util.NamedConnection;
-import util.OnlineList;
-
 /**
  * Server-thread that listens to the ServerSocket that the server provides.
  * When a phone sends a request to the server it takes care of it and redirects

@@ -2,6 +2,7 @@ package util;
 
 import java.net.Socket;
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.ListIterator;
 
@@ -43,5 +44,13 @@ public class OnlineList {
 				break;
 			}
 		}
+	}
+	
+	public List<String> getList(){
+		List<String> list = new LinkedList<String>();
+		for(NamedConnection nc : connections){
+			list.add(nc.getName());
+		}
+		return list;
 	}
 }

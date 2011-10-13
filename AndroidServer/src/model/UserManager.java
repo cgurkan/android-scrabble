@@ -2,10 +2,9 @@ package model;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.LinkedList;
-import java.util.List;
 
 import util.ErrorHandler;
+import util.OnlineList;
 import util.ResponseObject;
 import util.SendableAction;
 
@@ -152,19 +151,8 @@ public class UserManager extends Logic{
 	 * 
 	 */
 	public ResponseObject getUsersOnline(){
-		List<String> users = new LinkedList<String>();	//	all users
-		String query = "SELECT * FROM player WHERE isOnline = 1";
 		
-		try{
-			ResultSet set = db.execQuery(query);
-			while(set.next()){	//	find all entries
-				users.add(set.getString("name"));
-			}
-		}
-		catch(SQLException e){	//	report all errors!
-			ErrorHandler.report("The following SQL-error(s) occured in UserLogic#getUsersOnline(): "+e.getMessage());
-		}
-		ResponseObject object = new ResponseObject(SendableAction.SEARCH_PLAYER, users);
+		ResponseObject object = new ResponseObject(SendableAction.PLAYERS_ONLINE, OnlineList.getInstance().getList());
 		return object;
 	}
 	
