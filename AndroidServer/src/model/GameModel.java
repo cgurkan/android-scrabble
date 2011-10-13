@@ -10,6 +10,7 @@ import model.data.Board;
 import util.ErrorHandler;
 import util.Player;
 import util.WordObject;
+import util.WordObject.Direction;
 
 /**
  * A model class that describes all states and game specific details for one game.
@@ -23,6 +24,7 @@ public class GameModel extends Logic implements IGame{
 	private int lettersLeft = 300;
 	private int pass = 0;
 	private int gameID = 0;
+	private Board board = null;
 	private String turn = null;
 	private Player p1 = null;
 	private Player p2 = null;
@@ -31,27 +33,23 @@ public class GameModel extends Logic implements IGame{
 	public GameModel(String name1, String name2, int gameID){
 		super();
 		db = getDatabase();	//	Get the inherited database.
+		this.gameID = gameID;
+		board = new Board();
 		p1 = new Player(name1);
 		p2 = new Player(name2);
-		this.gameID = gameID;
 	}
 	
 	public final class GameConstats{
 		public static final int boardWidth = 16;
 		public static final int boardHeight = 16;
 	}
-
-	@Override
-	public Board createBoard(String host, String opp) {
-		Board board = new Board();
+	
+	public Board getBoard(){
 		return board;
 	}
 	
 	@Override
-	public void startGame() {
-		//TODO: give the turn to one of the players
-		changeTurn();
-		
+	public String startGame() {
 		String insGame = "INSERT INTO game VALUES(NULL, '"+p1.getUsername()+"', '"+p2.getUsername()+"')";
 		
 		try{
@@ -60,6 +58,7 @@ public class GameModel extends Logic implements IGame{
 		catch(SQLException e){
 			e.printStackTrace();
 		}
+		return turn;
 	}
 
 	@Override
@@ -88,13 +87,6 @@ public class GameModel extends Logic implements IGame{
 		else{
 			if(p1.getLetters() == 0 || p2.getLetters() == 0){
 				endGame();
-				return null;
-			}
-			else if(i == 0){
-				pass++;
-			}
-			
-			if(pass == 4){
 				return null;
 			}
 		}
@@ -149,18 +141,50 @@ public class GameModel extends Logic implements IGame{
 		}
 	}
 	
-	public void pass(){
+	public boolean pass(){
 		pass++;
-		changeTurn();
+		if(pass == 4){
+			endGame();
+			return false;
+		}
+		else{
+			changeTurn();
+			return true;
+		}
 	}
 	
-	public int endGame(){
-		//TODO: implement this
-		return 0;
+	public List<Player> endGame(){
+		List<Player> p = new ArrayList<Player>();
+		
+		p.add(p1);
+		p.add(p2);
+		
+		return p;
 	}
 
 	public void placeWord(WordObject word) {
-		//TODO: save characters to the board, generate letters, receive point and change turn
+		String w = word.getWord();
+		int size = w.length();
+		int iterator = 0;
+		int x = word.getX();
+		int y = word.getY();
 		
+		if(word.getDirection() == Direction.VERTICAL){
+			while(iterator <= size){
+				board.addLetter(w.charAt(iterator), x, y);
+				y++;
+				iterator++;
+			}
+		}
+		else if( word.getDirection() == Direction.HORIZONTAL){
+			while(iterator <= size){
+				board.addLetter(w.charAt(iterator), x, y);
+				x++;
+				iterator++;
+			}
+		}
+		receivePoints(w);
+		generateLetters(size);
+		changeTurn();
 	}
 }

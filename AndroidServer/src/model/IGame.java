@@ -14,19 +14,19 @@ import model.data.Board;
  */
 public interface IGame {
 	
-	public Board createBoard(String host, String opp);
+	public Board getBoard();
 	
-	public void startGame();
+	public String startGame();
 	
 	public Player receivePoints(String s);
 	
 	public List<Character> generateLetters(int i);
 	
-	public int endGame();
+	public List<Player> endGame();
 	
 	public void changeTurn();
 	
-	public void pass();
+	public boolean pass();
 	
 	public void placeWord(WordObject word);
 }

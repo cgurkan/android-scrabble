@@ -24,7 +24,7 @@ public class Board {
 	 * @param x - the x position on the board
 	 * @param y - the y position on the board
 	 */
-	public void add(char c, int x, int y){
+	public void addLetter(char c, int x, int y){
 		board[x][y] = c;
 	}
 	
