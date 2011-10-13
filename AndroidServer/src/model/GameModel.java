@@ -8,6 +8,7 @@ import java.util.List;
 import model.data.Board;
 
 import util.ErrorHandler;
+import util.WordObject;
 
 /**
  * A model class that describes all states and game specific details for one game.
@@ -20,15 +21,17 @@ public class GameModel extends Logic implements IGame{
 	private Database db = null;
 	private int lettersLeft = 300;
 	private int pass = 0;
+	private int gameID = 0;
 	private String turn = null;
 	private Player p1 = null;
 	private Player p2 = null;
 	
 	
-	public GameModel(String name1, String name2){
+	public GameModel(String name1, String name2, int gameID){
 		db = getDatabase();	//	Get the inherited database.
 		p1 = new Player(name1);
 		p2 = new Player(name2);
+		this.gameID = gameID;
 	}
 	
 	public final class GameConstats{
@@ -44,7 +47,7 @@ public class GameModel extends Logic implements IGame{
 	
 	@Override
 	public void startGame() {
-		//TODO: give the turn to on of the players
+		//TODO: give the turn to one of the players
 		changeTurn();
 		
 		String insGame = "INSERT INTO game VALUES(NULL, '"+p1.getUsername()+"', '"+p2.getUsername()+"')";
@@ -112,6 +115,7 @@ public class GameModel extends Logic implements IGame{
 	public int receivePoints(String s) {
 		int letters = s.length();
 		int points = 0;
+		pass = 0;
 		
 		while(letters >= 0){
 			String query = "SELECT points FROM english WHERE char = '" + s.charAt(letters) + "' LIMIT 1";
@@ -137,8 +141,18 @@ public class GameModel extends Logic implements IGame{
 		}
 	}
 	
+	public void pass(){
+		pass++;
+		changeTurn();
+	}
+	
 	public int endGame(){
 		//TODO: implement this
 		return 0;
+	}
+
+	public void placeWord(WordObject word) {
+		//TODO: save characters to the board, generate letters, receive point and change turn
+		
 	}
 }
