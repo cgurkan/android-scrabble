@@ -36,7 +36,7 @@
     <delete dir="${dist}"/>
   </target>
 	
-	<target name="coverage" depends="-set-coverage-classpath, -install-instrumented, install"
+	<target name="coverage" depends="-install-instrumented, install"
 	                description="Runs the tests against the instrumented code and generates
 	                            code coverage report">
 	        <run-tests-helper emma.enabled="true">
