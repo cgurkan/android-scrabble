@@ -1,4 +1,4 @@
-<project name="MyProject" default="dist" basedir=".">
+<project name="androidScrabble" default="dist" basedir=".">
     <description>
         Build scrabble.
     </description>
@@ -36,7 +36,7 @@
     <delete dir="${dist}"/>
   </target>
 	
-	<target name="coverage" depends="-install-instrumented, install"
+	<target name="coverage" depends="-set-coverage-classpath, -install-instrumented, install"
 	                description="Runs the tests against the instrumented code and generates
 	                            code coverage report">
 	        <run-tests-helper emma.enabled="true">
