@@ -3,7 +3,9 @@ package model;
 import java.util.HashMap;
 import java.util.List;
 
+import util.GameDataObject;
 import util.ResponseObject;
+import util.SendableAction;
 import util.WordObject;
 
 
@@ -42,36 +44,43 @@ public class Model {
 	public ResponseObject pass(int gameID) {
 		GameModel gm = modelList.get(gameID);
 		gm.pass();
-		return null;
+		GameDataObject obj = new GameDataObject(null, null, gm.getTurn(), null, gameID);
+		return new ResponseObject(SendableAction.PASS, obj);
 	}
 
-	public ResponseObject guitGame(int gameID) {
+	public ResponseObject quitGame(int gameID) {
 		GameModel gm = modelList.get(gameID);
 		gm.endGame();
-		return null;
+		GameDataObject obj = new GameDataObject(gm.getPlayer1(), gm.getPlayer2(), gm.getTurn(), gm.getBoard(), gameID);
+		return new ResponseObject(SendableAction.QUIT_GAME, obj);
 	}
 
 	public ResponseObject placeWord(int gameID, WordObject wo) {
 		GameModel gm = modelList.get(gameID);
 		if(gameLogic.checkWord(wo)){
 			gm.placeWord(wo);
+			GameDataObject obj = new GameDataObject(gm.getPlayer1(), gm.getPlayer2(), gm.getTurn(), gm.getBoard(), gameID);
+			return new ResponseObject(SendableAction.PLACE_WORD, obj);
 		}
 		else{
-			//TODO: what to return???
+			GameDataObject obj = null;
+			return new ResponseObject(SendableAction.PLACE_WORD, obj);
 		}
-		return null;
 	}
 
 	public ResponseObject swap(int gameID, int i) {
 		GameModel gm = modelList.get(gameID);
 		gm.generateLetters(i);
-		return null;
+		GameDataObject obj = new GameDataObject(gm.getPlayer1(), gm.getPlayer2(), gm.getTurn(), gm.getBoard(), gameID);
+		return new ResponseObject(SendableAction.SWAP, obj);
 	}
 
 	public ResponseObject startGame(String name1, String name2) {
 		int ID = nextID();
 		modelList.put(ID, new GameModel(name1, name2, ID));
-		return null;
+		GameModel gm = modelList.get(ID);
+		GameDataObject obj = new GameDataObject(gm.getPlayer1(), gm.getPlayer2(), gm.getTurn(), gm.getBoard(), ID);
+		return new ResponseObject(SendableAction.START_GAME, obj);
 	}
 
 	public ResponseObject getPlayersOnline() {

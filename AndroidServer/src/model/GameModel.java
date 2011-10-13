@@ -187,4 +187,16 @@ public class GameModel extends Logic implements IGame{
 		generateLetters(size);
 		changeTurn();
 	}
+	
+	public Player getPlayer1(){
+		return p1;
+	}
+	
+	public Player getPlayer2(){
+		return p2;
+	}
+	
+	public String getTurn(){
+		return turn;
+	}
 }
