@@ -28,7 +28,7 @@ public class SignupModel extends Observable{
 	public void sendLoginRequest(String username){
 		ResponseObject retrieved = null;
 		try{
-			SendObject object = new SendObject(SendableAction.SIGN_UP, username, UserData.username);
+			SendObject object = new SendObject(SendableAction.SIGN_UP, username);
 			Socket s = new Socket(context.getString(android.scrabble.R.string.serverip), 7896);
 			
 			ObjectOutputStream out = new ObjectOutputStream(s.getOutputStream());
