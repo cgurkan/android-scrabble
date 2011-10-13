@@ -8,7 +8,9 @@ import util.UserData;
 import model.LoginModel;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -34,6 +36,15 @@ public class LoginActivity extends Activity implements Observer, OnClickListener
         submit.setOnClickListener(this);
     }
     
+    public void debug(String s){
+	    Context context = getBaseContext();
+	    CharSequence text = s;
+	    int duration = Toast.LENGTH_SHORT;
+
+	    Toast toast = Toast.makeText(context, text, duration);
+    	toast.show();
+    }
+    
 	@Override
 	public void update(Observable obs, Object obj) {
 		int responseCode = ((Integer)(obj)).intValue();
@@ -48,10 +59,10 @@ public class LoginActivity extends Activity implements Observer, OnClickListener
     		startActivity(intent);
     		finish();
     	}
-    	/*else if(responseCode == LoginModel.LOGIN_NOT_OK){
-    		showMessage("There was an error logging in. If you are logged in on another device, please logout there first.");
-    	}*/
-    	else if(responseCode == LoginModel.LOGIN_NOT_OK || responseCode == LoginModel.LOGIN_OK){
+    	else if(responseCode == LoginModel.LOGIN_NOT_OK){
+    		showLogOutDialog("There was an error logging in. If you are logged in on another device, please logout there first.");
+    	}
+    	else if(responseCode == LoginModel.LOGIN_OK){
     		UserData.username = uName;
     		showMessage("You are now logged in!");
     		finish();
@@ -75,6 +86,32 @@ public class LoginActivity extends Activity implements Observer, OnClickListener
     	Toast toast = Toast.makeText(context, text, duration);
     	toast.show();
     }
+	
+	public void showLogOutDialog(String message){
+		AlertDialog.Builder builder = new AlertDialog.Builder(LoginActivity.this);
+		builder.setMessage(message);
+		builder.setPositiveButton("Try to log me out?!", new DialogInterface.OnClickListener(){
+			@Override
+			public void onClick(DialogInterface di, int arg0) {
+				
+		        EditText input = (EditText)(findViewById(R.id.username));
+		        String uName = input.getText().toString();
+		        
+				Intent intent = new Intent(LoginActivity.this, LogoutActivity.class);
+	    		intent.putExtra("USERNAME", uName);
+	    		
+	    		startActivity(intent);
+			}
+		});
+		builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener(){
+			@Override
+			public void onClick(DialogInterface di, int arg0){
+				di.dismiss();
+			}
+		});
+		AlertDialog dialog = builder.create();
+		dialog.show();
+	}
 
     @Override
     protected void onStart() {

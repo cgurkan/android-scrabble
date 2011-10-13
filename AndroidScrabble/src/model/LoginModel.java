@@ -12,7 +12,6 @@ import android.content.Context;
 import util.ResponseObject;
 import util.SendObject;
 import util.SendableAction;
-import util.UserData;
 
 public class LoginModel extends Observable{
 	

@@ -31,6 +31,9 @@ public class MainMenuActivity extends Activity implements OnClickListener, OnMen
         
         Button about = (Button)(findViewById(R.id.aboutButton));
         about.setOnClickListener(this);
+        
+        Button newGame = (Button)(findViewById(R.id.newGameButton));
+        newGame.setOnClickListener(this);
     }
 
     /*
@@ -104,6 +107,9 @@ public class MainMenuActivity extends Activity implements OnClickListener, OnMen
 			case R.id.aboutButton:
 				startActivity(new Intent(MainMenuActivity.this, AboutViewActivity.class));
 				break;
+			case R.id.newGameButton:
+				startActivity(new Intent(MainMenuActivity.this, GameSettingsActivity.class));
+				break;
 		}
 	}	
 
@@ -111,7 +117,10 @@ public class MainMenuActivity extends Activity implements OnClickListener, OnMen
 	public boolean onMenuItemClick(MenuItem item){
 		switch(item.getItemId()){
 			case R.id.logout:
-				startActivity(new Intent(MainMenuActivity.this, LogoutActivity.class));
+				Intent intent = new Intent(MainMenuActivity.this, LogoutActivity.class);
+				intent.putExtra("USERNAME", UserData.username);
+				
+				startActivity(intent);
 				break;
 		}
 		return true;

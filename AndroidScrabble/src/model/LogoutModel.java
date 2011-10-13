@@ -10,7 +10,6 @@ import java.util.Observable;
 import util.ResponseObject;
 import util.SendObject;
 import util.SendableAction;
-import util.UserData;
 import android.content.Context;
 
 public class LogoutModel extends Observable{

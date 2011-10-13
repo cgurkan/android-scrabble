@@ -13,21 +13,18 @@ import util.ResponseObject;
 import util.SendObject;
 import util.SendableAction;
 
-public class SignupModel extends Observable{
+public class POnlineModel extends Observable{
 	
 	private Context context;
 	
-	public static final int SIGNUP_NOT_OK = 0;
-	public static final int SIGNUP_OK = 1;
-	
-	public SignupModel(Context c){
+	public POnlineModel(Context c){
 		context = c;
 	}
 	
-	public void sendLoginRequest(String username){
+	public void sendOnlineRequest(){
 		ResponseObject retrieved = null;
 		try{
-			SendObject object = new SendObject(SendableAction.SIGN_UP, username);
+			SendObject object = new SendObject(SendableAction.PLAYERS_ONLINE, null);
 			Socket s = new Socket(context.getString(android.scrabble.R.string.serverip), 7896);
 			
 			ObjectOutputStream out = new ObjectOutputStream(s.getOutputStream());
@@ -42,9 +39,8 @@ public class SignupModel extends Observable{
 			io.printStackTrace();
 		}
 		
-		Integer res = evaluate(retrieved, username);
 		setChanged();
-		super.notifyObservers(res);
+		super.notifyObservers(retrieved);
 	}
 
 	private ResponseObject getServerAnswer(Socket s) {
@@ -66,20 +62,5 @@ public class SignupModel extends Observable{
 			e.printStackTrace();
 		}
 		return data;
-	}
-
-	private Integer evaluate(ResponseObject obj, String username) {
-		String[] possibleOutcome = {
-				"Sorry, the username "+username+" is already taken. Please choose another one.",
-				"You are now signed up, welcome "+username
-		};
-
-		for(int i = 0; i<possibleOutcome.length; i++){
-			if(obj.getObject().toString().equalsIgnoreCase(possibleOutcome[i])){
-				return i;
-			}
-		}
-		
-		return (SIGNUP_OK+1);	//error
 	}
 }
