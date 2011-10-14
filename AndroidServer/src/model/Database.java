@@ -20,7 +20,7 @@ public class Database {
 	 * used to manage the database.
 	 * 
 	 */
-	public final class DbConstants{
+	public static final class DbConstants{
 		public static final String serverName = "localhost";
 		public static final String database = "android-scrabble";
 		public static final String username = "root"; 
@@ -149,7 +149,31 @@ public class Database {
 			return execQuery(query);
 		} catch (SQLException e) {
 			e.printStackTrace();
-			return null;
 		}
+		return null;
+	}
+	
+	
+	
+	/**
+	 * @param s - the word that has been played
+	 * @return the points for the word played
+	 */
+	public int countPoints(String s){
+		int letters = s.length();
+		int points = 0;
+		
+		while(letters >= 0){
+			String query = "SELECT points FROM english WHERE char = '" + s.charAt(letters) + "' LIMIT 1";
+			
+			try {
+				ResultSet set = execQuery(query);
+				points += Integer.parseInt(set.getString("points"));
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+			letters--;
+		}
+		return points;
 	}
 }

@@ -15,7 +15,6 @@ import util.WordObject.Direction;
 /**
  * A model class that describes all states and game specific details for one game.
  * 
- * @author Marika
  *
  */
 public class GameModel extends Logic implements IGame{
@@ -37,7 +36,7 @@ public class GameModel extends Logic implements IGame{
 		p2 = new Player(name2);
 	}
 	
-	public final class GameConstats{
+	public static final class GameConstats{
 		public static final int boardWidth = 16;
 		public static final int boardHeight = 16;
 	}
@@ -64,7 +63,7 @@ public class GameModel extends Logic implements IGame{
 		
 		if(lettersLeft >= i){
 			set = db.generateLetters(i);
-			if(turn == p1.getUsername()){
+			if(turn.equals(p1.getUsername())){
 				p1.setNrLetters(7);
 			}
 			else if(turn == p2.getUsername()){
@@ -73,10 +72,10 @@ public class GameModel extends Logic implements IGame{
 		}
 		else if(lettersLeft != 0){
 			set = db.generateLetters(lettersLeft);
-			if(turn == p1.getUsername()){
+			if(turn.equals(p1.getUsername())){
 				p1.setNrLetters(p1.getNrLetters()-i+lettersLeft);
 			}
-			else if(turn == p2.getUsername()){
+			else if(turn.equals(p2.getUsername())){
 				p2.setNrLetters(p2.getNrLetters()-i+lettersLeft);
 			}
 		}
@@ -97,14 +96,13 @@ public class GameModel extends Logic implements IGame{
 		try {
 			while(set.next()){
 				letters.add(set.getString("letter").charAt(0));
-				if(turn == p1.getUsername()){
+				if(turn.equals(p1.getUsername())){
 					p1.setLetters(letters);
 				}
 				else {
 					p2.setLetters(letters);
 				}
 			}
-			
 		} catch (SQLException e) {
 			ErrorHandler.report("The following SQL-error(s) occured while trying to log in GameLogic#generateLetters(): "+ e.getMessage());
 		}
@@ -112,33 +110,21 @@ public class GameModel extends Logic implements IGame{
 
 	@Override
 	public Player receivePoints(String s) {
-		int letters = s.length();
-		int points = 0;
 		pass = 0;
 		
-		while(letters >= 0){
-			String query = "SELECT points FROM english WHERE char = '" + s.charAt(letters) + "' LIMIT 1";
-			
-			try {
-				ResultSet set = db.execQuery(query);
-				points += Integer.parseInt(set.getString("points"));
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
-			letters--;
-		}
-		if(turn == p1.getUsername()){
-			p1.addPoints(points);
+		if(turn.equals(p1.getUsername())){
+			p1.addPoints(db.countPoints(s));
 			return p1;
 		}
 		else{
-			p2.addPoints(points);
+			p2.addPoints(db.countPoints(s));
 			return p2;
 		}
 	}
 	
 	public void changeTurn(){
-		if(turn == p1.getUsername()){
+		//TODO: have a turn variable in the Player class instead??
+		if(turn.equals(p1.getUsername())){
 			turn = p2.getUsername();
 		}
 		else{
