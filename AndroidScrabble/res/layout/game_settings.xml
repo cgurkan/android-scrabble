@@ -2,18 +2,41 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
 	android:orientation="vertical" android:layout_width="match_parent"
 	android:layout_height="match_parent" android:weightSum="1">
+	<LinearLayout android:id="@+id/linearLayout3"
+		android:layout_width="match_parent" android:layout_height="10dp"></LinearLayout>
+	<TextView android:textAppearance="?android:attr/textAppearanceMedium"
+		android:layout_width="match_parent" android:id="@+id/settings_dictionary_header"
+		android:text="@string/settings_dictionary_header"
+		android:layout_height="30dp" android:gravity="center_vertical"></TextView>
+	<Spinner android:id="@+id/spinner1" android:layout_width="match_parent"
+		android:layout_height="wrap_content"></Spinner>
+	<LinearLayout android:id="@+id/linearLayout4"
+		android:layout_width="match_parent" android:layout_height="10dp"></LinearLayout>
 	<LinearLayout android:id="@+id/linearLayout1"
 		android:layout_width="match_parent" android:layout_height="wrap_content">
-		<TextView android:text="@string/settings_search_header" android:id="@+id/textView1"
-			android:textAppearance="?android:attr/textAppearanceMedium"
-			android:layout_width="match_parent" android:layout_height="30dp"></TextView>
+		<TextView android:text="@string/settings_search_header"
+			android:id="@+id/textView1" android:textAppearance="?android:attr/textAppearanceMedium"
+			android:layout_width="match_parent" android:layout_height="30dp"
+			android:gravity="center_vertical"></TextView>
 	</LinearLayout>
 	<LinearLayout android:id="@+id/linearLayout2"
-		android:layout_width="match_parent" android:layout_height="100dp">
-		<EditText android:layout_width="wrap_content"
-			android:layout_height="wrap_content" android:id="@+id/editText1"
-			android:layout_weight="1">
+		android:layout_height="wrap_content" android:layout_width="310dp">
+		<LinearLayout android:id="@+id/linearLayout7"
+			android:layout_height="match_parent" android:orientation="vertical"
+			android:layout_width="5dp" android:weightSum="1">
+		</LinearLayout>
+		<EditText android:id="@+id/settings_search_field"
+			android:layout_height="47dp" android:layout_width="230dp">
 			<requestFocus></requestFocus>
 		</EditText>
+		<Button android:text="@string/settings_search_submit"
+			android:id="@+id/settings_search_submit" android:layout_width="80dp"
+			android:layout_height="50dp"></Button>
 	</LinearLayout>
+	<LinearLayout android:id="@+id/linearLayout6"
+		android:layout_width="match_parent" android:layout_height="20dp"></LinearLayout>
+	<Button android:layout_height="wrap_content"
+		android:layout_width="match_parent" android:id="@+id/settings_start_game"
+		android:text="@string/settings_start_game" android:textStyle="bold"
+		android:textSize="18sp"></Button>
 </LinearLayout>

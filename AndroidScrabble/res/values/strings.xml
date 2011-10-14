@@ -40,4 +40,7 @@
     <string name="authors">Magnus Larsson\nMarika Hansson\nMathias Forssén</string>
     <string name="logout">Log out!</string>
     <string name="settings_search_header">Search for user:</string>
+    <string name="settings_search_submit">Search</string>
+    <string name="settings_dictionary_header">Choose dictionary:</string>
+    <string name="settings_start_game">Start game!</string>
 </resources>
