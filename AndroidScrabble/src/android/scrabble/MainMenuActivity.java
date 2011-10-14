@@ -59,13 +59,13 @@ public class MainMenuActivity extends Activity implements OnClickListener, OnMen
         // The activity has become visible (it is now "resumed").
         
         //Check if the user is logged in every time the main menu resumes 
-        /*if(UserData.username == ""){
+        if(UserData.username == ""){
         	startLoginScreen();
-        	UserData.killSocket();
+        	//UserData.killSocket();
         }
         else{
         	//UserData.init(getBaseContext().getString(android.scrabble.R.string.serverip));
-        }*/
+        }
         
         updateLocale();	//	update text depending on language
     }

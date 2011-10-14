@@ -19,7 +19,7 @@ public class GameSettingsActivity extends Activity implements Observer{
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.trolol);
+        setContentView(R.layout.game_settings);
         
         POnlineModel model = new POnlineModel(getApplicationContext());
         model.addObserver(this);
@@ -67,8 +67,8 @@ public class GameSettingsActivity extends Activity implements Observer{
 			all += s+"\n";
 		}
 		
-		TextView v = ((TextView)(findViewById(R.id.online)));
-		v.setText(all);
+		/*TextView v = ((TextView)(findViewById(R.id.online)));
+		v.setText(all);*/
 	}
 	
 	public void debug(String s){
