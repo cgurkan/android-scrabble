@@ -5,14 +5,13 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.StreamCorruptedException;
 import java.net.Socket;
-import java.util.Observable;
 
 import util.ResponseObject;
 import util.SendObject;
 import util.SendableAction;
 import android.content.Context;
 
-public class LogoutModel extends Observable{
+public class LogoutModel{
 
 	private Context context = null;
 	
@@ -20,7 +19,7 @@ public class LogoutModel extends Observable{
 		context = c;
 	}
 	
-	public void sendLogoutRequest(String username){
+	public String sendLogoutRequest(String username){
 		ResponseObject retrieved = null;
 		try{
 			SendObject object = new SendObject(SendableAction.LOGOUT, username);
@@ -38,8 +37,7 @@ public class LogoutModel extends Observable{
 			io.printStackTrace();
 		}
 		
-		setChanged();
-		super.notifyObservers(retrieved.getObject().toString());
+		return retrieved.getObject().toString();
 	}
 
 	private ResponseObject getServerAnswer(Socket s) {

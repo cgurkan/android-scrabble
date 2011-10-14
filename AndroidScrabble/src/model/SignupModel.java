@@ -5,7 +5,6 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.StreamCorruptedException;
 import java.net.Socket;
-import java.util.Observable;
 
 import android.content.Context;
 
@@ -13,7 +12,7 @@ import util.ResponseObject;
 import util.SendObject;
 import util.SendableAction;
 
-public class SignupModel extends Observable{
+public class SignupModel{
 	
 	private Context context;
 	
@@ -24,7 +23,7 @@ public class SignupModel extends Observable{
 		context = c;
 	}
 	
-	public void sendLoginRequest(String username){
+	public int sendLoginRequest(String username){
 		ResponseObject retrieved = null;
 		try{
 			SendObject object = new SendObject(SendableAction.SIGN_UP, username);
@@ -42,9 +41,8 @@ public class SignupModel extends Observable{
 			io.printStackTrace();
 		}
 		
-		Integer res = evaluate(retrieved, username);
-		setChanged();
-		super.notifyObservers(res);
+		int res = evaluate(retrieved, username);
+		return res;
 	}
 
 	private ResponseObject getServerAnswer(Socket s) {
@@ -68,7 +66,7 @@ public class SignupModel extends Observable{
 		return data;
 	}
 
-	private Integer evaluate(ResponseObject obj, String username) {
+	private int evaluate(ResponseObject obj, String username) {
 		String[] possibleOutcome = {
 				"Sorry, the username "+username+" is already taken. Please choose another one.",
 				"You are now signed up, welcome "+username

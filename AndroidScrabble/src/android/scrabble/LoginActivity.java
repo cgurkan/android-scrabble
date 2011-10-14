@@ -1,8 +1,5 @@
 package android.scrabble;
 
-import java.util.Observable;
-import java.util.Observer;
-
 import util.UserData;
 
 import model.LoginModel;
@@ -19,7 +16,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-public class LoginActivity extends Activity implements Observer, OnClickListener{
+public class LoginActivity extends Activity implements OnClickListener{
     
 	private LoginModel model;
 	
@@ -30,24 +27,19 @@ public class LoginActivity extends Activity implements Observer, OnClickListener
         setContentView(R.layout.login);
         
         model = new LoginModel(getBaseContext());
-        model.addObserver(this);
         
         Button submit = (Button)(findViewById(R.id.submit));
         submit.setOnClickListener(this);
     }
     
-    public void debug(String s){
-	    Context context = getBaseContext();
-	    CharSequence text = s;
-	    int duration = Toast.LENGTH_SHORT;
-
-	    Toast toast = Toast.makeText(context, text, duration);
-    	toast.show();
-    }
-    
-	@Override
-	public void update(Observable obs, Object obj) {
-		int responseCode = ((Integer)(obj)).intValue();
+    @Override
+	public void onClick(View v){
+        EditText input = (EditText)(findViewById(R.id.username));
+        int resCode = model.sendLoginRequest(input.getText().toString());
+        evaluate(resCode);
+	}
+		
+	public void evaluate(int responseCode){
 		
         EditText input = (EditText)(findViewById(R.id.username));
         String uName = input.getText().toString();
@@ -71,12 +63,6 @@ public class LoginActivity extends Activity implements Observer, OnClickListener
     		// TODO: take care of errors
     	}
 	}
-
-	@Override
-	public void onClick(View v){
-        EditText input = (EditText)(findViewById(R.id.username));
-        model.sendLoginRequest(input.getText().toString());
-	}
 	
 	public void showMessage(String s){
     	Context context = getBaseContext();
@@ -90,7 +76,7 @@ public class LoginActivity extends Activity implements Observer, OnClickListener
 	public void showLogOutDialog(String message){
 		AlertDialog.Builder builder = new AlertDialog.Builder(LoginActivity.this);
 		builder.setMessage(message);
-		builder.setPositiveButton("Try to log me out?!", new DialogInterface.OnClickListener(){
+		builder.setPositiveButton("Try to log me out?", new DialogInterface.OnClickListener(){
 			@Override
 			public void onClick(DialogInterface di, int arg0) {
 				
@@ -118,21 +104,25 @@ public class LoginActivity extends Activity implements Observer, OnClickListener
         super.onStart();
         // The activity is about to become visible.
     }
+    
     @Override
     protected void onResume() {
         super.onResume();
         // The activity has become visible (it is now "resumed").
     }
+    
     @Override
     protected void onPause() {
         super.onPause();
         // Another activity is taking focus (this activity is about to be "paused").
     }
+    
     @Override
     protected void onStop() {
         super.onStop();
         // The activity is no longer visible (it is now "stopped")
     }
+    
     @Override
     protected void onDestroy() {
         super.onDestroy();

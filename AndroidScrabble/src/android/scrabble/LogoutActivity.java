@@ -1,8 +1,5 @@
 package android.scrabble;
 
-import java.util.Observable;
-import java.util.Observer;
-
 import util.UserData;
 
 import model.LogoutModel;
@@ -12,7 +9,7 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
 
-public class LogoutActivity extends Activity implements Observer{
+public class LogoutActivity extends Activity{
     
 	private LogoutModel model;
 	
@@ -23,7 +20,6 @@ public class LogoutActivity extends Activity implements Observer{
         setContentView(R.layout.logout);
         
         model = new LogoutModel(getBaseContext());
-        model.addObserver(this);
         
         String username = getIntent().getStringExtra("USERNAME");
         
@@ -31,15 +27,11 @@ public class LogoutActivity extends Activity implements Observer{
         	finish();
         }
         else{
-        	model.sendLogoutRequest(username);
+        	String res = model.sendLogoutRequest(username);
+    		UserData.username = "";
+    		showLoggedOutDialog(res);
         }
     }
-    
-	@Override
-	public void update(Observable obs, Object obj){
-		UserData.username = "";
-		showLoggedOutDialog(obj.toString());    	
-	}
 
 	public void showLoggedOutDialog(String message){
 		AlertDialog.Builder builder = new AlertDialog.Builder(LogoutActivity.this);
@@ -59,21 +51,25 @@ public class LogoutActivity extends Activity implements Observer{
         super.onStart();
         // The activity is about to become visible.
     }
+    
     @Override
     protected void onResume() {
         super.onResume();
         // The activity has become visible (it is now "resumed").
     }
+    
     @Override
     protected void onPause() {
         super.onPause();
         // Another activity is taking focus (this activity is about to be "paused").
     }
+    
     @Override
     protected void onStop() {
         super.onStop();
         // The activity is no longer visible (it is now "stopped")
     }
+    
     @Override
     protected void onDestroy() {
         super.onDestroy();

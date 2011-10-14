@@ -5,7 +5,6 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.StreamCorruptedException;
 import java.net.Socket;
-import java.util.Observable;
 
 import android.content.Context;
 
@@ -13,7 +12,7 @@ import util.ResponseObject;
 import util.SendObject;
 import util.SendableAction;
 
-public class LoginModel extends Observable{
+public class LoginModel{
 	
 	private Context context = null;
 	
@@ -25,7 +24,7 @@ public class LoginModel extends Observable{
 		context = c;
 	}
 	
-	public void sendLoginRequest(String username){
+	public int sendLoginRequest(String username){
 		ResponseObject retrieved = null;
 		try{
 			SendObject object = new SendObject(SendableAction.LOGIN, username);
@@ -43,9 +42,8 @@ public class LoginModel extends Observable{
 			io.printStackTrace();
 		}
 		
-		Integer returnData = evaluate(retrieved, username);
-		setChanged();
-		super.notifyObservers(returnData);
+		int returnData = evaluate(retrieved, username);
+		return returnData;
 	}
 
 	private ResponseObject getServerAnswer(Socket s) {
@@ -70,7 +68,7 @@ public class LoginModel extends Observable{
 		return data;
 	}
 	
-	private Integer evaluate(ResponseObject obj, String username) {
+	private int evaluate(ResponseObject obj, String username) {
 
 		String[] possibleOutcome = {
 				"The requested username "+username+" does not exist. Please sign up!",
