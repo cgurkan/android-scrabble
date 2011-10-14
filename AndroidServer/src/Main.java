@@ -17,7 +17,7 @@ public class Main {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-
+		
 		ServerInputThread st = new ServerInputThread(s);
 		st.start();
 		
