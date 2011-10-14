@@ -23,17 +23,15 @@ public class GameModel extends Logic implements IGame{
 	private Database db = null;
 	private int lettersLeft = 300;
 	private int pass = 0;
-	private int gameID = 0;
 	private Board board = null;
 	private String turn = null;
 	private Player p1 = null;
 	private Player p2 = null;
 	
 	
-	public GameModel(String name1, String name2, int gameID){
+	public GameModel(String name1, String name2){
 		super();
 		db = getDatabase();	//	Get the inherited database.
-		this.gameID = gameID;
 		board = new Board();
 		p1 = new Player(name1);
 		p2 = new Player(name2);
@@ -50,59 +48,66 @@ public class GameModel extends Logic implements IGame{
 	
 	@Override
 	public String startGame() {
-		String insGame = "INSERT INTO game VALUES(NULL, '"+p1.getUsername()+"', '"+p2.getUsername()+"')";
-		
-		try{
-			db.execUpdate(insGame);
+		if(db.startGame(p1.getUsername(), p2.getUsername())){
+			
+			return turn;
 		}
-		catch(SQLException e){
-			e.printStackTrace();
+		else{
+			return null;
 		}
-		return turn;
 	}
 
 	@Override
-	public List<Character> generateLetters(int i) {
+	public void generateLetters(int i) {
 		List<Character> letters = new ArrayList<Character>();
-		String query = null;
+		ResultSet set = null;
 		
-		if(lettersLeft > i){
-			query = "SELECT char FROM english ORDER BY RAND() LIMIT 'i'";
+		if(lettersLeft >= i){
+			set = db.generateLetters(i);
 			if(turn == p1.getUsername()){
-				p1.setLetters(7);
+				p1.setNrLetters(7);
 			}
 			else if(turn == p2.getUsername()){
-				p2.setLetters(7);
+				p2.setNrLetters(7);
 			}
 		}
 		else if(lettersLeft != 0){
-			query = "SELECT char FROM english ORDER BY RAND() LIMIT 'lettersLeft'";
+			set = db.generateLetters(lettersLeft);
 			if(turn == p1.getUsername()){
-				p1.setLetters(p1.getLetters()-i+lettersLeft);
+				p1.setNrLetters(p1.getNrLetters()-i+lettersLeft);
 			}
 			else if(turn == p2.getUsername()){
-				p2.setLetters(p2.getLetters()-i+lettersLeft);
+				p2.setNrLetters(p2.getNrLetters()-i+lettersLeft);
 			}
 		}
 		else{
-			if(p1.getLetters() == 0 || p2.getLetters() == 0){
+			if(p1.getNrLetters() == 0 || p2.getNrLetters() == 0){
 				endGame();
-				return null;
+			}
+			else{
+				if(turn == p1.getUsername()){
+					p1.setNrLetters(p1.getNrLetters()-i);
+				}
+				else {
+					p2.setNrLetters(p2.getNrLetters()-i);
+				}
 			}
 		}
 		
 		try {
-			ResultSet set = db.execQuery(query);
-			
 			while(set.next()){
 				letters.add(set.getString("letter").charAt(0));
+				if(turn == p1.getUsername()){
+					p1.setLetters(letters);
+				}
+				else {
+					p2.setLetters(letters);
+				}
 			}
 			
 		} catch (SQLException e) {
 			ErrorHandler.report("The following SQL-error(s) occured while trying to log in GameLogic#generateLetters(): "+ e.getMessage());
 		}
-		
-		return letters;
 	}
 
 	@Override
@@ -176,7 +181,7 @@ public class GameModel extends Logic implements IGame{
 				iterator++;
 			}
 		}
-		else if( word.getDirection() == Direction.HORIZONTAL){
+		else if(word.getDirection() == Direction.HORIZONTAL){
 			while(iterator <= size){
 				board.addLetter(w.charAt(iterator), x, y);
 				x++;

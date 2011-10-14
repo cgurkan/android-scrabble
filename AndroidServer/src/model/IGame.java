@@ -20,7 +20,7 @@ public interface IGame {
 	
 	public Player receivePoints(String s);
 	
-	public List<Character> generateLetters(int i);
+	public void generateLetters(int i);
 	
 	public List<Player> endGame();
 	

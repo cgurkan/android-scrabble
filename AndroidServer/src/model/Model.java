@@ -77,7 +77,7 @@ public class Model {
 
 	public ResponseObject startGame(String name1, String name2) {
 		int ID = nextID();
-		modelList.put(ID, new GameModel(name1, name2, ID));
+		modelList.put(ID, new GameModel(name1, name2));
 		GameModel gm = modelList.get(ID);
 		GameDataObject obj = new GameDataObject(gm.getPlayer1(), gm.getPlayer2(), gm.getTurn(), gm.getBoard(), ID);
 		return new ResponseObject(SendableAction.START_GAME, obj);

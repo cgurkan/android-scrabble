@@ -10,8 +10,7 @@ import java.sql.Statement;
 /**
  * Class that manages all database storage.
  * The database can connect to a MySQL-database and execute queries.
- * 
- * @author Magnus
+ *
  *
  */
 public class Database {
@@ -20,7 +19,6 @@ public class Database {
 	 * Class that keeps track of all the constants
 	 * used to manage the database.
 	 * 
-	 * @author Magnus
 	 */
 	public final class DbConstants{
 		public static final String serverName = "localhost";
@@ -33,7 +31,6 @@ public class Database {
 	 * enum that holds variables to see if
 	 * the database is connected or not.
 	 * 
-	 * @author Magnus
 	 */
 	enum Status{
 		CONNECTED,
@@ -131,5 +128,28 @@ public class Database {
 		int val = stmt.executeUpdate(query);
 		
 		return val;
+	}
+	
+	public boolean startGame(String s, String s2){
+		String insGame = "INSERT INTO game VALUES(NULL, '"+ s +"', '"+ s2 +"')";
+		
+		try{
+			execUpdate(insGame);
+			return true;
+		}
+		catch(SQLException e){
+			e.printStackTrace();
+			return false;
+		}
+	}
+	
+	public ResultSet generateLetters(int i){
+		String query = "SELECT char FROM english ORDER BY RAND() LIMIT '" + i + "'";
+		try {
+			return execQuery(query);
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return null;
+		}
 	}
 }
