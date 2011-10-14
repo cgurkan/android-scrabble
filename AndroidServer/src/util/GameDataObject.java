@@ -4,8 +4,6 @@ import model.data.Board;
 
 public class GameDataObject {
 	
-	//TODO: should be an object that returns all data that you need to know after a move
-	
 	private Player p1 = null;
 	private Player p2 = null;
 	private String turn = null;
@@ -18,5 +16,25 @@ public class GameDataObject {
 		turn = s;
 		board = b;
 		gameID = i;
+	}
+	
+	public Player getP1() {
+		return p1;
+	}
+
+	public Player getP2() {
+		return p2;
+	}
+
+	public String getTurn() {
+		return turn;
+	}
+
+	public Board getBoard() {
+		return board;
+	}
+
+	public int getGameID() {
+		return gameID;
 	}
 }
