@@ -84,7 +84,7 @@ public class WorkThread extends Thread implements ListListener{
 			//model.startGame();
 			break;
 		case QUIT_GAME:
-			model.guitGame(i);
+			model.quitGame(i);
 			break;
 		case PASS:
 			model.pass(i);
