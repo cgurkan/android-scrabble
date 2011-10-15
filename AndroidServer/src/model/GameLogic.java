@@ -23,7 +23,7 @@ public class GameLogic extends Logic{
 	}
 	
 	public boolean checkWord(WordObject o){
-		String query = "SELECT * FROM words WHERE word = 'o.getWord()' LIMIT 1";
+		String query = "SELECT * FROM words WHERE word = '"+o.getWord()+"' LIMIT 1";
 		boolean result = false;
 		
 		try {
@@ -39,16 +39,16 @@ public class GameLogic extends Logic{
 	
 	public List<String> getOpponentData(String username){
 		List<String> opponents = new LinkedList<String>();
-		String query = "SELECT * FROM game WHERE (host = '"+username+"' OR opponent = '"+username+"')";
+		String query = "SELECT * FROM game WHERE (host_name = '"+username+"' OR opponent_name = '"+username+"')";
 		
 		try {
 			ResultSet set = db.execQuery(query);
 			while(set.next()){
-				if(set.getString("host").equalsIgnoreCase(username)){
-					opponents.add(set.getString("opponent"));
+				if(set.getString("host_name").equalsIgnoreCase(username)){
+					opponents.add(set.getString("opponent_name"));
 				}
 				else{
-					opponents.add(set.getString("host"));
+					opponents.add(set.getString("host_name"));
 				}
 			}
 		} catch (SQLException e) {
