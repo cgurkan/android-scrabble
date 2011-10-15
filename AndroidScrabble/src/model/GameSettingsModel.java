@@ -55,7 +55,7 @@ public class GameSettingsModel implements IModel{
 			out.writeUnshared(object);
 			out.flush();
 			if(socket.getSoTimeout() == 0){
-				socket.setSoTimeout(10000);	//	max time to wait for response, 10 secs
+				socket.setSoTimeout(4000);	//	max time to wait for response, 4 secs
 			}
 			
 			retrieved = getServerAnswer();

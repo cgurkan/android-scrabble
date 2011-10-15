@@ -62,7 +62,7 @@ public class LoginModel implements IModel{
 			out.flush();
 			
 			if(socket.getSoTimeout() == 0){
-				socket.setSoTimeout(10000);	//	wait max 10 seconds to get response
+				socket.setSoTimeout(4000);	//	wait max 4 seconds to get response
 			}
 			
 			retrieved = getServerAnswer();
