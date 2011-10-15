@@ -15,7 +15,7 @@ import util.ResponseObject;
 import util.SendObject;
 import util.SendableAction;
 
-public class LoginModel{
+public class LoginModel implements IModel{
 	
 	private Context context = null;
 	private Socket socket = null;
@@ -32,6 +32,9 @@ public class LoginModel{
 		initSocket();
 	}
 	
+	/*
+	 * Initiates the socket and it's streams
+	 */
 	public void initSocket(){
 		try {
 			socket = new Socket(context.getString(R.string.serverip), 7896);
@@ -47,6 +50,9 @@ public class LoginModel{
 		}
 	}
 	
+	/*
+	 * Sends a request to the server that "username" wants to login
+	 */
 	public int sendLoginRequest(String username){
 		ResponseObject retrieved = null;
 		try{
@@ -69,10 +75,13 @@ public class LoginModel{
 		return returnData;
 	}
 	
+	/*
+	 * Retrieves the answer from the server
+	 */
 	private ResponseObject getServerAnswer() {
 		ResponseObject data = null;
 		try {
-			do{
+			do{	//	wait until the data is read. must take less than socket.getSoTimeout() secs.
 				data = (ResponseObject)is.readUnshared();
 			}while(data == null);
 		}
@@ -89,6 +98,10 @@ public class LoginModel{
 		return data;
 	}
 	
+	/*
+	 * Evaluates the answer from the server and returns an int that is
+	 * LoginModel#LOGIN_SIGN_UP, LoginModel#LOGIN_NOT_OK, LoginModel#LOGIN_OK or an error.
+	 */
 	private int evaluate(ResponseObject obj, String username) {
 
 		String[] possibleOutcome = {
@@ -106,6 +119,7 @@ public class LoginModel{
 		return (LOGIN_OK+1);	//error
 	}
 	
+	@Override
 	public void dispose(){
 		try {
 			socket.close();

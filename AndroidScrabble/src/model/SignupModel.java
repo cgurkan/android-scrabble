@@ -15,7 +15,7 @@ import util.ResponseObject;
 import util.SendObject;
 import util.SendableAction;
 
-public class SignupModel{
+public class SignupModel implements IModel{
 	
 	private Context context;
 	private Socket socket = null;
@@ -30,6 +30,9 @@ public class SignupModel{
 		initSocket();
 	}
 	
+	/*
+	 * Initiates the socket and it's streams
+	 */
 	public void initSocket(){
 		try {
 			socket = new Socket(context.getString(R.string.serverip), 7896);
@@ -45,6 +48,9 @@ public class SignupModel{
 		}
 	}
 	
+	/*
+	 * Sends a request to the server that "username" wants to signup
+	 */
 	public int sendLoginRequest(String username){
 		ResponseObject retrieved = null;
 		try{
@@ -66,10 +72,13 @@ public class SignupModel{
 		return res;
 	}
 
+	/*
+	 * Retrieves the answer from the server
+	 */
 	private ResponseObject getServerAnswer() {
 		ResponseObject data = null;
 		try {
-			do{
+			do{	//	wait until the data is read. must take less than socket.getSoTimeout() secs.
 				data = (ResponseObject)is.readUnshared();
 			}while(data == null);
 		}
@@ -85,6 +94,10 @@ public class SignupModel{
 		return data;
 	}
 
+	/*
+	 * Evaluates the answer from the server and returns an int that is
+	 * SignupModel#SIGNUP_NOT_OK, SignupModel#SIGNUP_OK or an error.
+	 */
 	private int evaluate(ResponseObject obj, String username) {
 		String[] possibleOutcome = {
 				"Sorry, the username "+username+" is already taken. Please choose another one.",
@@ -100,6 +113,7 @@ public class SignupModel{
 		return (SIGNUP_OK+1);	//error
 	}
 
+	@Override
 	public void dispose(){
 		try {
 			socket.close();

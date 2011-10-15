@@ -14,7 +14,7 @@ import android.content.Context;
 import android.scrabble.R;
 import android.util.Log;
 
-public class LogoutModel{
+public class LogoutModel implements IModel{
 
 	private Context context = null;
 	private Socket socket = null;
@@ -26,6 +26,9 @@ public class LogoutModel{
 		initSocket();
 	}
 	
+	/*
+	 * Initiates the socket and it's streams
+	 */
 	public void initSocket(){
 		try {
 			socket = new Socket(context.getString(R.string.serverip), 7896);
@@ -41,6 +44,9 @@ public class LogoutModel{
 		}
 	}
 	
+	/*
+	 * Sends a request to the server that "username" wants to logout
+	 */
 	public String sendLogoutRequest(String username){
 		ResponseObject retrieved = null;
 		try{
@@ -61,10 +67,13 @@ public class LogoutModel{
 		return retrieved.getObject().toString();
 	}
 
+	/*
+	 * Retrieves the answer from the server
+	 */
 	private ResponseObject getServerAnswer() {
 		ResponseObject data = null;
 		try {
-			do{
+			do{	//	wait until the data is read. must take less than socket.getSoTimeout() secs.
 				data = (ResponseObject)is.readUnshared();
 			}while(data == null);
 		}
@@ -81,6 +90,7 @@ public class LogoutModel{
 		return data;
 	}
 	
+	@Override
 	public void dispose(){
 		try {
 			socket.close();

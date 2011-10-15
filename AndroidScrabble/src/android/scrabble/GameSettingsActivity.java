@@ -78,7 +78,7 @@ public class GameSettingsActivity extends Activity implements OnClickListener{
     
     public void showNoUserDialog(){
 		AlertDialog.Builder builder = new AlertDialog.Builder(GameSettingsActivity.this);
-		builder.setMessage("Oh no, no user is selected!\n Please provide user before starting game.");
+		builder.setMessage("Oh no, no user is selected!\nPlease provide user before starting game.");
 		builder.setPositiveButton("OK", new DialogInterface.OnClickListener(){
 			@Override
 			public void onClick(DialogInterface di, int i) {
