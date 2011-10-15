@@ -21,6 +21,7 @@ import android.widget.Toast;
 public class GameSettingsActivity extends Activity implements OnClickListener{
 	
 	private GameSettingsModel model = null;
+	
 	private String opponent = null;
 	
 	/** Called when the activity is first created. */
@@ -100,6 +101,7 @@ public class GameSettingsActivity extends Activity implements OnClickListener{
 					showNoUserDialog();
 				}
 				else{
+					//model.dispose();
 					// START THIS FUCKING GAME!
 				}
 				break;

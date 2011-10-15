@@ -73,7 +73,8 @@ public class SignupActivity extends Activity implements OnClickListener{
 		builder.setMessage(message);
 		builder.setPositiveButton("OK", new DialogInterface.OnClickListener(){
 			@Override
-			public void onClick(DialogInterface arg0, int arg1) {
+			public void onClick(DialogInterface arg0, int arg1){
+				model.dispose();
 				finish();
 			}
 		});

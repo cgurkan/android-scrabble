@@ -5,8 +5,11 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.StreamCorruptedException;
 import java.net.Socket;
+import java.net.UnknownHostException;
 
 import android.content.Context;
+import android.scrabble.R;
+import android.util.Log;
 
 import util.ResponseObject;
 import util.SendObject;
@@ -15,27 +18,45 @@ import util.SendableAction;
 public class SignupModel{
 	
 	private Context context;
+	private Socket socket = null;
+	private ObjectInputStream is = null;
+	private ObjectOutputStream out = null;
 	
 	public static final int SIGNUP_NOT_OK = 0;
 	public static final int SIGNUP_OK = 1;
 	
 	public SignupModel(Context c){
 		context = c;
+		initSocket();
+	}
+	
+	public void initSocket(){
+		try {
+			socket = new Socket(context.getString(R.string.serverip), 7896);
+			
+			is = new ObjectInputStream(socket.getInputStream());
+			out = new ObjectOutputStream(socket.getOutputStream());
+		}
+		catch(UnknownHostException e){
+			e.printStackTrace();
+		}
+		catch(IOException e){
+			e.printStackTrace();
+		}
 	}
 	
 	public int sendLoginRequest(String username){
 		ResponseObject retrieved = null;
 		try{
 			SendObject object = new SendObject(SendableAction.SIGN_UP, username);
-			Socket s = new Socket(context.getString(android.scrabble.R.string.serverip), 7896);
 			
-			ObjectOutputStream out = new ObjectOutputStream(s.getOutputStream());
 			out.writeUnshared(object);
+			out.flush();
+			if(socket.getSoTimeout() == 0){
+				socket.setSoTimeout(10000);	//	max time to wait for response, 10 secs
+			}
 			
-			s.setSoTimeout(10000);	//	max time to wait for response, 10 secs
-			
-			retrieved = getServerAnswer(s);
-			s.close();
+			retrieved = getServerAnswer();
 		}
 		catch(IOException io){
 			io.printStackTrace();
@@ -45,11 +66,9 @@ public class SignupModel{
 		return res;
 	}
 
-	private ResponseObject getServerAnswer(Socket s) {
+	private ResponseObject getServerAnswer() {
 		ResponseObject data = null;
 		try {
-			ObjectInputStream is = new ObjectInputStream(s.getInputStream());
-			
 			do{
 				data = (ResponseObject)is.readUnshared();
 			}while(data == null);
@@ -79,5 +98,16 @@ public class SignupModel{
 		}
 		
 		return (SIGNUP_OK+1);	//error
+	}
+
+	public void dispose(){
+		try {
+			socket.close();
+			Log.d("dödats?", socket.isClosed()+" "+socket);
+		}
+		catch(IOException e){
+			Log.e("Socket close", e.getMessage());
+		}
+		socket = null;
 	}
 }

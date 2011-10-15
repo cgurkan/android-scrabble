@@ -24,12 +24,14 @@ public class LogoutActivity extends Activity{
         String username = getIntent().getStringExtra("USERNAME");
         
         if(username == null){
+        	model.dispose();
         	finish();
         }
         else{
         	String res = model.sendLogoutRequest(username);
     		UserData.username = "";
     		showLoggedOutDialog(res);
+    		model.dispose();
         }
     }
 

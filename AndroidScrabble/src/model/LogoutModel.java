@@ -5,33 +5,54 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.StreamCorruptedException;
 import java.net.Socket;
+import java.net.UnknownHostException;
 
 import util.ResponseObject;
 import util.SendObject;
 import util.SendableAction;
 import android.content.Context;
+import android.scrabble.R;
+import android.util.Log;
 
 public class LogoutModel{
 
 	private Context context = null;
+	private Socket socket = null;
+	private ObjectInputStream is = null;
+	private ObjectOutputStream out = null;	
 	
 	public LogoutModel(Context c){
 		context = c;
+		initSocket();
+	}
+	
+	public void initSocket(){
+		try {
+			socket = new Socket(context.getString(R.string.serverip), 7896);
+			
+			is = new ObjectInputStream(socket.getInputStream());
+			out = new ObjectOutputStream(socket.getOutputStream());
+		}
+		catch(UnknownHostException e){
+			e.printStackTrace();
+		}
+		catch(IOException e){
+			e.printStackTrace();
+		}
 	}
 	
 	public String sendLogoutRequest(String username){
 		ResponseObject retrieved = null;
 		try{
 			SendObject object = new SendObject(SendableAction.LOGOUT, username);
-			Socket s = new Socket(context.getString(android.scrabble.R.string.serverip), 7896);
 			
-			ObjectOutputStream out = new ObjectOutputStream(s.getOutputStream());
 			out.writeUnshared(object);
 			out.flush();
-			s.setSoTimeout(10000);	//	wait max 10 seconds to get response
+			if(socket.getSoTimeout() == 0){
+				socket.setSoTimeout(10000);	//	wait max 10 seconds to get response
+			}
 			
-			retrieved = getServerAnswer(s);
-			s.close();
+			retrieved = getServerAnswer();
 		}
 		catch(IOException io){
 			io.printStackTrace();
@@ -40,11 +61,9 @@ public class LogoutModel{
 		return retrieved.getObject().toString();
 	}
 
-	private ResponseObject getServerAnswer(Socket s) {
+	private ResponseObject getServerAnswer() {
 		ResponseObject data = null;
 		try {
-			ObjectInputStream is = new ObjectInputStream(s.getInputStream());
-			
 			do{
 				data = (ResponseObject)is.readUnshared();
 			}while(data == null);
@@ -60,5 +79,15 @@ public class LogoutModel{
 		}
 		
 		return data;
+	}
+	
+	public void dispose(){
+		try {
+			socket.close();
+		}
+		catch(IOException e){
+			Log.e("Socket close", e.getMessage());
+		}
+		socket = null;
 	}
 }

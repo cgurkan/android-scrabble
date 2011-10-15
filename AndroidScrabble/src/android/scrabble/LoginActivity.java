@@ -49,6 +49,7 @@ public class LoginActivity extends Activity implements OnClickListener{
     		intent.putExtra("USERNAME", uName);
     		
     		startActivity(intent);
+    		model.dispose();
     		finish();
     	}
     	else if(responseCode == LoginModel.LOGIN_NOT_OK){
@@ -57,6 +58,7 @@ public class LoginActivity extends Activity implements OnClickListener{
     	else if(responseCode == LoginModel.LOGIN_OK){
     		UserData.username = uName;
     		showMessage("You are now logged in!");
+    		model.dispose();
     		finish();
     	}
     	else{
