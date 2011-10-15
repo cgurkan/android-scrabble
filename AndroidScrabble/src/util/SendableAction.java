@@ -22,5 +22,6 @@ public enum SendableAction implements Serializable{
 	QUIT_GAME,
 	PASS,
 	SWAP,
-	GET_DICTIONARIES
+	GET_DICTIONARIES,
+	OPPONENT_DATA
 }
