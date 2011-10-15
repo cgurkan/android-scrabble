@@ -45,7 +45,6 @@ public class RequestHandler extends Thread implements Runnable{
 	            break;
 	        }
 	    }
-		tasks.add(null);
-		System.out.println("oh nno, i died");
+		tasks.add(null);	//	send bad data to kill the listener thread
 	}
 }
