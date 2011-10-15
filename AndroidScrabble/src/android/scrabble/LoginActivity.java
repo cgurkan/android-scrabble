@@ -78,7 +78,7 @@ public class LoginActivity extends Activity implements OnClickListener{
 	public void showLogOutDialog(String message){
 		AlertDialog.Builder builder = new AlertDialog.Builder(LoginActivity.this);
 		builder.setMessage(message);
-		builder.setPositiveButton("Try to log me out?", new DialogInterface.OnClickListener(){
+		builder.setPositiveButton("Try to log me out!", new DialogInterface.OnClickListener(){
 			@Override
 			public void onClick(DialogInterface di, int arg0) {
 				
@@ -91,7 +91,7 @@ public class LoginActivity extends Activity implements OnClickListener{
 	    		startActivity(intent);
 			}
 		});
-		builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener(){
+		builder.setNegativeButton("No thanks, ill solve it!", new DialogInterface.OnClickListener(){
 			@Override
 			public void onClick(DialogInterface di, int arg0){
 				di.dismiss();

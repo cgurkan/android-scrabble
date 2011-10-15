@@ -1,14 +1,13 @@
 package android.scrabble;
 
 import java.util.ArrayList;
-import java.util.List;
+import java.util.Collections;
 
 import model.GameListModel;
 
 import util.OpponentData;
+import util.OpponentDataAdapter;
 import util.ResponseObject;
-import util.Row;
-import util.RowAdapter;
 import util.UserData;
 import android.app.Activity;
 import android.content.Context;
@@ -20,8 +19,6 @@ import android.view.MenuItem;
 import android.view.MenuItem.OnMenuItemClickListener;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.widget.AdapterView;
-import android.widget.AdapterView.OnItemClickListener;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -165,19 +162,22 @@ public class MainMenuActivity extends Activity implements OnClickListener, OnMen
 	public void loadGamesList(){
 		
         ListView listView = ((ListView)findViewById(R.id.gamesView));
-        List<Row> listRows = new ArrayList<Row>();
+        ArrayList<OpponentData> data = new ArrayList<OpponentData>();
+        OpponentDataAdapter adapter = new OpponentDataAdapter(this, R.layout.row, data);
         
+        /*
+         * Get the information from the server 
+         */
         GameListModel glModel = new GameListModel(getApplicationContext());
         ResponseObject o = glModel.getOpponentData(UserData.username);
         OpponentData[] od = ((OpponentData[])o.getObject());
         
-        for(OpponentData opp : od){
-        	Row row = new Row(getApplicationContext());
-        	row.setOpponentData(opp);
-            listRows.add(row);
-        }
+        /*
+         * Add server-data to the List
+         */
+        Collections.addAll(data, od);
 
-        RowAdapter adapter = new RowAdapter(getApplicationContext(), listRows);
+        
         listView.setAdapter(adapter);
 	}
 	
