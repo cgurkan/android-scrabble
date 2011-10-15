@@ -1,5 +1,4 @@
 package model;
-import java.util.Observable;
 
 /**
  * Class that is extended by all logic-classes on the server.

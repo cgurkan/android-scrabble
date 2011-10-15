@@ -108,7 +108,6 @@ public class WorkThread extends Thread implements ListListener{
 		}
 		else if(logout){
 			OnlineList.getInstance().remove(object.getObject().toString());
-			System.out.println("logout");
 		}
 		
 		send(data);
