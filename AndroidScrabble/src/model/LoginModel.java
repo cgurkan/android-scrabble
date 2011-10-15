@@ -7,6 +7,7 @@ import java.io.StreamCorruptedException;
 import java.net.Socket;
 
 import android.content.Context;
+import android.util.Log;
 
 import util.ResponseObject;
 import util.SendObject;
@@ -26,9 +27,10 @@ public class LoginModel{
 	
 	public int sendLoginRequest(String username){
 		ResponseObject retrieved = null;
+		Socket s = null;
 		try{
 			SendObject object = new SendObject(SendableAction.LOGIN, username);
-			Socket s = new Socket(context.getString(android.scrabble.R.string.serverip), 7896);
+			s = new Socket(context.getString(android.scrabble.R.string.serverip), 7896);
 			
 			ObjectOutputStream out = new ObjectOutputStream(s.getOutputStream());
 			out.writeUnshared(object);
@@ -39,13 +41,12 @@ public class LoginModel{
 			s.close();
 		}
 		catch(IOException io){
-			io.printStackTrace();
+			Log.e("error", io.getMessage());
 		}
-		
 		int returnData = evaluate(retrieved, username);
 		return returnData;
 	}
-
+	
 	private ResponseObject getServerAnswer(Socket s) {
 		ResponseObject data = null;
 		try {
