@@ -1,5 +1,14 @@
 package android.scrabble;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import model.GameListModel;
+
+import util.OpponentData;
+import util.ResponseObject;
+import util.Row;
+import util.RowAdapter;
 import util.UserData;
 import android.app.Activity;
 import android.content.Context;
@@ -11,7 +20,10 @@ import android.view.MenuItem;
 import android.view.MenuItem.OnMenuItemClickListener;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.Button;
+import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -64,6 +76,7 @@ public class MainMenuActivity extends Activity implements OnClickListener, OnMen
         	//UserData.killSocket();
         }
         else{
+        	loadGamesList();
         	//UserData.init(getBaseContext().getString(android.scrabble.R.string.serverip));
         }
         
@@ -144,6 +157,28 @@ public class MainMenuActivity extends Activity implements OnClickListener, OnMen
 
 		Button about = ((Button)(findViewById(R.id.aboutButton)));
 		about.setText(getString(R.string.about));
+	}
+	
+	/*
+     * Get the users running games.
+     */
+	public void loadGamesList(){
+		
+        ListView listView = ((ListView)findViewById(R.id.gamesView));
+        List<Row> listRows = new ArrayList<Row>();
+        
+        GameListModel glModel = new GameListModel(getApplicationContext());
+        ResponseObject o = glModel.getOpponentData(UserData.username);
+        OpponentData[] od = ((OpponentData[])o.getObject());
+        
+        for(OpponentData opp : od){
+        	Row row = new Row(getApplicationContext());
+        	row.setOpponentData(opp);
+            listRows.add(row);
+        }
+
+        RowAdapter adapter = new RowAdapter(getApplicationContext(), listRows);
+        listView.setAdapter(adapter);
 	}
 	
 	/*

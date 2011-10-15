@@ -7,26 +7,21 @@ import java.io.StreamCorruptedException;
 import java.net.Socket;
 import java.net.UnknownHostException;
 
+import util.ResponseObject;
+import util.SendObject;
+import util.SendableAction;
 import android.content.Context;
 import android.scrabble.R;
 import android.util.Log;
 
-import util.ResponseObject;
-import util.SendObject;
-import util.SendableAction;
+public class GameListModel implements IModel{
 
-public class LoginModel implements IModel{
-	
 	private Context context = null;
 	private Socket socket = null;
 	private ObjectInputStream is = null;
 	private ObjectOutputStream out = null;
 	
-	public static final int LOGIN_SIGN_UP = -1;
-	public static final int LOGIN_NOT_OK = 0;
-	public static final int LOGIN_OK = 1;
-	
-	public LoginModel(Context c){
+	public GameListModel(Context c){
 		context = c;
 
 		initSocket();
@@ -51,12 +46,12 @@ public class LoginModel implements IModel{
 	}
 	
 	/*
-	 * Sends a request to the server that "username" wants to login
+	 * Sends a request to the server to get all the opponent data for "username"
 	 */
-	public int sendLoginRequest(String username){
+	public ResponseObject getOpponentData(String username){
 		ResponseObject retrieved = null;
 		try{
-			SendObject object = new SendObject(SendableAction.LOGIN, username);
+			SendObject object = new SendObject(SendableAction.OPPONENT_DATA, username);
 			
 			out.writeUnshared(object);
 			out.flush();
@@ -70,9 +65,7 @@ public class LoginModel implements IModel{
 		catch(IOException io){
 			Log.e("error", io.getMessage());
 		}
-		
-		int returnData = evaluate(retrieved, username);
-		return returnData;
+		return retrieved;
 	}
 	
 	/*
@@ -96,27 +89,6 @@ public class LoginModel implements IModel{
 		}
 		
 		return data;
-	}
-	
-	/*
-	 * Evaluates the answer from the server and returns an int that is
-	 * LoginModel#LOGIN_SIGN_UP, LoginModel#LOGIN_NOT_OK, LoginModel#LOGIN_OK or an error.
-	 */
-	private int evaluate(ResponseObject obj, String username) {
-
-		String[] possibleOutcome = {
-				"The requested username "+username+" does not exist. Please sign up!",
-				username+" is already logged in on another device",
-				"You are now logged in as "+username
-		};
-		
-		for(int i = 0; i<possibleOutcome.length; i++){
-			if(obj.getObject().toString().equalsIgnoreCase(possibleOutcome[i])){
-				return (i-1);
-			}
-		}
-		
-		return (LOGIN_OK+1);	//error
 	}
 	
 	@Override
