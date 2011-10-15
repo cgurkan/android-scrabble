@@ -101,6 +101,9 @@ public class WorkThread extends Thread implements ListListener{
 		case SWAP:
 			//model.swap(i);
 			break;
+		case OPPONENT_DATA:
+			String s7 = (String)object.getObject();
+			data = model.getOpponentData(s7);
 		default:
 			break;
 		}

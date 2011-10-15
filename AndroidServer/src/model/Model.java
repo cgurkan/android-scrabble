@@ -1,8 +1,11 @@
 package model;
 
 import java.util.HashMap;
+import java.util.List;
 
 import util.GameDataObject;
+import util.OnlineList;
+import util.OpponentData;
 import util.ResponseObject;
 import util.SendableAction;
 import util.WordObject;
@@ -88,5 +91,22 @@ public class Model {
 	
 	public ResponseObject getDictionaries(){
 		return new ResponseObject(SendableAction.GET_DICTIONARIES, new String[]{"English"});
+	}
+
+	public ResponseObject getOpponentData(String username) {
+		List<String> opponents = gameLogic.getOpponentData(username);
+		OpponentData[] opData = new OpponentData[opponents.size()];
+		
+		List<String> allOnline = OnlineList.getInstance().getList();
+		for(int i = 0; i<opponents.size(); i++){
+			if(allOnline.contains(opponents.get(i))){
+				opData[i] = new OpponentData(opponents.get(i), true);
+			}
+			else{
+				opData[i] = new OpponentData(opponents.get(i), false);
+			}
+		}
+		
+		return new ResponseObject(SendableAction.OPPONENT_DATA, opData);
 	}
 }
