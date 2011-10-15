@@ -5,7 +5,9 @@ import util.ResponseObject;
 import model.GameSettingsModel;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
@@ -32,6 +34,9 @@ public class GameSettingsActivity extends Activity implements OnClickListener{
         
         Button search = ((Button)(findViewById(R.id.settings_search_submit)));
         search.setOnClickListener(this);
+
+        Button start_game = ((Button)(findViewById(R.id.settings_start_game)));
+        start_game.setOnClickListener(this);
     }
     
     public void initDictionaries(){
@@ -66,8 +71,22 @@ public class GameSettingsActivity extends Activity implements OnClickListener{
     	else{
     		result.setTextColor(Color.RED);
     		result.setText(username+" är inte online");
+    		opponent = null;
     	}
     }
+    
+    public void showNoUserDialog(){
+		AlertDialog.Builder builder = new AlertDialog.Builder(GameSettingsActivity.this);
+		builder.setMessage("Oh no, no user is selected!\n Please provide user before starting game.");
+		builder.setPositiveButton("OK", new DialogInterface.OnClickListener(){
+			@Override
+			public void onClick(DialogInterface di, int i) {
+				di.dismiss();
+			}
+		});
+		AlertDialog dialog = builder.create();
+		dialog.show();
+	}
     
 	@Override
 	public void onClick(View view) {
@@ -77,6 +96,12 @@ public class GameSettingsActivity extends Activity implements OnClickListener{
 				isOnline(v.getText().toString());
 				break;
 			case R.id.settings_start_game:
+				if(opponent == null){
+					showNoUserDialog();
+				}
+				else{
+					// START THIS FUCKING GAME!
+				}
 				break;
 		}
 	}
