@@ -33,13 +33,18 @@ public class RequestHandler extends Thread implements Runnable{
 
 		while(true){
 			try{
-				if(socket.isConnected()){
+				System.out.println(socket.isClosed()+" "+socket.isBound()+" "+socket.isConnected());
+				if(!socket.isClosed()){
 					Object o = ois.readUnshared();
 					System.out.println(o.toString());
 					if(o.getClass().equals(SendObject.class)){
 						SendObject so = ((SendObject)(o));
 						tasks.add(so);
 					}
+				}
+				else{
+					System.out.println("socket died");
+					break;
 				}
 			}
 			catch(EOFException e){
@@ -62,5 +67,6 @@ public class RequestHandler extends Thread implements Runnable{
 				e.printStackTrace();
 			}
 		}
+		System.out.println("oh nno, i died");
 	}
 }
