@@ -45,13 +45,19 @@ public class WorkThread extends Thread implements ListListener{
 					}
 				}
 				
-				work(tasks.get(0));
-				tasks.remove(0);
+				if(tasks.get(0) == null){	//	if the data is corrupt, quit!
+					break;
+				}
+				else{
+					work(tasks.get(0));
+					tasks.remove(0);
+				}
 			}
 			catch(InterruptedException e){
 				e.printStackTrace();
 			}
 		}
+		//	Thread is dead.
 	}
 	
 	public void work(SendObject object){
