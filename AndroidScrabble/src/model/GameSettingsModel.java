@@ -15,7 +15,7 @@ import util.ResponseObject;
 import util.SendObject;
 import util.SendableAction;
 
-public class GameSettingsModel{
+public class GameSettingsModel implements IModel{
 	
 	private Context context;
 	private Socket socket = null;
@@ -28,6 +28,9 @@ public class GameSettingsModel{
 		initSocket();
 	}
 	
+	/*
+	 * Initiates the socket and it's streams
+	 */
 	public void initSocket(){
 		try {
 			socket = new Socket(context.getString(R.string.serverip), 7896);
@@ -43,6 +46,9 @@ public class GameSettingsModel{
 		}
 	}
 	
+	/*
+	 * Sends a request to the server with the specified object
+	 */
 	public ResponseObject getData(SendObject object){
 		ResponseObject retrieved = null;
 		try{
@@ -61,20 +67,29 @@ public class GameSettingsModel{
 		return retrieved;
 	}
 	
+	/*
+	 * Sends a request to the server to get the list of people online
+	 */
 	public ResponseObject getPeopleOnline(){
 		SendObject object = new SendObject(SendableAction.PLAYERS_ONLINE, null);
 		return getData(object);
 	}
 	
+	/*
+	 * Sends a request to the server to get all available dictionaries
+	 */
 	public ResponseObject getDictionaries(){
 		SendObject object = new SendObject(SendableAction.GET_DICTIONARIES, null);
 		return getData(object);
 	}
 
+	/*
+	 * Retrieves the answer from the server
+	 */
 	private ResponseObject getServerAnswer() {
 		ResponseObject data = null;
 		try {
-			do{
+			do{	//	wait until the data is read. must take less than socket.getSoTimeout() secs.
 				data = (ResponseObject)is.readUnshared();
 			}while(data == null);
 		}
@@ -90,6 +105,7 @@ public class GameSettingsModel{
 		return data;
 	}
 	
+	@Override
 	public void dispose(){
 		try {
 			socket.close();
