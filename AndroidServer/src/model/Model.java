@@ -1,7 +1,6 @@
 package model;
 
 import java.util.HashMap;
-import java.util.List;
 
 import util.GameDataObject;
 import util.ResponseObject;
@@ -85,5 +84,9 @@ public class Model {
 
 	public ResponseObject getPlayersOnline() {
 		return usermanager.getUsersOnline();
+	}
+	
+	public ResponseObject getDictionaries(){
+		return new ResponseObject(SendableAction.GET_DICTIONARIES, new String[]{"English"});
 	}
 }

@@ -2,18 +2,13 @@ package model;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
 
-import util.ErrorHandler;
 import util.WordObject;
-
-import model.data.Board;
 
 /**
  * A logic class that describes all general game states and modifiers.
  * 
- * @author Marika
+ * @author
  *
  */
 public class GameLogic extends Logic{

@@ -71,6 +71,9 @@ public class WorkThread extends Thread implements ListListener{
 		case PLAYERS_ONLINE:
 			data = model.getPlayersOnline();
 			break;
+		case GET_DICTIONARIES:
+			data = model.getDictionaries();
+			break;
 		case SEARCH_PLAYER:
 			break;
 		case SIGN_UP:
