@@ -46,14 +46,14 @@ public class Model {
 	public ResponseObject pass(int gameID) {
 		GameModel gm = modelList.get(gameID);
 		gm.pass();
-		GameDataObject obj = new GameDataObject(null, null, gm.getTurn(), null, gameID);
+		GameDataObject obj = new GameDataObject(null, null, getTurn(gm), null, gameID);
 		return new ResponseObject(SendableAction.PASS, obj);
 	}
 
 	public ResponseObject quitGame(int gameID) {
 		GameModel gm = modelList.get(gameID);
 		gm.endGame();
-		GameDataObject obj = new GameDataObject(gm.getPlayer1(), gm.getPlayer2(), gm.getTurn(), gm.getBoard(), gameID);
+		GameDataObject obj = new GameDataObject(gm.getPlayer1(), gm.getPlayer2(), getTurn(gm), gm.getBoard(), gameID);
 		return new ResponseObject(SendableAction.QUIT_GAME, obj);
 	}
 
@@ -61,7 +61,7 @@ public class Model {
 		GameModel gm = modelList.get(gameID);
 		if(gameLogic.checkWord(wo)){
 			gm.placeWord(wo);
-			GameDataObject obj = new GameDataObject(gm.getPlayer1(), gm.getPlayer2(), gm.getTurn(), gm.getBoard(), gameID);
+			GameDataObject obj = new GameDataObject(gm.getPlayer1(), gm.getPlayer2(), getTurn(gm), gm.getBoard(), gameID);
 			return new ResponseObject(SendableAction.PLACE_WORD, obj);
 		}
 		else{
@@ -73,7 +73,7 @@ public class Model {
 	public ResponseObject swap(int gameID, int i) {
 		GameModel gm = modelList.get(gameID);
 		gm.generateLetters(i);
-		GameDataObject obj = new GameDataObject(gm.getPlayer1(), gm.getPlayer2(), gm.getTurn(), gm.getBoard(), gameID);
+		GameDataObject obj = new GameDataObject(gm.getPlayer1(), gm.getPlayer2(), getTurn(gm), gm.getBoard(), gameID);
 		return new ResponseObject(SendableAction.SWAP, obj);
 	}
 
@@ -81,12 +81,21 @@ public class Model {
 		int ID = nextID();
 		modelList.put(ID, new GameModel(name1, name2));
 		GameModel gm = modelList.get(ID);
-		GameDataObject obj = new GameDataObject(gm.getPlayer1(), gm.getPlayer2(), gm.getTurn(), gm.getBoard(), ID);
+		GameDataObject obj = new GameDataObject(gm.getPlayer1(), gm.getPlayer2(), getTurn(gm), gm.getBoard(), ID);
 		return new ResponseObject(SendableAction.START_GAME, obj);
 	}
 
 	public ResponseObject getPlayersOnline() {
 		return usermanager.getUsersOnline();
+	}
+	
+	private String getTurn(GameModel gm){
+		if(gm.getPlayer1().isTurn()){
+			return gm.getPlayer1().getUsername();
+		}
+		else{
+			 return gm.getPlayer2().getUsername();
+		}
 	}
 	
 	public ResponseObject getDictionaries(){
