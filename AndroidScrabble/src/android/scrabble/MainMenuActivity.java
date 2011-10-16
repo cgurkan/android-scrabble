@@ -83,7 +83,7 @@ public class MainMenuActivity extends Activity implements OnClickListener, OnMen
         		gamesListLoaded = true;
         	}
         	if(UserData.getInstance().getSocket() == null){
-        		UserData.getInstance().init(getBaseContext().getString(android.scrabble.R.string.serverip));
+        		UserData.getInstance().init(getBaseContext(), getBaseContext().getString(android.scrabble.R.string.serverip));
         	}
         }
         

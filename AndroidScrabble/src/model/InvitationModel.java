@@ -3,7 +3,6 @@ package model;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-import java.io.StreamCorruptedException;
 import java.net.Socket;
 import java.net.UnknownHostException;
 
@@ -13,8 +12,8 @@ import util.ResponseObject;
 import util.SendObject;
 import util.SendableAction;
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
-import android.scrabble.LogoutActivity;
 import android.util.Log;
 
 public class InvitationModel extends Thread implements IModel{
@@ -23,7 +22,10 @@ public class InvitationModel extends Thread implements IModel{
 	private ObjectInputStream is = null;
 	private ObjectOutputStream out = null;
 	
-	public InvitationModel(Socket socket){
+	private Context context = null;
+	
+	public InvitationModel(Context context, Socket socket){
+		this.context = context;
 		this.socket = socket;
 
 		initSocket(socket);
@@ -55,7 +57,7 @@ public class InvitationModel extends Thread implements IModel{
 	            while((o = is.readUnshared()) != null){
 					if(o.getClass().equals(ResponseObject.class)){
 						ResponseObject so = ((ResponseObject)(o));
-						String[] req = ((String[])so.getObject();
+						String[] req = ((String[])so.getObject());
 						showInvitationDialog(req[0], req[1]);
 					}
 	            }
@@ -71,7 +73,7 @@ public class InvitationModel extends Thread implements IModel{
 	}
 	
 	public void showInvitationDialog(String message, final String opp){
-		AlertDialog.Builder builder = new AlertDialog.Builder(LogoutActivity.this);
+		AlertDialog.Builder builder = new AlertDialog.Builder(context);
 		builder.setMessage(message);
 		builder.setPositiveButton("Yes", new DialogInterface.OnClickListener(){
 			@Override

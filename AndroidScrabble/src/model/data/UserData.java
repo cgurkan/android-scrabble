@@ -4,6 +4,8 @@ import java.io.IOException;
 import java.net.Socket;
 import java.net.UnknownHostException;
 
+import android.content.Context;
+
 import model.InvitationModel;
 
 public class UserData {
@@ -27,7 +29,7 @@ public class UserData {
 	/*
 	 * Initiate the socket so the server knows that the user is online
 	 */
-	public void init(String serverIp){
+	public void init(Context c, String serverIp){
 		//	create socket
 		if(socket == null){
 			try {
@@ -42,7 +44,7 @@ public class UserData {
 		}
 		
 		//	create model
-		invModel = new InvitationModel(socket);
+		invModel = new InvitationModel(c, socket);
 		
 		//	tell the server that this is the main listener-thread
 		try{
@@ -69,7 +71,7 @@ public class UserData {
 				}
 				socket = null;
 				invModel.dispose();
-				
+				invModel = null;
 			}
 		}
 	}
