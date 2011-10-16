@@ -7,7 +7,6 @@ import java.io.Serializable;
  * actions that possibly can be
  * sent to or from the server
  * 
- * @author Magnus
  */
 public enum SendableAction implements Serializable{
 	LOGIN,
@@ -25,5 +24,6 @@ public enum SendableAction implements Serializable{
 	GET_DICTIONARIES,
 	OPPONENT_DATA,
 	MAIN_THREAD,
-	INVITE_GAME
+	INVITE_GAME, 
+	UPDATE
 }
