@@ -16,7 +16,7 @@ public interface IGame {
 	
 	public Board getBoard();
 	
-	public String startGame();
+	public void startGame();
 	
 	public Player receivePoints(String s);
 	

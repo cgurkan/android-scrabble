@@ -14,8 +14,6 @@ import util.WordObject.Direction;
 
 /**
  * A model class that describes all states and game specific details for one game.
- * 
- *
  */
 public class GameModel extends Logic implements IGame{
 	
@@ -23,7 +21,6 @@ public class GameModel extends Logic implements IGame{
 	private int lettersLeft = 300;
 	private int pass = 0;
 	private Board board = null;
-	private String turn = null;
 	private Player p1 = null;
 	private Player p2 = null;
 	
@@ -46,13 +43,9 @@ public class GameModel extends Logic implements IGame{
 	}
 	
 	@Override
-	public String startGame() {
+	public void startGame() {
 		if(db.startGame(p1.getUsername(), p2.getUsername())){
-			
-			return turn;
-		}
-		else{
-			return null;
+			p1.setTurn(true);
 		}
 	}
 
@@ -63,19 +56,19 @@ public class GameModel extends Logic implements IGame{
 		
 		if(lettersLeft >= i){
 			set = db.generateLetters(i);
-			if(turn.equals(p1.getUsername())){
+			if(p1.isTurn()){
 				p1.setNrLetters(7);
 			}
-			else if(turn == p2.getUsername()){
+			else {
 				p2.setNrLetters(7);
 			}
 		}
 		else if(lettersLeft != 0){
 			set = db.generateLetters(lettersLeft);
-			if(turn.equals(p1.getUsername())){
+			if(p1.isTurn()){
 				p1.setNrLetters(p1.getNrLetters()-i+lettersLeft);
 			}
-			else if(turn.equals(p2.getUsername())){
+			else {
 				p2.setNrLetters(p2.getNrLetters()-i+lettersLeft);
 			}
 		}
@@ -84,7 +77,7 @@ public class GameModel extends Logic implements IGame{
 				endGame();
 			}
 			else{
-				if(turn == p1.getUsername()){
+				if(p1.isTurn()){
 					p1.setNrLetters(p1.getNrLetters()-i);
 				}
 				else {
@@ -96,7 +89,7 @@ public class GameModel extends Logic implements IGame{
 		try {
 			while(set.next()){
 				letters.add(set.getString("letter").charAt(0));
-				if(turn.equals(p1.getUsername())){
+				if(p1.isTurn()){
 					p1.setLetters(letters);
 				}
 				else {
@@ -112,7 +105,7 @@ public class GameModel extends Logic implements IGame{
 	public Player receivePoints(String s) {
 		pass = 0;
 		
-		if(turn.equals(p1.getUsername())){
+		if(p1.isTurn()){
 			p1.addPoints(db.countPoints(s));
 			return p1;
 		}
@@ -123,12 +116,13 @@ public class GameModel extends Logic implements IGame{
 	}
 	
 	public void changeTurn(){
-		//TODO: have a turn variable in the Player class instead??
-		if(turn.equals(p1.getUsername())){
-			turn = p2.getUsername();
+		if(p1.isTurn()){
+			p1.setTurn(false);
+			p2.setTurn(true);
 		}
 		else{
-			turn = p1.getUsername();
+			p1.setTurn(true);
+			p2.setTurn(false);
 		}
 	}
 	
@@ -185,9 +179,5 @@ public class GameModel extends Logic implements IGame{
 	
 	public Player getPlayer2(){
 		return p2;
-	}
-	
-	public String getTurn(){
-		return turn;
 	}
 }
