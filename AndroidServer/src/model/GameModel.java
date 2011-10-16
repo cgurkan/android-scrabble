@@ -18,7 +18,7 @@ import util.WordObject.Direction;
 public class GameModel extends Logic implements IGame{
 	
 	private Database db = null;
-	private int lettersLeft = 300;
+	private int lettersLeft = 0;
 	private int pass = 0;
 	private Board board = null;
 	private Player p1 = null;
@@ -31,22 +31,21 @@ public class GameModel extends Logic implements IGame{
 		board = new Board();
 		p1 = new Player(name1);
 		p2 = new Player(name2);
+		setLettersLeft(300);
 	}
 	
-	public static final class GameConstats{
-		public static final int boardWidth = 16;
-		public static final int boardHeight = 16;
-	}
-	
+	@Override
 	public Board getBoard(){
 		return board;
 	}
 	
 	@Override
-	public void startGame() {
+	public boolean startGame() {
 		if(db.startGame(p1.getUsername(), p2.getUsername())){
 			p1.setTurn(true);
+			return true;
 		}
+			return false;
 	}
 	
 	@Override
@@ -54,7 +53,7 @@ public class GameModel extends Logic implements IGame{
 		List<Character> letters = new ArrayList<Character>();
 		ResultSet set = null;
 		
-		if(lettersLeft >= i){
+		if(getLettersLeft() >= i){
 			set = db.generateLetters(i);
 			if(p1.isTurn()){
 				p1.setNrLetters(7);
@@ -62,18 +61,20 @@ public class GameModel extends Logic implements IGame{
 			else {
 				p2.setNrLetters(7);
 			}
+			setLettersLeft(i);
 		}
-		else if(lettersLeft != 0){
-			set = db.generateLetters(lettersLeft);
+		else if(getLettersLeft() != 0){
+			set = db.generateLetters(getLettersLeft());
 			if(p1.isTurn()){
-				p1.setNrLetters(p1.getNrLetters()-i+lettersLeft);
+				p1.setNrLetters(p1.getNrLetters()-i+getLettersLeft());
 			}
 			else {
-				p2.setNrLetters(p2.getNrLetters()-i+lettersLeft);
+				p2.setNrLetters(p2.getNrLetters()-i+getLettersLeft());
 			}
+			setLettersLeft(0);
 		}
 		else{
-			if(p1.getNrLetters() == 0 || p2.getNrLetters() == 0){
+			if(p1.getNrLetters() == 0 || p2.getNrLetters() == 0 || p1.getNrLetters()-i == 0 || p2.getNrLetters()-1 == 0){
 				endGame();
 			}
 			else{
@@ -85,7 +86,11 @@ public class GameModel extends Logic implements IGame{
 				}
 			}
 		}
-		
+		addLettersToPlayer(set, letters);
+	}
+	
+	@Override
+	public void addLettersToPlayer(ResultSet set, List<Character> letters){
 		try {
 			while(set.next()){
 				letters.add(set.getString("letter").charAt(0));
@@ -100,7 +105,7 @@ public class GameModel extends Logic implements IGame{
 			ErrorHandler.report("The following SQL-error(s) occured while trying to log in GameLogic#generateLetters(): "+ e.getMessage());
 		}
 	}
-
+	
 	@Override
 	public Player receivePoints(String s) {
 		pass = 0;
@@ -115,6 +120,7 @@ public class GameModel extends Logic implements IGame{
 		}
 	}
 	
+	@Override
 	public void changeTurn(){
 		if(p1.isTurn()){
 			p1.setTurn(false);
@@ -126,6 +132,7 @@ public class GameModel extends Logic implements IGame{
 		}
 	}
 	
+	@Override
 	public boolean pass(){
 		pass++;
 		if(pass == 4){
@@ -138,6 +145,7 @@ public class GameModel extends Logic implements IGame{
 		}
 	}
 	
+	@Override
 	public List<Player> endGame(){
 		List<Player> p = new ArrayList<Player>();
 		
@@ -146,7 +154,8 @@ public class GameModel extends Logic implements IGame{
 		
 		return p;
 	}
-
+	
+	@Override
 	public void placeWord(WordObject word) {
 		String w = word.getWord();
 		int size = w.length();
@@ -173,11 +182,23 @@ public class GameModel extends Logic implements IGame{
 		changeTurn();
 	}
 	
+	@Override
 	public Player getPlayer1(){
 		return p1;
 	}
 	
+	@Override
 	public Player getPlayer2(){
 		return p2;
+	}
+
+	@Override
+	public void setLettersLeft(int i) {
+		lettersLeft -= i;
+	}
+
+	@Override
+	public int getLettersLeft() {
+		return lettersLeft;
 	}
 }

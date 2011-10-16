@@ -1,5 +1,6 @@
 package model;
 
+import java.sql.ResultSet;
 import java.util.List;
 
 import util.Player;
@@ -16,11 +17,13 @@ public interface IGame {
 	
 	public Board getBoard();
 	
-	public void startGame();
+	public boolean startGame();
 	
 	public Player receivePoints(String s);
 	
 	public void generateLetters(int i);
+	
+	public void addLettersToPlayer(ResultSet set, List<Character> letters);
 	
 	public List<Player> endGame();
 	
@@ -29,4 +32,12 @@ public interface IGame {
 	public boolean pass();
 	
 	public void placeWord(WordObject word);
+	
+	public Player getPlayer1();
+	
+	public Player getPlayer2();
+	
+	public void setLettersLeft(int i);
+	
+	public int getLettersLeft();
 }
