@@ -23,6 +23,7 @@ public class OnlineList {
 	}
 	
 	public void add(NamedConnection nc){
+		System.out.println("added "+nc.getName());
 		connections.add(nc);
 	}
 	

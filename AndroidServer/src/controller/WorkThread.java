@@ -14,7 +14,6 @@ import util.NamedConnection;
 import util.OnlineList;
 import util.ResponseObject;
 import util.SendObject;
-import util.SendableAction;
 
 public class WorkThread extends Thread implements ListListener{
 
@@ -22,6 +21,8 @@ public class WorkThread extends Thread implements ListListener{
 	private ListenableList<SendObject> tasks;
 	private Model model = null;
 	private Socket socket;
+	private boolean isOnlineThread = false;
+	private String onlinename = "";
 	
 	public WorkThread(Socket socket) throws IOException{
 		oos = new ObjectOutputStream(socket.getOutputStream());
@@ -56,6 +57,10 @@ public class WorkThread extends Thread implements ListListener{
 			catch(InterruptedException e){
 				e.printStackTrace();
 			}
+		}
+		if(isOnlineThread){
+			System.out.println("closing main thread");
+			OnlineList.getInstance().remove(onlinename);
 		}
 		//	Thread is dead.
 	}
@@ -104,22 +109,19 @@ public class WorkThread extends Thread implements ListListener{
 		case OPPONENT_DATA:
 			String s7 = (String)object.getObject();
 			data = model.getOpponentData(s7);
+		case MAIN_THREAD:
+			isOnlineThread = true;
+			String s8 = (String)object.getObject();
+			onlinename = s8;
+			OnlineList.getInstance().add(new NamedConnection(s8, socket));
+			break;
 		default:
 			break;
 		}
-
-		boolean login = (object.getAction().equals(SendableAction.LOGIN) && data.getObject().toString().startsWith("You are now logged in as "+object.getObject().toString()));
-		boolean signup = (object.getAction().equals(SendableAction.SIGN_UP) && data.getObject().toString().startsWith("You are now signed up, welcome "+object.getObject().toString()));
-		boolean logout = (object.getAction().equals(SendableAction.LOGOUT) && data.getObject().toString().startsWith("You are now logged out"));
 		
-		if(login || signup){
-			OnlineList.getInstance().add(new NamedConnection(object.getObject().toString(), socket));
+		if(data != null){
+			send(data);
 		}
-		else if(logout){
-			OnlineList.getInstance().remove(object.getObject().toString());
-		}
-		
-		send(data);
 	}
 	
 	public void send(Object object){
