@@ -49,7 +49,7 @@ public class OnlineList {
 	
 	public Socket getSocket(String name){
 		for(NamedConnection nc : connections){
-			if(nc.getName().equals(name)){
+			if(nc.getName().equalsIgnoreCase(name)){
 				return nc.getSocket();
 			}
 		}

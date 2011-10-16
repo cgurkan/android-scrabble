@@ -126,6 +126,7 @@ public class WorkThread extends Thread implements ListListener{
 		}
 		
 		if(data != null && oppSocket != null){
+			System.out.println("Skickar "+data.getObject()+" to "+oppSocket);
 			sendToOpponent(oppSocket, data);
 		}
 		else if(data != null){
