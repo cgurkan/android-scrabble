@@ -9,7 +9,16 @@ public class Player {
 	private int points = 0;
 	private String username = null;
 	private List<Character> letters = new ArrayList<Character>();
+	private boolean turn = false;
 	
+	public boolean isTurn() {
+		return turn;
+	}
+
+	public void setTurn(boolean turn) {
+		this.turn = turn;
+	}
+
 	public List<Character> getLetters() {
 		return letters;
 	}
