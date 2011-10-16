@@ -27,7 +27,7 @@ public class GameModel extends Logic implements IGame{
 	
 	public GameModel(String name1, String name2){
 		super();
-		db = getDatabase();	//	Get the inherited database.
+		db = getDatabase();
 		board = new Board();
 		p1 = new Player(name1);
 		p2 = new Player(name2);

@@ -1,12 +1,20 @@
 package util;
 
 public class WordObject {
-	
+
 	String word = null;
 	int x = -1;
 	int y = -1;
 	Direction direction = null;
 	
+	public WordObject(String word, int x, int y, Direction direction) {
+		super();
+		this.word = word;
+		this.x = x;
+		this.y = y;
+		this.direction = direction;
+	}
+
 	
 	public String getWord() {
 		return word;
