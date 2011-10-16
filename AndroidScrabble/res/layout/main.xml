@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
 	android:orientation="vertical" android:layout_width="fill_parent"
-	android:layout_height="fill_parent" android:weightSum="1">
+	android:layout_height="fill_parent" android:weightSum="1" android:scrollbars="vertical">
 	<MediaController android:layout_width="match_parent"
 		android:id="@+id/mediaController1" android:layout_weight="0.08"
 		android:layout_height="wrap_content">
@@ -29,4 +29,7 @@
 		android:layout_marginBottom="5dp" android:layout_width="match_parent"
 		android:layout_height="wrap_content" android:layout_marginTop="5dp"
 		android:id="@+id/gamesView"></ListView>
+	<Button android:text="@string/update_gameslist" android:layout_weight="0.11"
+			android:layout_width="wrap_content" android:layout_height="15dp"
+			android:id="@+id/update_gameslist"></Button>
 </LinearLayout>

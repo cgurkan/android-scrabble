@@ -26,6 +26,8 @@ import android.widget.Toast;
 
 public class MainMenuActivity extends Activity implements OnClickListener, OnMenuItemClickListener{
 	
+	private boolean gamesListLoaded = false;
+	
 	/** Called when the activity is first created. */
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -43,6 +45,9 @@ public class MainMenuActivity extends Activity implements OnClickListener, OnMen
         
         Button newGame = (Button)(findViewById(R.id.newGameButton));
         newGame.setOnClickListener(this);
+        
+        Button updateGamesList = (Button)(findViewById(R.id.update_gameslist));
+        updateGamesList.setOnClickListener(this);
     }
 
     /*
@@ -70,11 +75,16 @@ public class MainMenuActivity extends Activity implements OnClickListener, OnMen
         //Check if the user is logged in every time the main menu resumes 
         if(UserData.username == ""){
         	startLoginScreen();
-        	//UserData.killSocket();
+        	UserData.killSocket();
         }
         else{
-        	loadGamesList();
-        	//UserData.init(getBaseContext().getString(android.scrabble.R.string.serverip));
+        	if(!gamesListLoaded){
+        		loadGamesList();
+        		gamesListLoaded = true;
+        	}
+        	if(UserData.socket == null){
+        		UserData.init(getBaseContext().getString(android.scrabble.R.string.serverip));
+        	}
         }
         
         updateLocale();	//	update text depending on language
@@ -118,7 +128,10 @@ public class MainMenuActivity extends Activity implements OnClickListener, OnMen
 				startActivity(new Intent(MainMenuActivity.this, AboutViewActivity.class));
 				break;
 			case R.id.newGameButton:
-				startActivity(new Intent(MainMenuActivity.this, GameSettingsActivity.class));
+				startActivity(new Intent(MainMenuActivity.this, GameBoardActivity.class));
+				break;
+			case R.id.update_gameslist:
+				//loadGamesList();
 				break;
 		}
 	}	
@@ -154,6 +167,9 @@ public class MainMenuActivity extends Activity implements OnClickListener, OnMen
 
 		Button about = ((Button)(findViewById(R.id.aboutButton)));
 		about.setText(getString(R.string.about));
+		
+		Button updateGamesList = ((Button)(findViewById(R.id.update_gameslist)));
+		updateGamesList.setText(getString(R.string.update_gameslist));
 	}
 	
 	/*

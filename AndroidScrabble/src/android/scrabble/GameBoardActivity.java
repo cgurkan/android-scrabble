@@ -15,33 +15,33 @@ public class GameBoardActivity extends Activity implements OnClickListener{
 	   @Override
 	    public void onCreate(Bundle savedInstanceState) {
 	        super.onCreate(savedInstanceState);
-	        
+	        /*
 	        TableLayout masterLayout = new TableLayout(this);
 	                
 	        //Adding the board to the main layout
 	        masterLayout.addView(createBoardGrid());
 	        masterLayout.addView(createCharGrid());
 	        masterLayout.addView(createPlayerGrid());
-	        masterLayout.addView(createButtonGrid());
+	        masterLayout.addView(createButtonGrid());*/
 	        
-	        super.setContentView(masterLayout);
+	        super.setContentView(R.layout.gameboard2);
 	    }
 	   
 	    public TableLayout createBoardGrid() {
 	        TableLayout boardGrid = new TableLayout(this);
-	        boardGrid.setLayoutParams(new TableLayout.LayoutParams(15,15));
+	        boardGrid.setLayoutParams(new TableLayout.LayoutParams(15, 15));
 	        
-	        boardGrid.setPadding(1,1,1,1);
+	        boardGrid.setPadding(1, 1, 1, 1);
 	        
 	        for (int i = 0; i < 15; i++) {
 	        	TableRow tr = new TableRow(this);
 	        	for (int n = 0; n <15; n++) {
-	        		 Button b = new Button (this);
+	        		 Button b = new Button(this);
 	                 b.setText(""+i+n);
 	                 b.setTextSize(10.0f);
-	                 b.setTextColor(Color.rgb( 100, 200, 200));
+	                 b.setTextColor(Color.rgb(100, 200, 200));
 	                 b.setOnClickListener(this);
-	                 tr.addView(b, 30,30);
+	                 tr.addView(b, 30, 30);
 	        	}
 	        	boardGrid.addView(tr);
 	        }
