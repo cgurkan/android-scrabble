@@ -7,6 +7,8 @@ import java.io.StreamCorruptedException;
 import java.net.Socket;
 import java.net.UnknownHostException;
 
+import model.data.UserData;
+
 import android.content.Context;
 import android.scrabble.R;
 import android.util.Log;
@@ -49,7 +51,7 @@ public class GameSettingsModel implements IModel{
 	/*
 	 * Sends a request to the server with the specified object
 	 */
-	public ResponseObject getData(SendObject object){
+	public ResponseObject getData(SendObject object, boolean getAnswer){
 		ResponseObject retrieved = null;
 		try{
 			out.writeUnshared(object);
@@ -58,7 +60,9 @@ public class GameSettingsModel implements IModel{
 				socket.setSoTimeout(4000);	//	max time to wait for response, 4 secs
 			}
 			
-			retrieved = getServerAnswer();
+			if(getAnswer){
+				retrieved = getServerAnswer();
+			}
 		}
 		catch(IOException io){
 			io.printStackTrace();
@@ -72,7 +76,7 @@ public class GameSettingsModel implements IModel{
 	 */
 	public ResponseObject getPeopleOnline(){
 		SendObject object = new SendObject(SendableAction.PLAYERS_ONLINE, null);
-		return getData(object);
+		return getData(object, true);
 	}
 	
 	/*
@@ -80,7 +84,12 @@ public class GameSettingsModel implements IModel{
 	 */
 	public ResponseObject getDictionaries(){
 		SendObject object = new SendObject(SendableAction.GET_DICTIONARIES, null);
-		return getData(object);
+		return getData(object, true);
+	}
+	
+	public void sendInviteRequest(String opponent){
+		SendObject object = new SendObject(SendableAction.INVITE_GAME, new String[]{UserData.getInstance().getUsername(), opponent});
+		getData(object, false);
 	}
 
 	/*

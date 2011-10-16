@@ -42,6 +42,6 @@
     <string name="settings_search_header">Search for user:</string>
     <string name="settings_search_submit">Search</string>
     <string name="settings_dictionary_header">Choose dictionary:</string>
-    <string name="settings_start_game">Start game!</string>
+    <string name="settings_start_game">Invite player!</string>
     <string name="update_gameslist">Update gameslist</string>
 </resources>

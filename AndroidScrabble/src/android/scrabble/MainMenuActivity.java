@@ -4,11 +4,11 @@ import java.util.ArrayList;
 import java.util.Collections;
 
 import model.GameListModel;
+import model.data.UserData;
 
 import util.OpponentData;
 import util.OpponentDataAdapter;
 import util.ResponseObject;
-import util.UserData;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -73,17 +73,17 @@ public class MainMenuActivity extends Activity implements OnClickListener, OnMen
         // The activity has become visible (it is now "resumed").
         
         //Check if the user is logged in every time the main menu resumes 
-        if(UserData.username == ""){
+        if(UserData.getInstance().getUsername().equals("")){
         	startLoginScreen();
-        	UserData.killSocket();
+        	UserData.getInstance().killSocket();
         }
         else{
         	if(!gamesListLoaded){
         		loadGamesList();
         		gamesListLoaded = true;
         	}
-        	if(UserData.socket == null){
-        		UserData.init(getBaseContext().getString(android.scrabble.R.string.serverip));
+        	if(UserData.getInstance().getSocket() == null){
+        		UserData.getInstance().init(getBaseContext().getString(android.scrabble.R.string.serverip));
         	}
         }
         
@@ -128,7 +128,7 @@ public class MainMenuActivity extends Activity implements OnClickListener, OnMen
 				startActivity(new Intent(MainMenuActivity.this, AboutViewActivity.class));
 				break;
 			case R.id.newGameButton:
-				startActivity(new Intent(MainMenuActivity.this, GameBoardActivity.class));
+				startActivity(new Intent(MainMenuActivity.this, GameSettingsActivity.class));
 				break;
 			case R.id.update_gameslist:
 				//loadGamesList();
@@ -141,7 +141,7 @@ public class MainMenuActivity extends Activity implements OnClickListener, OnMen
 		switch(item.getItemId()){
 			case R.id.logout:
 				Intent intent = new Intent(MainMenuActivity.this, LogoutActivity.class);
-				intent.putExtra("USERNAME", UserData.username);
+				intent.putExtra("USERNAME", UserData.getInstance().getUsername());
 				
 				startActivity(intent);
 				break;
@@ -185,7 +185,7 @@ public class MainMenuActivity extends Activity implements OnClickListener, OnMen
          * Get the information from the server 
          */
         GameListModel glModel = new GameListModel(getApplicationContext());
-        ResponseObject o = glModel.getOpponentData(UserData.username);
+        ResponseObject o = glModel.getOpponentData(UserData.getInstance().getUsername());
         OpponentData[] od = ((OpponentData[])o.getObject());
         
         /*

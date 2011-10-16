@@ -1,8 +1,8 @@
 package android.scrabble;
 
-import util.UserData;
 
 import model.SignupModel;
+import model.data.UserData;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
@@ -59,7 +59,7 @@ public class SignupActivity extends Activity implements OnClickListener{
             EditText input = (EditText)(findViewById(R.id.username));
             String uName = input.getText().toString();
             
-        	UserData.username = uName;
+        	UserData.getInstance().setUsername(uName);
     		
         	showSignedUpDialog("You are now signed up! Welcome!");
         }

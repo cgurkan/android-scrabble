@@ -101,8 +101,10 @@ public class GameSettingsActivity extends Activity implements OnClickListener{
 					showNoUserDialog();
 				}
 				else{
-					//model.dispose();
-					// START THIS FUCKING GAME!
+					model.sendInviteRequest(opponent);
+					debug("A game invitation has been sent to "+opponent);
+					model.dispose();
+					finish();
 				}
 				break;
 		}

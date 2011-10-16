@@ -1,8 +1,8 @@
 package android.scrabble;
 
-import util.UserData;
 
 import model.LogoutModel;
+import model.data.UserData;
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -29,7 +29,7 @@ public class LogoutActivity extends Activity{
         }
         else{
         	String res = model.sendLogoutRequest(username);
-    		UserData.username = "";
+    		UserData.getInstance().setUsername("");
     		showLoggedOutDialog(res);
     		model.dispose();
         }

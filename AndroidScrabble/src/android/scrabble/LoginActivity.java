@@ -1,8 +1,8 @@
 package android.scrabble;
 
-import util.UserData;
 
 import model.LoginModel;
+import model.data.UserData;
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -56,7 +56,7 @@ public class LoginActivity extends Activity implements OnClickListener{
     		showLogOutDialog("There was an error logging in. If you are logged in on another device, please logout there first.");
     	}
     	else if(responseCode == LoginModel.LOGIN_OK){
-    		UserData.username = uName;
+    		UserData.getInstance().setUsername(uName);
     		showMessage("You are now logged in!");
     		model.dispose();
     		finish();
