@@ -118,4 +118,8 @@ public class Model {
 		
 		return new ResponseObject(SendableAction.OPPONENT_DATA, opData);
 	}
+
+	public ResponseObject invitePlayer(String host) {
+		return new ResponseObject(SendableAction.INVITE_GAME, host+" vill spela ett spel med dig.");
+	}
 }

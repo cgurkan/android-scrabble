@@ -47,6 +47,15 @@ public class OnlineList {
 		}
 	}
 	
+	public Socket getSocket(String name){
+		for(NamedConnection nc : connections){
+			if(nc.getName().equals(name)){
+				return nc.getSocket();
+			}
+		}
+		return null;
+	}
+	
 	public List<String> getList(){
 		List<String> list = new LinkedList<String>();
 		for(NamedConnection nc : connections){

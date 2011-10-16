@@ -67,6 +67,7 @@ public class WorkThread extends Thread implements ListListener{
 	
 	public void work(SendObject object){
 		
+		Socket oppSocket = null;
 		ResponseObject data = null;
 		int i = 0;
 		
@@ -94,8 +95,13 @@ public class WorkThread extends Thread implements ListListener{
 		case PLACE_WORD:
 			//model.placeWord(i);
 			break;
+		case INVITE_GAME:
+			String[] users = (String[])object.getObject();
+			oppSocket = OnlineList.getInstance().getSocket(users[1]);
+			model.invitePlayer(users[0]);
+			break;
 		case START_GAME:
-			//model.startGame();
+			//data = model.startGame(users[0], users[1]);
 			break;
 		case QUIT_GAME:
 			model.quitGame(i);
@@ -119,7 +125,10 @@ public class WorkThread extends Thread implements ListListener{
 			break;
 		}
 		
-		if(data != null){
+		if(data != null && oppSocket != null){
+			sendToOpponent(oppSocket, data);
+		}
+		else if(data != null){
 			send(data);
 		}
 	}
@@ -128,6 +137,17 @@ public class WorkThread extends Thread implements ListListener{
 		try {
 			oos.writeUnshared(object);
 			oos.flush();
+		}
+		catch(IOException e){
+			ErrorHandler.report("Error sending from WorkThread :"+e.getMessage());
+		}
+	}
+	
+	public void sendToOpponent(Socket other, Object object){
+		try {
+			ObjectOutputStream o = new ObjectOutputStream(other.getOutputStream());
+			o.writeUnshared(object);
+			o.flush();
 		}
 		catch(IOException e){
 			ErrorHandler.report("Error sending from WorkThread :"+e.getMessage());
