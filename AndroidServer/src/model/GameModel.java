@@ -48,7 +48,7 @@ public class GameModel extends Logic implements IGame{
 			p1.setTurn(true);
 		}
 	}
-
+	
 	@Override
 	public void generateLetters(int i) {
 		List<Character> letters = new ArrayList<Character>();
