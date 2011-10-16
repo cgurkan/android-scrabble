@@ -43,10 +43,10 @@ public class LoginModel implements IModel{
 			out = new ObjectOutputStream(socket.getOutputStream());
 		}
 		catch(UnknownHostException e){
-			e.printStackTrace();
+			Log.d("alpha", "UHE", e);
 		}
 		catch(IOException e){
-			e.printStackTrace();
+			Log.d("alpha", "IOE", e);
 		}
 	}
 	
