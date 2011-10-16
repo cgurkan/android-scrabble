@@ -42,6 +42,12 @@ public class Model {
 	public ResponseObject signUp(String s3) {
 		return usermanager.signUp(s3);
 	}
+	
+	public ResponseObject update(int gameID){
+		GameModel gm = modelList.get(gameID);
+		GameDataObject obj = new GameDataObject(gm.getPlayer1(), gm.getPlayer2(), getTurn(gm), gm.getBoard(), gameID);
+		return new ResponseObject(SendableAction.UPDATE, obj);
+	}
 
 	public ResponseObject pass(int gameID) {
 		GameModel gm = modelList.get(gameID);
