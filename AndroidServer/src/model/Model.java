@@ -120,6 +120,6 @@ public class Model {
 	}
 
 	public ResponseObject invitePlayer(String host) {
-		return new ResponseObject(SendableAction.INVITE_GAME, host+" vill spela ett spel med dig.");
+		return new ResponseObject(SendableAction.INVITE_GAME, new String[]{host, host+" vill spela ett spel med dig."});
 	}
 }
