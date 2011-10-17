@@ -5,6 +5,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.HorizontalScrollView;
+import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.TableLayout;
 import android.widget.TableRow;
@@ -13,7 +14,10 @@ import android.app.Activity;
 import android.graphics.Color;
 
 public class GameBoardActivity extends Activity implements OnClickListener{
-
+	
+	private TextView playerOne, playerTwo;
+	private Button swapLetters, playWord, resignGame;
+	
 	   @Override
 	    public void onCreate(Bundle savedInstanceState) {
 	        super.onCreate(savedInstanceState);
@@ -25,15 +29,16 @@ public class GameBoardActivity extends Activity implements OnClickListener{
 	        TableLayout masterLayout = new TableLayout(this);
 	                
 	        //Adding the board to the main layout
-	        masterLayout.addView(createBoardGrid());
-	        masterLayout.addView(createCharGrid());
-	        masterLayout.addView(createPlayerGrid());
-	        masterLayout.addView(createButtonGrid());
+	        horScrollLayout.addView(createBoardGrid());
+	        horScrollLayout.addView(createCharGrid());
+	        horScrollLayout.addView(createPlayerGrid());
+	        horScrollLayout.addView(createButtonGrid());
 	        
-	        horScrollLayout.addView(masterLayout);
 	        mainScrollLayout.addView(horScrollLayout);
 	        
-	        super.setContentView(mainScrollLayout);
+	        masterLayout.addView(mainScrollLayout);
+	        
+	        super.setContentView(masterLayout);
 	        
 //	        super.setContentView(R.layout.gameboard2);
 	    }
@@ -86,9 +91,28 @@ public class GameBoardActivity extends Activity implements OnClickListener{
 	    	playerGrid.setLayoutParams(new TableLayout.LayoutParams(30, 30));
 	    	
 	    	playerGrid.setPadding(1,1,1,1);
+
+        	TableRow tr1 = new TableRow(this);
+        	TableRow tr2 = new TableRow(this);
+        	
+        	playerOne.setText("Play1");	//Need to get the playerName from somewhere
+    		playerOne.setTextSize(10.0f);
+    		playerOne.setTextColor(Color.rgb( 100, 200, 200));
+    		playerOne.setOnClickListener(this);
+    		tr1.addView(playerOne, 30,30);
+        	
+    		playerTwo.setText("Play2");	//Need to get the playerName from somewhere
+    		playerTwo.setTextSize(10.0f);
+    		playerTwo.setTextColor(Color.rgb( 100, 200, 200));
+    		playerTwo.setOnClickListener(this);
+    		tr2.addView(playerTwo, 30,30);
+    		
+    		playerGrid.addView(tr1);
+    		playerGrid.addView(tr2);
 	    	
-	    	for (int i = 0; i < 2; i++) {
-	        	TableRow tr = new TableRow(this);
+    		return playerGrid;
+    		/*
+    		for (int i = 0; i < 2; i++) {
 	        	for(int n = 0; i < 2; i++) {
 	        		TextView tw = new TextView(this);
 	        		tw.setText(""+i+n);
@@ -99,7 +123,7 @@ public class GameBoardActivity extends Activity implements OnClickListener{
 	        	}
 	        playerGrid.addView(tr);
 	        }
-	        return playerGrid;
+	        */
 	    }
 	    
 	    public TableLayout createButtonGrid() {
@@ -107,7 +131,29 @@ public class GameBoardActivity extends Activity implements OnClickListener{
 	        buttonGrid.setLayoutParams(new TableLayout.LayoutParams(30,30));
 		        
 	        buttonGrid.setPadding(1,1,1,1);
-
+	        
+	        TableRow tr = new TableRow(this);
+	        
+    		swapLetters.setText("Swap letters");
+    		swapLetters.setTextSize(10.0f);
+    		swapLetters.setTextColor(Color.rgb( 100, 200, 200));
+    		swapLetters.setOnClickListener(this);
+    		tr.addView(swapLetters, 30,30);
+    		
+    		playWord.setText("Play word");
+    		playWord.setTextSize(10.0f);
+    		playWord.setTextColor(Color.rgb( 100, 200, 200));
+    		playWord.setOnClickListener(this);
+    		tr.addView(playWord, 30,30);
+    		
+    		resignGame.setText("Resign");
+    		resignGame.setTextSize(10.0f);
+    		resignGame.setTextColor(Color.rgb( 100, 200, 200));
+    		resignGame.setOnClickListener(this);
+    		tr.addView(resignGame, 30,30);
+	        
+    		return buttonGrid;
+	        /*
 	        for (int i = 0; i < 1; i++) {
 	        	TableRow tr = new TableRow(this);
 	        	for(int n = 0; i < 3; i++) {
@@ -120,7 +166,7 @@ public class GameBoardActivity extends Activity implements OnClickListener{
 	        	}
 	        buttonGrid.addView(tr);
 	        }
-	        return buttonGrid;
+	        */
 	    }
 	    
 	    @Override
