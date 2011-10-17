@@ -39,7 +39,8 @@ public class MainMenuActivity extends Activity implements OnClickListener, OnMen
         setContentView(R.layout.main);
         
         ClientController c = new ClientController(getString(R.string.serverip));
-        //new ClientInput(c);
+        new ClientInput(c).start();
+        
         Button settings = (Button)(findViewById(R.id.settingsButton));
         settings.setOnClickListener(this);
         

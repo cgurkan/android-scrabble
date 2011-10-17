@@ -58,6 +58,7 @@ public class InvitationModel extends Thread implements IModel{
 					if(o.getClass().equals(ResponseObject.class)){
 						ResponseObject so = ((ResponseObject)(o));
 						String[] req = ((String[])so.getObject());
+						
 						showInvitationDialog(req[0], req[1]);
 					}
 	            }

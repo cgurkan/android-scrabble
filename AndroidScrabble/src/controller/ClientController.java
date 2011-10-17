@@ -10,6 +10,7 @@ import android.scrabble.LoginActivity;
 import android.scrabble.LogoutActivity;
 import android.util.Log;
 
+import util.ResponseObject;
 import util.SendObject;
 
 import network.ClientOutput;
@@ -42,7 +43,7 @@ public class ClientController implements Observer{
 		co = new ClientOutput(s);
 	}
 
-	public synchronized void redirect(SendObject so){
+	public synchronized void redirect(ResponseObject so){
 		switch(so.getAction()){
 			case LOGIN:
 				//TODO: do message and login

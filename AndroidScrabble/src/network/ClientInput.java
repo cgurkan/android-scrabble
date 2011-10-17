@@ -6,7 +6,7 @@ import java.io.StreamCorruptedException;
 
 import android.util.Log;
 
-import util.SendObject;
+import util.ResponseObject;
 import controller.ClientController;
 
 public class ClientInput extends Thread implements Runnable{
@@ -27,7 +27,7 @@ public class ClientInput extends Thread implements Runnable{
 	public void run(){
 		while(true){
 			try {
-				SendObject so = ((SendObject)(in.readUnshared()));
+				ResponseObject so = ((ResponseObject)(in.readUnshared()));
 				c.redirect(so);
 			}
 			catch (IOException e) {
