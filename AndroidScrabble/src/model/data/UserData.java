@@ -70,7 +70,7 @@ public class UserData {
 					e.printStackTrace();
 				}
 				socket = null;
-				invModel.dispose();
+				//invModel.dispose();
 				invModel = null;
 			}
 		}

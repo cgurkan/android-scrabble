@@ -90,15 +90,4 @@ public class GameListModel implements IModel{
 		
 		return data;
 	}
-	
-	@Override
-	public void dispose(){
-		try {
-			socket.close();
-		}
-		catch(IOException e){
-			Log.e("Socket close", e.getMessage());
-		}
-		socket = null;
-	}
 }

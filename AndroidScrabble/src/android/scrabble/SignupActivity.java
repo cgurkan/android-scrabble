@@ -1,5 +1,7 @@
 package android.scrabble;
 
+import java.util.Observable;
+import java.util.Observer;
 
 import model.SignupModel;
 import model.data.UserData;
@@ -13,7 +15,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
-public class SignupActivity extends Activity implements OnClickListener{
+public class SignupActivity extends Activity implements OnClickListener, Observer{
 	
 	private SignupModel model = null;
 	
@@ -25,7 +27,8 @@ public class SignupActivity extends Activity implements OnClickListener{
         String username = getIntent().getStringExtra("USERNAME");
         setTakenName(username, "not");
         
-        model = new SignupModel(getBaseContext());
+        model = new SignupModel();
+        model.addObserver(this);
     	
     	Button submit = (Button)(findViewById(R.id.submit));
     	submit.setOnClickListener(this);
@@ -39,8 +42,7 @@ public class SignupActivity extends Activity implements OnClickListener{
         	setTakenName(input.getText().toString(), "already");
         }
         else{
-        	int resCode = model.sendLoginRequest(input.getText().toString());
-        	evaluate(resCode);
+        	model.sendLoginRequest(input.getText().toString());
         }
     }
 	
@@ -74,7 +76,6 @@ public class SignupActivity extends Activity implements OnClickListener{
 		builder.setPositiveButton("OK", new DialogInterface.OnClickListener(){
 			@Override
 			public void onClick(DialogInterface arg0, int arg1){
-				model.dispose();
 				finish();
 			}
 		});
@@ -111,4 +112,9 @@ public class SignupActivity extends Activity implements OnClickListener{
         super.onDestroy();
         // The activity is about to be destroyed.
     }
+
+	@Override
+	public void update(Observable observable, Object data){
+    	evaluate((Integer)(data));
+	}
 }

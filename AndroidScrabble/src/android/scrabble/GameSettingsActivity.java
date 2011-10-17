@@ -1,6 +1,10 @@
 package android.scrabble;
 
+import java.util.Observable;
+import java.util.Observer;
+
 import util.ResponseObject;
+import util.SendableAction;
 
 import model.GameSettingsModel;
 
@@ -18,7 +22,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class GameSettingsActivity extends Activity implements OnClickListener{
+public class GameSettingsActivity extends Activity implements OnClickListener, Observer{
 	
 	private GameSettingsModel model = null;
 	
@@ -30,8 +34,10 @@ public class GameSettingsActivity extends Activity implements OnClickListener{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.game_settings);
         
-        model = new GameSettingsModel(getApplicationContext());
-        initDictionaries();
+        model = new GameSettingsModel();
+        model.addObserver(this);
+        
+        model.getDictionaries();
         
         Button search = ((Button)(findViewById(R.id.settings_search_submit)));
         search.setOnClickListener(this);
@@ -40,8 +46,7 @@ public class GameSettingsActivity extends Activity implements OnClickListener{
         start_game.setOnClickListener(this);
     }
     
-    public void initDictionaries(){
-    	ResponseObject dicObj = model.getDictionaries();
+    public void initDictionaries(ResponseObject dicObj){
     	String[] dics = ((String[])(dicObj.getObject()));
     	
     	Spinner spinner = ((Spinner)findViewById(R.id.settings_dictionary));
@@ -51,9 +56,7 @@ public class GameSettingsActivity extends Activity implements OnClickListener{
     	spinner.setAdapter(spinnerArrayAdapter);
     }
     
-    public void isOnline(String username){
-    	ResponseObject pplOnline = model.getPeopleOnline();
-    	String[] ppl = ((String[])pplOnline.getObject());
+    public void isOnline(String username, String[] ppl){
     	
     	boolean isOnline = false;
     	for(String s : ppl){
@@ -93,8 +96,7 @@ public class GameSettingsActivity extends Activity implements OnClickListener{
 	public void onClick(View view) {
 		switch(view.getId()){
 			case R.id.settings_search_submit:
-				TextView v = ((TextView)findViewById(R.id.settings_search_field));
-				isOnline(v.getText().toString());
+				model.getPeopleOnline();
 				break;
 			case R.id.settings_start_game:
 				if(opponent == null){
@@ -103,7 +105,7 @@ public class GameSettingsActivity extends Activity implements OnClickListener{
 				else{
 					model.sendInviteRequest(opponent);
 					debug("A game invitation has been sent to "+opponent);
-					model.dispose();
+					//model.dispose();
 					finish();
 				}
 				break;
@@ -148,4 +150,19 @@ public class GameSettingsActivity extends Activity implements OnClickListener{
     	Toast toast = Toast.makeText(context, text, duration);
     	toast.show();
     }
+
+	@Override
+	public void update(Observable observable, Object data) {
+
+		ResponseObject r = ((ResponseObject)data);
+        switch(r.getAction()){
+        	case GET_DICTIONARIES:
+        		initDictionaries(r);
+        		break;
+        	case PLAYERS_ONLINE:
+        		TextView v = ((TextView)findViewById(R.id.settings_search_field));
+        		isOnline(v.getText().toString(), ((String[])r.getObject()));
+        		break;
+        }
+	}
 }

@@ -1,5 +1,7 @@
 package android.scrabble;
 
+import java.util.Observable;
+import java.util.Observer;
 
 import model.LogoutModel;
 import model.data.UserData;
@@ -9,7 +11,7 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
 
-public class LogoutActivity extends Activity{
+public class LogoutActivity extends Activity implements Observer{
     
 	private LogoutModel model;
 	
@@ -19,19 +21,16 @@ public class LogoutActivity extends Activity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.logout);
         
-        model = new LogoutModel(getBaseContext());
+        model = new LogoutModel();
+        model.addObserver(this);
         
         String username = getIntent().getStringExtra("USERNAME");
         
         if(username == null){
-        	model.dispose();
         	finish();
         }
         else{
-        	String res = model.sendLogoutRequest(username);
-    		UserData.getInstance().setUsername("");
-    		showLoggedOutDialog(res);
-    		model.dispose();
+        	model.sendLogoutRequest(username);
         }
     }
 
@@ -77,4 +76,10 @@ public class LogoutActivity extends Activity{
         super.onDestroy();
         // The activity is about to be destroyed.
     }
+
+	@Override
+	public void update(Observable observable, Object data) {
+		UserData.getInstance().setUsername("");
+		showLoggedOutDialog(data.toString());
+	}
 }

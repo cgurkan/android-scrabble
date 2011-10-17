@@ -116,15 +116,4 @@ public class InvitationModel extends Thread implements IModel{
 		out.writeUnshared(so);
 		out.flush();
 	}
-	
-	@Override
-	public void dispose(){
-		try {
-			socket.close();
-		}
-		catch(IOException e){
-			Log.e("Socket close", e.getMessage());
-		}
-		socket = null;
-	}
 }

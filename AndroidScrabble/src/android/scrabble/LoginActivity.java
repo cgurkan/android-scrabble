@@ -1,5 +1,7 @@
 package android.scrabble;
 
+import java.util.Observable;
+import java.util.Observer;
 
 import model.LoginModel;
 import model.data.UserData;
@@ -16,7 +18,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-public class LoginActivity extends Activity implements OnClickListener{
+public class LoginActivity extends Activity implements OnClickListener, Observer{
     
 	private LoginModel model;
 	
@@ -26,7 +28,8 @@ public class LoginActivity extends Activity implements OnClickListener{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.login);
         
-        model = new LoginModel(getBaseContext());
+        model = new LoginModel();
+        model.addObserver(this);
         
         Button submit = (Button)(findViewById(R.id.submit));
         submit.setOnClickListener(this);
@@ -35,8 +38,7 @@ public class LoginActivity extends Activity implements OnClickListener{
     @Override
 	public void onClick(View v){
         EditText input = (EditText)(findViewById(R.id.username));
-        int resCode = model.sendLoginRequest(input.getText().toString());
-        evaluate(resCode);
+        model.sendLoginRequest(input.getText().toString());
 	}
 		
 	public void evaluate(int responseCode){
@@ -49,7 +51,7 @@ public class LoginActivity extends Activity implements OnClickListener{
     		intent.putExtra("USERNAME", uName);
     		
     		startActivity(intent);
-    		model.dispose();
+    		//model.dispose();
     		finish();
     	}
     	else if(responseCode == LoginModel.LOGIN_NOT_OK){
@@ -58,7 +60,7 @@ public class LoginActivity extends Activity implements OnClickListener{
     	else if(responseCode == LoginModel.LOGIN_OK){
     		UserData.getInstance().setUsername(uName);
     		showMessage("You are now logged in!");
-    		model.dispose();
+    		//model.dispose();
     		finish();
     	}
     	else{
@@ -130,4 +132,9 @@ public class LoginActivity extends Activity implements OnClickListener{
         super.onDestroy();
         // The activity is about to be destroyed.
     }
+
+	@Override
+	public void update(Observable observable, Object data) {
+        evaluate(((Integer)data));
+	}
 }

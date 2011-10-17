@@ -41,12 +41,12 @@ public class ClientController extends Observable{
 		co = new ClientOutput(s);
 	}
 
-	public static ClientController getInstance(String ip) {
+	public static ClientController getInstance(String ip){
 		if(controller == null){
 			controller = new ClientController(ip);
 		}
 		return controller;
-	} 
+	}
 	
 	public void redirect(ResponseObject so){
 		setChanged();

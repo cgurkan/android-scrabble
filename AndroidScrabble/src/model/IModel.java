@@ -4,5 +4,5 @@ public interface IModel {
 	/**
 	 * Dispose resources
 	 */
-	public void dispose();
+	//public void dispose();
 }
