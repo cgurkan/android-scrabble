@@ -68,8 +68,8 @@ public class LoginActivity extends Activity implements OnClickListener, Observer
     				showMessage("You are now logged in!");
     			}
     		});
-    		//model.dispose();
-    		finish();
+		    //model.dispose();
+		    finish();
     	}
     	else{
     		// TODO: take care of errors
