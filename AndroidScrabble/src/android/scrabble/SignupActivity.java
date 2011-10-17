@@ -63,7 +63,11 @@ public class SignupActivity extends Activity implements OnClickListener, Observe
             
         	UserData.getInstance().setUsername(uName);
     		
-        	showSignedUpDialog("You are now signed up! Welcome!");
+        	SignupActivity.this.runOnUiThread(new Runnable() {
+    			public void run(){
+    				showSignedUpDialog("You are now signed up! Welcome!");
+    			}
+    		});
         }
         else{
         	//TODO: Take care of error

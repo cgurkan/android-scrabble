@@ -55,11 +55,19 @@ public class LoginActivity extends Activity implements OnClickListener, Observer
     		finish();
     	}
     	else if(responseCode == LoginModel.LOGIN_NOT_OK){
-    		showLogOutDialog("There was an error logging in. If you are logged in on another device, please logout there first.");
+    		LoginActivity.this.runOnUiThread(new Runnable() {
+    			public void run(){
+    				showLogOutDialog("There was an error logging in. If you are logged in on another device, please logout there first.");
+    			}
+    		});
     	}
     	else if(responseCode == LoginModel.LOGIN_OK){
     		UserData.getInstance().setUsername(uName);
-    		showMessage("You are now logged in!");
+    		LoginActivity.this.runOnUiThread(new Runnable() {
+    			public void run(){
+    				showMessage("You are now logged in!");
+    			}
+    		});
     		//model.dispose();
     		finish();
     	}

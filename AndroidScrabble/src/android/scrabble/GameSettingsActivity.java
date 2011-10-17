@@ -4,7 +4,6 @@ import java.util.Observable;
 import java.util.Observer;
 
 import util.ResponseObject;
-import util.SendableAction;
 
 import model.GameSettingsModel;
 
@@ -104,7 +103,11 @@ public class GameSettingsActivity extends Activity implements OnClickListener, O
 				}
 				else{
 					model.sendInviteRequest(opponent);
-					debug("A game invitation has been sent to "+opponent);
+					GameSettingsActivity.this.runOnUiThread(new Runnable() {
+		    			public void run(){
+		    				debug("A game invitation has been sent to "+opponent);
+		    			}
+		    		});
 					//model.dispose();
 					finish();
 				}

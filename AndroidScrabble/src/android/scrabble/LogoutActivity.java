@@ -78,8 +78,12 @@ public class LogoutActivity extends Activity implements Observer{
     }
 
 	@Override
-	public void update(Observable observable, Object data) {
+	public void update(Observable observable, final Object data) {
 		UserData.getInstance().setUsername("");
-		showLoggedOutDialog(data.toString());
+		LogoutActivity.this.runOnUiThread(new Runnable() {
+			public void run(){
+				showLoggedOutDialog(data.toString());
+			}
+		});
 	}
 }

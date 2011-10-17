@@ -23,7 +23,8 @@ public class ClientOutput{
 	
 	public void send(SendObject so){
 		try {
-			out.writeObject(so);
+			out.writeUnshared(so);
+			out.flush();
 		} catch (IOException e) {
 			Log.d("alpha", "IOE", e);
 		}

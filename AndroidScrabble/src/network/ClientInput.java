@@ -11,10 +11,11 @@ import controller.ClientController;
 
 public class ClientInput extends Thread implements Runnable{
 
-	ClientController c = null;
-	ObjectInputStream in = null;
+	private ClientController c = null;
+	private ObjectInputStream in = null;
 	
 	public ClientInput(ClientController c) {
+		this.c = c;
 		try {
 			in = new ObjectInputStream(c.getSocket().getInputStream());
 		} catch (StreamCorruptedException e) {
@@ -25,16 +26,22 @@ public class ClientInput extends Thread implements Runnable{
 	}
 	
 	public void run(){
+		Object o = null;
 		while(true){
-			try {
-				ResponseObject so = ((ResponseObject)(in.readUnshared()));
-				c.redirect(so);
-			}
-			catch (IOException e) {
-				Log.d("alpha", "IOE", e);
-			} catch (ClassNotFoundException e) {
-				Log.d("alpha", "Class not found", e);
-			}
-		}
+	        try{
+	            while((o = in.readUnshared()) != null){
+					if(o.getClass().equals(ResponseObject.class)){
+						c.redirect(((ResponseObject)o));
+					}
+	            }
+	        }
+	        catch(ClassNotFoundException e){
+	        	e.printStackTrace();
+	        }
+	        catch (IOException e){
+	        	//	We arrive here when the socket is closed.
+	            break;
+	        }
+	    }
 	}
 }

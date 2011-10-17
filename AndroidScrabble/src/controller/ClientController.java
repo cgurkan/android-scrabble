@@ -58,6 +58,7 @@ public class ClientController extends Observable{
 	}
 	
 	public void send(SendObject o){
+		Log.d("send", "try");
 		co.send(o);
 	}
 }
