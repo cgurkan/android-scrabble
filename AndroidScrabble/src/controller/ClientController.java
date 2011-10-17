@@ -1,11 +1,14 @@
 package controller;
 
+import java.io.IOException;
 import java.net.Socket;
+import java.net.UnknownHostException;
 import java.util.Observable;
 import java.util.Observer;
 
 import android.scrabble.LoginActivity;
 import android.scrabble.LogoutActivity;
+import android.util.Log;
 
 import util.SendObject;
 
@@ -24,9 +27,18 @@ public class ClientController implements Observer{
 
 	private ClientOutput co = null;
 	private Socket s = null;
+	private int port = 7896;
 	
-	public ClientController(){
-		s = new Socket();
+	public ClientController(String serverip){
+		try {
+			s = new Socket(serverip, port);
+		}
+		catch(UnknownHostException e){
+			Log.e("socket e", e.getMessage());
+		}
+		catch(IOException e){
+			Log.e("socket e", e.getMessage());
+		}
 		co = new ClientOutput(s);
 	}
 
