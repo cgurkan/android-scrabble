@@ -5,9 +5,13 @@ import java.sql.SQLException;
 
 import model.Database;
 import model.GameModel;
+import model.data.Board;
 
 import org.junit.Before;
 import org.junit.Test;
+
+import util.WordObject;
+import util.WordObject.Direction;
 
 
 public class GameModelTest {
@@ -78,7 +82,20 @@ public class GameModelTest {
 		return result;
 	}
 	
-	
+	@Test
+	public void testReceivePoints(){
+		int points1 = gm.getPlayer1().getPoints();
+		int points2 = gm.getPlayer2().getPoints();
+		
+		gm.receivePoints("Hej");
+		
+		if(gm.getPlayer1().isTurn()){
+			assertFalse(points1 == gm.getPlayer1().getPoints());
+		}
+		else{
+			assertFalse(points2 == gm.getPlayer2().getPoints());
+		}
+	}
 	
 	@Test
 	public void testChangeTurn() {
@@ -88,5 +105,28 @@ public class GameModelTest {
 		gm.changeTurn();
 		changedTurn = true;
 		assertTrue(changedTurn == gm.getPlayer1().isTurn());
+	}
+	
+	@Test
+	public void testPass(){
+		gm.setPass(2);
+		int pass = 2;
+		
+		gm.pass();
+		assertTrue(pass+1 == gm.getPass());
+	}
+	
+	@Test
+	public void testPlaceWord(){
+		WordObject w = new WordObject("Hej", 0, 2, Direction.VERTICAL);
+		Board b = null;
+		boolean result = false;
+		
+		gm.placeWord(w);
+		b = gm.getBoard();
+		if(b.getCharAt(0, 2) == 'H' && b.getCharAt(0, 3) == 'e' && b.getCharAt(0, 4) == 'j'){
+			result = true;
+		}
+		assertTrue(result);
 	}
 }
