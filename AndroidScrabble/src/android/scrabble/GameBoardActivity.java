@@ -4,6 +4,8 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
+import android.widget.HorizontalScrollView;
+import android.widget.ScrollView;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
@@ -15,21 +17,31 @@ public class GameBoardActivity extends Activity implements OnClickListener{
 	   @Override
 	    public void onCreate(Bundle savedInstanceState) {
 	        super.onCreate(savedInstanceState);
-	        /*
+	       
+	        ScrollView mainScrollLayout = new ScrollView(this);
+	        
+	        HorizontalScrollView horScrollLayout = new HorizontalScrollView(this);
+	        
 	        TableLayout masterLayout = new TableLayout(this);
 	                
 	        //Adding the board to the main layout
 	        masterLayout.addView(createBoardGrid());
 	        masterLayout.addView(createCharGrid());
 	        masterLayout.addView(createPlayerGrid());
-	        masterLayout.addView(createButtonGrid());*/
+	        masterLayout.addView(createButtonGrid());
 	        
-	        super.setContentView(R.layout.gameboard2);
+	        horScrollLayout.addView(masterLayout);
+	        mainScrollLayout.addView(horScrollLayout);
+	        
+	        super.setContentView(mainScrollLayout);
+	        
+//	        super.setContentView(R.layout.gameboard2);
 	    }
 	   
 	    public TableLayout createBoardGrid() {
 	        TableLayout boardGrid = new TableLayout(this);
-	        boardGrid.setLayoutParams(new TableLayout.LayoutParams(15, 15));
+
+	        boardGrid.setLayoutParams(new TableLayout.LayoutParams());
 	        
 	        boardGrid.setPadding(1, 1, 1, 1);
 	        
@@ -50,7 +62,7 @@ public class GameBoardActivity extends Activity implements OnClickListener{
 	    
 	    public TableLayout createCharGrid() {
 	    	TableLayout charGrid = new TableLayout(this);
-	        charGrid.setLayoutParams(new TableLayout.LayoutParams(1,8));
+	        charGrid.setLayoutParams(new TableLayout.LayoutParams(30,30));
 		        
 	        charGrid.setPadding(1,1,1,1);
 
@@ -71,7 +83,7 @@ public class GameBoardActivity extends Activity implements OnClickListener{
 	    
 	    public TableLayout createPlayerGrid() {
 	    	TableLayout playerGrid = new TableLayout(this);
-	    	playerGrid.setLayoutParams(new TableLayout.LayoutParams(2, 2));
+	    	playerGrid.setLayoutParams(new TableLayout.LayoutParams(30, 30));
 	    	
 	    	playerGrid.setPadding(1,1,1,1);
 	    	
@@ -92,7 +104,7 @@ public class GameBoardActivity extends Activity implements OnClickListener{
 	    
 	    public TableLayout createButtonGrid() {
 	    	TableLayout buttonGrid = new TableLayout(this);
-	        buttonGrid.setLayoutParams(new TableLayout.LayoutParams(1,8));
+	        buttonGrid.setLayoutParams(new TableLayout.LayoutParams(30,30));
 		        
 	        buttonGrid.setPadding(1,1,1,1);
 
