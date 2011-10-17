@@ -15,7 +15,6 @@ import controller.ClientController;
  * When a phone sends a request to the server it takes care of it and redirects
  * to the correct model.
  * 
- * @author random dude
  */
 public class ClientThread extends Thread implements Runnable{
 

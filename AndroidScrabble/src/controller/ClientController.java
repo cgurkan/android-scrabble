@@ -21,7 +21,7 @@ import network.ClientThread;
  */
 public class ClientController implements Observer{
 
-	private ClientThread thread = null;	//	The Thread that waits for output
+	private ClientThread thread = null;	//	The Thread that waits for input
 	
 	//TODO: maybe weird here?
 	public ClientController(ClientController c, Socket s){
@@ -41,6 +41,28 @@ public class ClientController implements Observer{
 				break;
 			case SIGN_UP:
 				//TODO: do message and login(?) 
+				break;
+			case MESSAGE:
+				break;
+			case PLAYERS_ONLINE:
+				break;
+			case PLACE_WORD:
+				break;
+			case START_GAME:
+				break;
+			case QUIT_GAME:
+				break;
+			case PASS:
+				break;
+			case SWAP:
+				break;
+			case GET_DICTIONARIES:
+				break;
+			case OPPONENT_DATA:
+				break;
+			case MAIN_THREAD:
+				break;
+			case INVITE_GAME:
 				break;
 			default:
 				break;

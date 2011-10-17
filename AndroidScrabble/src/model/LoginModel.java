@@ -19,7 +19,7 @@ public class LoginModel implements IModel{
 	
 	private Context context = null;
 	private Socket socket = null;
-	private ObjectInputStream is = null;
+	private ObjectInputStream in = null;
 	private ObjectOutputStream out = null;
 	
 	public static final int LOGIN_SIGN_UP = -1;
@@ -39,7 +39,7 @@ public class LoginModel implements IModel{
 		try {
 			socket = new Socket(context.getString(R.string.serverip), 7896);
 			
-			is = new ObjectInputStream(socket.getInputStream());
+			in = new ObjectInputStream(socket.getInputStream());
 			out = new ObjectOutputStream(socket.getOutputStream());
 		}
 		catch(UnknownHostException e){
@@ -82,7 +82,7 @@ public class LoginModel implements IModel{
 		ResponseObject data = null;
 		try {
 			do{	//	wait until the data is read. must take less than socket.getSoTimeout() secs.
-				data = (ResponseObject)is.readUnshared();
+				data = (ResponseObject)in.readUnshared();
 			}while(data == null);
 		}
 		catch(ClassNotFoundException e){
