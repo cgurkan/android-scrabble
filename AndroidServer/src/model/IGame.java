@@ -21,17 +21,15 @@ public interface IGame {
 	
 	public Player receivePoints(String s);
 	
-	public void generateLetters(int i);
+	public boolean generateLetters(int i);
 	
 	public void addLettersToPlayer(ResultSet set, List<Character> letters);
-	
-	public List<Player> endGame();
 	
 	public void changeTurn();
 	
 	public boolean pass();
 	
-	public void placeWord(WordObject word);
+	public boolean placeWord(WordObject word);
 	
 	public Player getPlayer1();
 	
@@ -40,4 +38,8 @@ public interface IGame {
 	public void setLettersLeft(int i);
 	
 	public int getLettersLeft();
+	
+	public int getPass();
+	
+	public void setPass(int i);
 }

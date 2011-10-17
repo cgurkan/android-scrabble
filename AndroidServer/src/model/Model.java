@@ -51,14 +51,17 @@ public class Model {
 
 	public ResponseObject pass(int gameID) {
 		GameModel gm = modelList.get(gameID);
-		gm.pass();
-		GameDataObject obj = new GameDataObject(null, null, getTurn(gm), null, gameID);
-		return new ResponseObject(SendableAction.PASS, obj);
+		if(gm.pass()){
+			GameDataObject obj = new GameDataObject(null, null, getTurn(gm), null, gameID);
+			return new ResponseObject(SendableAction.PASS, obj);
+		}
+		else{
+			return quitGame(gameID);
+		}
 	}
 
 	public ResponseObject quitGame(int gameID) {
 		GameModel gm = modelList.get(gameID);
-		gm.endGame();
 		GameDataObject obj = new GameDataObject(gm.getPlayer1(), gm.getPlayer2(), getTurn(gm), gm.getBoard(), gameID);
 		return new ResponseObject(SendableAction.QUIT_GAME, obj);
 	}
@@ -66,21 +69,29 @@ public class Model {
 	public ResponseObject placeWord(int gameID, WordObject wo) {
 		GameModel gm = modelList.get(gameID);
 		if(gameLogic.checkWord(wo)){
-			gm.placeWord(wo);
-			GameDataObject obj = new GameDataObject(gm.getPlayer1(), gm.getPlayer2(), getTurn(gm), gm.getBoard(), gameID);
-			return new ResponseObject(SendableAction.PLACE_WORD, obj);
+			if(gm.placeWord(wo)){
+				GameDataObject obj = new GameDataObject(gm.getPlayer1(), gm.getPlayer2(), getTurn(gm), gm.getBoard(), gameID);
+				return new ResponseObject(SendableAction.PLACE_WORD, obj);
+			}
+			else{
+				return quitGame(gameID);
+			}
 		}
 		else{
-			GameDataObject obj = null;
-			return new ResponseObject(SendableAction.PLACE_WORD, obj);
+			return new ResponseObject(SendableAction.PLACE_WORD, null);
 		}
 	}
 
 	public ResponseObject swap(int gameID, int i) {
 		GameModel gm = modelList.get(gameID);
-		gm.generateLetters(i);
-		GameDataObject obj = new GameDataObject(gm.getPlayer1(), gm.getPlayer2(), getTurn(gm), gm.getBoard(), gameID);
-		return new ResponseObject(SendableAction.SWAP, obj);
+		if(gm.getLettersLeft() == 0){
+			return new ResponseObject(SendableAction.SWAP, null);
+		}
+		else{
+			gm.generateLetters(i);
+			GameDataObject obj = new GameDataObject(gm.getPlayer1(), gm.getPlayer2(), getTurn(gm), gm.getBoard(), gameID);
+			return new ResponseObject(SendableAction.SWAP, obj);
+		}
 	}
 
 	public ResponseObject startGame(String name1, String name2) {

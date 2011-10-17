@@ -34,4 +34,8 @@ public class Board {
 	public char[][] getBoard() {
 		return board;
 	}
+	
+	public char getCharAt(int x, int y){
+		return board[x][y];
+	}
 }

@@ -49,7 +49,7 @@ public class GameModel extends Logic implements IGame{
 	}
 	
 	@Override
-	public void generateLetters(int i) {
+	public boolean generateLetters(int i) {
 		List<Character> letters = new ArrayList<Character>();
 		ResultSet set = null;
 		
@@ -75,7 +75,11 @@ public class GameModel extends Logic implements IGame{
 		}
 		else{
 			if(p1.getNrLetters() == 0 || p2.getNrLetters() == 0 || p1.getNrLetters()-i == 0 || p2.getNrLetters()-1 == 0){
-				endGame();
+				p1.setNrLetters(0);
+				p2.setNrLetters(0);
+				p1.setLetters(null);
+				p2.setLetters(null);
+				return false;
 			}
 			else{
 				if(p1.isTurn()){
@@ -87,6 +91,7 @@ public class GameModel extends Logic implements IGame{
 			}
 		}
 		addLettersToPlayer(set, letters);
+		return true;
 	}
 	
 	@Override
@@ -134,9 +139,8 @@ public class GameModel extends Logic implements IGame{
 	
 	@Override
 	public boolean pass(){
-		pass++;
-		if(pass == 4){
-			endGame();
+		setPass(getPass()+1);
+		if(getPass() == 4){
 			return false;
 		}
 		else{
@@ -146,17 +150,7 @@ public class GameModel extends Logic implements IGame{
 	}
 	
 	@Override
-	public List<Player> endGame(){
-		List<Player> p = new ArrayList<Player>();
-		
-		p.add(p1);
-		p.add(p2);
-		
-		return p;
-	}
-	
-	@Override
-	public void placeWord(WordObject word) {
+	public boolean placeWord(WordObject word) {
 		String w = word.getWord();
 		int size = w.length();
 		int iterator = 0;
@@ -178,8 +172,11 @@ public class GameModel extends Logic implements IGame{
 			}
 		}
 		receivePoints(w);
-		generateLetters(size);
-		changeTurn();
+		boolean b = generateLetters(size);
+		if(b){
+			changeTurn();
+		}
+		return b;
 	}
 	
 	@Override
@@ -200,5 +197,15 @@ public class GameModel extends Logic implements IGame{
 	@Override
 	public int getLettersLeft() {
 		return lettersLeft;
+	}
+
+	@Override
+	public int getPass() {
+		return pass;
+	}
+
+	@Override
+	public void setPass(int i) {
+		pass = i;
 	}
 }
