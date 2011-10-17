@@ -115,7 +115,6 @@ public class LoginModel implements IModel{
 				return (i-1);
 			}
 		}
-		
 		return (LOGIN_OK+1);	//error
 	}
 	
