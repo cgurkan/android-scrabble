@@ -3,7 +3,8 @@ package model;
 import java.util.HashMap;
 import java.util.List;
 
-import util.GameDataObject;
+import model.data.GameDataObject;
+
 import util.OnlineList;
 import util.OpponentData;
 import util.ResponseObject;

@@ -1,6 +1,6 @@
-package util;
+package model.data;
 
-import model.data.Board;
+import util.Player;
 
 public class GameDataObject {
 	
