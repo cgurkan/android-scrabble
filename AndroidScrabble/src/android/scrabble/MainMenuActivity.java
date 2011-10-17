@@ -30,6 +30,7 @@ import android.widget.Toast;
 
 public class MainMenuActivity extends Activity implements OnClickListener, OnMenuItemClickListener{
 	
+	private ClientController controller = null;
 	private boolean gamesListLoaded = false;
 	
 	/** Called when the activity is first created. */
@@ -38,8 +39,8 @@ public class MainMenuActivity extends Activity implements OnClickListener, OnMen
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
         
-        ClientController c = new ClientController(getString(R.string.serverip));
-        new ClientInput(c).start();
+        ClientController controller = new ClientController(getString(R.string.serverip));
+        new ClientInput(controller).start();
         
         Button settings = (Button)(findViewById(R.id.settingsButton));
         settings.setOnClickListener(this);

@@ -3,11 +3,7 @@ package controller;
 import java.io.IOException;
 import java.net.Socket;
 import java.net.UnknownHostException;
-import java.util.Observable;
-import java.util.Observer;
 
-import android.scrabble.LoginActivity;
-import android.scrabble.LogoutActivity;
 import android.util.Log;
 
 import util.ResponseObject;
@@ -24,7 +20,7 @@ import network.ClientOutput;
  * listens to the models that it uses.
  * 
  */
-public class ClientController implements Observer{
+public class ClientController{
 
 	private ClientOutput co = null;
 	private Socket s = null;
@@ -88,10 +84,7 @@ public class ClientController implements Observer{
 		return s;
 	}
 	
-	/**
-	 * Send back data to phone here.
-	 */
-	public synchronized void update(Observable obs, Object obj) {
-		System.out.println("Client retrieved "+obj.toString()+" from "+obs.toString());
+	public void send(SendObject o){
+		co.send(o);
 	}
 }
