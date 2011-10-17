@@ -36,8 +36,8 @@ public class MainMenuActivity extends Activity implements OnClickListener, OnMen
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        ClientController c = new ClientController();
-        new ClientInput(c);
+       // ClientController c = new ClientController();
+        //new ClientInput(c);
         
         setContentView(R.layout.main);
         
