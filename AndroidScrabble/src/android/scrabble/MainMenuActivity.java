@@ -3,6 +3,10 @@ package android.scrabble;
 import java.util.ArrayList;
 import java.util.Collections;
 
+import network.ClientInput;
+
+import controller.ClientController;
+
 import model.GameListModel;
 import model.data.UserData;
 
@@ -32,6 +36,9 @@ public class MainMenuActivity extends Activity implements OnClickListener, OnMen
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        ClientController c = new ClientController();
+        new ClientInput(c);
+        
         setContentView(R.layout.main);
         
         Button settings = (Button)(findViewById(R.id.settingsButton));

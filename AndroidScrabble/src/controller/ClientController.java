@@ -4,10 +4,12 @@ import java.net.Socket;
 import java.util.Observable;
 import java.util.Observer;
 
+import android.scrabble.LoginActivity;
+import android.scrabble.LogoutActivity;
+
 import util.SendObject;
 
-import network.ClientThread;
-//TODO: need library
+import network.ClientOutput;
 
 /**
  * Class that represents a "Server".
@@ -17,15 +19,15 @@ import network.ClientThread;
  * and take care of all info. The ServerController also makes sure that the server
  * listens to the models that it uses.
  * 
- * @author Magnus
  */
 public class ClientController implements Observer{
 
-	private ClientThread thread = null;	//	The Thread that waits for input
+	private ClientOutput co = null;
+	private Socket s = null;
 	
-	//TODO: maybe weird here?
-	public ClientController(ClientController c, Socket s){
-		thread = new ClientThread(c,s);
+	public ClientController(){
+		s = new Socket();
+		co = new ClientOutput(s);
 	}
 
 	public synchronized void redirect(SendObject so){
@@ -67,6 +69,10 @@ public class ClientController implements Observer{
 			default:
 				break;
 		}
+	}
+	
+	public Socket getSocket(){
+		return s;
 	}
 	
 	/**
