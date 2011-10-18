@@ -14,7 +14,6 @@ import java.util.Enumeration;
 /**
  * Utils that are used by the Server.
  * 
- * @author Magnus
  */
 public class ServerUtils {
 	
