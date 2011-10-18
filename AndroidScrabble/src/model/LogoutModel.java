@@ -28,7 +28,7 @@ public class LogoutModel extends Observable implements IModel, Observer{
 
 	@Override
 	public void update(Observable observable, Object data) {
-		cc.deleteObserver(this);
+		//cc.deleteObserver(this);
 		String s = ((ResponseObject)data).getObject().toString();
 		
 		setChanged();

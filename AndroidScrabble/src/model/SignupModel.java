@@ -52,7 +52,7 @@ public class SignupModel extends Observable implements IModel, Observer{
 
 	@Override
 	public void update(Observable observable, Object data) {
-		cc.deleteObserver(this);
+		//cc.deleteObserver(this);
 		ResponseObject r = ((ResponseObject)data);
 		Integer i = evaluate(r, uname);
 		
