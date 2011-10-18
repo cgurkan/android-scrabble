@@ -15,7 +15,7 @@ import android.graphics.Color;
 
 public class GameBoardActivity extends Activity implements OnClickListener{
 	
-	private TextView playerOne, playerTwo;
+	private TextView playerOne, playerTwo, playerOnePoints, playerTwoPoints; 
 	private Button swapLetters, playWord, resignGame;
 	
 	   @Override
@@ -50,11 +50,21 @@ public class GameBoardActivity extends Activity implements OnClickListener{
 	        
 	        boardGrid.setPadding(1, 1, 1, 1);
 	        
-	        for (int i = 0; i < 15; i++) {
+	        int xx;
+   		 	int yy;
+	        
+   		 	for (int i = 0; i < 15; i++) {
 	        	TableRow tr = new TableRow(this);
 	        	for (int n = 0; n <15; n++) {
 	        		 Button b = new Button(this);
-	                 b.setText(""+i+n);
+	                 
+	        		 //These if-statements should be used to give a correct id to each button, does not work now
+	        		 if (i < 10)
+	        			 yy = 0;
+	        		 if (n < 10)
+	        			 xx = 0;
+	        		 
+	        		 b.setText(""+i+n);
 	                 b.setTextSize(10.0f);
 	                 b.setTextColor(Color.rgb(100, 200, 200));
 	                 b.setOnClickListener(this);
@@ -73,9 +83,10 @@ public class GameBoardActivity extends Activity implements OnClickListener{
 
 	        for (int i = 0; i < 1; i++) {
 	        	TableRow tr = new TableRow(this);
-	        	for(int n = 0; i < 8; i++) {
+	        	for(int n = 0; n < 7; n++) {
 	        		Button b = new Button (this);
-	        		b.setText(""+i+n);
+	        		b.setId(n);
+	        		b.setText(""+i+n); //Need to set the character here
 	        		b.setTextSize(10.0f);
 	        		b.setTextColor(Color.rgb( 100, 200, 200));
 	        		b.setOnClickListener(this);
@@ -98,14 +109,22 @@ public class GameBoardActivity extends Activity implements OnClickListener{
         	playerOne.setText("Play1");	//Need to get the playerName from somewhere
     		playerOne.setTextSize(10.0f);
     		playerOne.setTextColor(Color.rgb( 100, 200, 200));
-    		playerOne.setOnClickListener(this);
     		tr1.addView(playerOne, 30,30);
-        	
+    		
+    		playerOnePoints.setText("PlayerOnePoints");	//Need to get the playerOnePoints from somewhere
+    		playerOnePoints.setTextSize(10.0f);
+    		playerOnePoints.setTextColor(Color.rgb( 100, 200, 200));
+    		tr1.addView(playerOnePoints, 30,30);
+    		
     		playerTwo.setText("Play2");	//Need to get the playerName from somewhere
     		playerTwo.setTextSize(10.0f);
     		playerTwo.setTextColor(Color.rgb( 100, 200, 200));
-    		playerTwo.setOnClickListener(this);
     		tr2.addView(playerTwo, 30,30);
+    		
+        	playerTwoPoints.setText("PlayerTwoPoints");	//Need to get the playerTwoPoints from somewhere
+    		playerTwoPoints.setTextSize(10.0f);
+    		playerTwoPoints.setTextColor(Color.rgb( 100, 200, 200));
+    		tr2.addView(playerTwoPoints, 30,30);
     		
     		playerGrid.addView(tr1);
     		playerGrid.addView(tr2);

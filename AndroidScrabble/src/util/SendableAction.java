@@ -24,5 +24,7 @@ public enum SendableAction implements Serializable{
 	GET_DICTIONARIES,
 	OPPONENT_DATA,
 	MAIN_THREAD,
-	INVITE_GAME
+	INVITE_GAME,
+	GET_PLAYER_ONE_NAME,
+	GET_PLAYER_TWO_NAME
 }
