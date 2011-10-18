@@ -15,7 +15,7 @@ import android.graphics.Color;
 public class GameBoardActivity extends Activity implements OnClickListener{
 	
 	private TextView playerOne, playerTwo, playerOnePoints, playerTwoPoints; 
-	private Button swapLetters, playWord, resignGame;
+	private Button swapLetters, playWord, resignGame, pass, shuffle;
 	
 	   @Override
 	    public void onCreate(Bundle savedInstanceState) {
@@ -29,6 +29,8 @@ public class GameBoardActivity extends Activity implements OnClickListener{
 	        swapLetters = new Button(this);
 	        playWord = new Button(this);
 	        resignGame = new Button(this);
+	        pass = new Button(this);
+	        shuffle = new Button(this);
 	       
 	        ScrollView mainScrollLayout = new ScrollView(this);
 	        
@@ -74,7 +76,7 @@ public class GameBoardActivity extends Activity implements OnClickListener{
 	        		 
 	        		 b.setText(""+i+n);
 	                 b.setTextSize(10.0f);
-	                 b.setTextColor(Color.rgb(100, 200, 200));
+	                 b.setTextColor(Color.rgb(0, 0, 0));
 	                 b.setOnClickListener(this);
 	                 tr.addView(b, 30, 30);
 	        	}
@@ -98,7 +100,7 @@ public class GameBoardActivity extends Activity implements OnClickListener{
 	        		
 	        		b.setText(""+i+n); //Need to set the character here
 	        		b.setTextSize(10.0f);
-	        		b.setTextColor(Color.rgb( 100, 200, 200));
+	        		b.setTextColor(Color.rgb(0, 0, 0));
 	        		b.setOnClickListener(this);
 	        		tr.addView(b, 30,30);
 	        	}
@@ -116,25 +118,25 @@ public class GameBoardActivity extends Activity implements OnClickListener{
         	TableRow tr1 = new TableRow(this);
         	TableRow tr2 = new TableRow(this);
         	
-        	playerOne.setText("Play1");	//Need to get the playerName from somewhere
+        	playerOne.setText("Player1");	//Need to get the playerName from somewhere
     		playerOne.setTextSize(10.0f);
-    		playerOne.setTextColor(Color.rgb( 100, 200, 200));
-    		tr1.addView(playerOne, 30,30);
+    		playerOne.setTextColor(Color.rgb(255, 255, 255));
+    		tr1.addView(playerOne);
     		
-    		playerOnePoints.setText("PlayerOnePoints");	//Need to get the playerOnePoints from somewhere
+    		playerOnePoints.setText(" 0");	//Need to get the playerOnePoints from somewhere
     		playerOnePoints.setTextSize(10.0f);
-    		playerOnePoints.setTextColor(Color.rgb( 100, 200, 200));
-    		tr1.addView(playerOnePoints, 30,30);
+    		playerOnePoints.setTextColor(Color.rgb(255, 255, 255));
+    		tr1.addView(playerOnePoints);
     		
-    		playerTwo.setText("Play2");	//Need to get the playerName from somewhere
+    		playerTwo.setText("Player2");	//Need to get the playerName from somewhere
     		playerTwo.setTextSize(10.0f);
-    		playerTwo.setTextColor(Color.rgb( 100, 200, 200));
-    		tr2.addView(playerTwo, 30,30);
+    		playerTwo.setTextColor(Color.rgb(255, 255, 255));
+    		tr2.addView(playerTwo);
     		
-        	playerTwoPoints.setText("PlayerTwoPoints");	//Need to get the playerTwoPoints from somewhere
+        	playerTwoPoints.setText(" 0");	//Need to get the playerTwoPoints from somewhere
     		playerTwoPoints.setTextSize(10.0f);
-    		playerTwoPoints.setTextColor(Color.rgb( 100, 200, 200));
-    		tr2.addView(playerTwoPoints, 30,30);
+    		playerTwoPoints.setTextColor(Color.rgb(255, 255, 255));
+    		tr2.addView(playerTwoPoints);
     		
     		playerGrid.addView(tr1);
     		playerGrid.addView(tr2);
@@ -146,7 +148,7 @@ public class GameBoardActivity extends Activity implements OnClickListener{
 	        		TextView tw = new TextView(this);
 	        		tw.setText(""+i+n);
 	        		tw.setTextSize(10.0f);
-	        		tw.setTextColor(Color.rgb( 100, 200, 200));
+	        		tw.setTextColor(Color.rgb(255, 255, 255));
 	        		tw.setOnClickListener(this);
 	        		tr.addView(tw, 30,30);
 	        	}
@@ -163,24 +165,38 @@ public class GameBoardActivity extends Activity implements OnClickListener{
 	        
 	        TableRow tr = new TableRow(this);
 	        
+	        playWord.setText("Play word");
+    		playWord.setTextSize(10.0f);
+    		playWord.setTextColor(Color.rgb(0, 0, 0));
+    		playWord.setOnClickListener(this);
+    		tr.addView(playWord);
+    		
+    		pass.setText("Pass");
+    		pass.setTextSize(10.0f);
+    		pass.setTextColor(Color.rgb(0, 0, 0));
+    		pass.setOnClickListener(this);
+    		tr.addView(pass);
+    		
+    		shuffle.setText("Shuffle");
+    		shuffle.setTextSize(10.0f);
+    		shuffle.setTextColor(Color.rgb(0, 0, 0));
+    		shuffle.setOnClickListener(this);
+    		tr.addView(shuffle);
+    		
     		swapLetters.setText("Swap letters");
     		swapLetters.setTextSize(10.0f);
-    		swapLetters.setTextColor(Color.rgb( 100, 200, 200));
+    		swapLetters.setTextColor(Color.rgb(0, 0, 0));
     		swapLetters.setOnClickListener(this);
-    		tr.addView(swapLetters, 30,30);
-    		
-    		playWord.setText("Play word");
-    		playWord.setTextSize(10.0f);
-    		playWord.setTextColor(Color.rgb( 100, 200, 200));
-    		playWord.setOnClickListener(this);
-    		tr.addView(playWord, 30,30);
+    		tr.addView(swapLetters);
     		
     		resignGame.setText("Resign");
     		resignGame.setTextSize(10.0f);
-    		resignGame.setTextColor(Color.rgb( 100, 200, 200));
+    		resignGame.setTextColor(Color.rgb(0, 0, 0));
     		resignGame.setOnClickListener(this);
-    		tr.addView(resignGame, 30,30);
+    		tr.addView(resignGame);
 	        
+    		buttonGrid.addView(tr);
+    		
     		return buttonGrid;
 	        /*
 	        for (int i = 0; i < 1; i++) {
@@ -189,7 +205,7 @@ public class GameBoardActivity extends Activity implements OnClickListener{
 	        		Button b = new Button (this);
 	        		b.setText(""+i+n);
 	        		b.setTextSize(10.0f);
-	        		b.setTextColor(Color.rgb( 100, 200, 200));
+	        		b.setTextColor(Color.rgb(255, 255, 255));
 	        		b.setOnClickListener(this);
 	        		tr.addView(b, 30,30);
 	        	}
