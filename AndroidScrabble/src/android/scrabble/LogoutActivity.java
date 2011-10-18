@@ -8,12 +8,15 @@ import model.data.UserData;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.widget.Toast;
 
 public class LogoutActivity extends Activity implements Observer{
     
 	private LogoutModel model;
+	private boolean finishActivity = false;
 	
 	/** Called when the activity is first created. */
     @Override
@@ -40,7 +43,8 @@ public class LogoutActivity extends Activity implements Observer{
 		builder.setPositiveButton("OK", new DialogInterface.OnClickListener(){
 			@Override
 			public void onClick(DialogInterface arg0, int arg1) {
-				finish();
+				finishActivity = true;
+				arg0.dismiss();
 			}
 		});
 		AlertDialog dialog = builder.create();
@@ -85,5 +89,19 @@ public class LogoutActivity extends Activity implements Observer{
 				showLoggedOutDialog(data.toString());
 			}
 		});
+		
+		while(!finishActivity){
+		}
+		finishActivity = false;
+		finish();
 	}
+	
+	public void debug(String s){
+	    Context context = getBaseContext();
+	    CharSequence text = s;
+	    int duration = Toast.LENGTH_SHORT;
+
+	    Toast toast = Toast.makeText(context, text, duration);
+    	toast.show();
+	 }
 }

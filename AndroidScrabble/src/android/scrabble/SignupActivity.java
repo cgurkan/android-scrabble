@@ -18,6 +18,7 @@ import android.widget.TextView;
 public class SignupActivity extends Activity implements OnClickListener, Observer{
 	
 	private SignupModel model = null;
+	private boolean finishActivity = false;
 	
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -68,6 +69,10 @@ public class SignupActivity extends Activity implements OnClickListener, Observe
     				showSignedUpDialog("You are now signed up! Welcome!");
     			}
     		});
+        	while(!finishActivity){
+        	}
+    		finishActivity = false;
+        	finish();
         }
         else{
         	//TODO: Take care of error
@@ -80,7 +85,7 @@ public class SignupActivity extends Activity implements OnClickListener, Observe
 		builder.setPositiveButton("OK", new DialogInterface.OnClickListener(){
 			@Override
 			public void onClick(DialogInterface arg0, int arg1){
-				finish();
+				finishActivity = true;
 			}
 		});
 		AlertDialog dialog = builder.create();

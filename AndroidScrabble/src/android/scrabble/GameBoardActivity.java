@@ -5,7 +5,6 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.HorizontalScrollView;
-import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.TableLayout;
 import android.widget.TableRow;
@@ -21,26 +20,36 @@ public class GameBoardActivity extends Activity implements OnClickListener{
 	   @Override
 	    public void onCreate(Bundle savedInstanceState) {
 	        super.onCreate(savedInstanceState);
+	        
+	        playerOne = new TextView(this);
+	        playerTwo = new TextView(this);
+	        playerOnePoints = new TextView(this);
+	        playerTwoPoints = new TextView(this);
+	        
+	        swapLetters = new Button(this);
+	        playWord = new Button(this);
+	        resignGame = new Button(this);
 	       
 	        ScrollView mainScrollLayout = new ScrollView(this);
 	        
 	        HorizontalScrollView horScrollLayout = new HorizontalScrollView(this);
 	        
+	        TableLayout la = new TableLayout(this);
+	        
 	        TableLayout masterLayout = new TableLayout(this);
 	                
 	        //Adding the board to the main layout
-	        horScrollLayout.addView(createBoardGrid());
-	        horScrollLayout.addView(createCharGrid());
-	        horScrollLayout.addView(createPlayerGrid());
-	        horScrollLayout.addView(createButtonGrid());
+	        la.addView(createBoardGrid());
+	        la.addView(createCharGrid());
+	        la.addView(createPlayerGrid());
+	        la.addView(createButtonGrid());
 	        
+	        horScrollLayout.addView(la);
 	        mainScrollLayout.addView(horScrollLayout);
 	        
 	        masterLayout.addView(mainScrollLayout);
 	        
 	        super.setContentView(masterLayout);
-	        
-//	        super.setContentView(R.layout.gameboard2);
 	    }
 	   
 	    public TableLayout createBoardGrid() {
