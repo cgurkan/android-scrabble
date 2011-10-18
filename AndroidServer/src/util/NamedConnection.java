@@ -2,6 +2,10 @@ package util;
 
 import java.net.Socket;
 
+/**
+ * Class that contains both name and a socket connected to a certain user.
+ * 
+ */
 public class NamedConnection {
 
 	private String name;

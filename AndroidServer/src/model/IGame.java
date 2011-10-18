@@ -1,7 +1,6 @@
 package model;
 
 import java.sql.ResultSet;
-import java.util.List;
 
 import util.Player;
 import util.WordObject;

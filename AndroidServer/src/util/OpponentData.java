@@ -2,6 +2,9 @@ package util;
 
 import java.io.Serializable;
 
+/**
+ * Class that represents OpponentData, with username and boolean if the user is online.
+ */
 public class OpponentData implements Serializable{
 
 	private static final long serialVersionUID = 2167462336411984335L;

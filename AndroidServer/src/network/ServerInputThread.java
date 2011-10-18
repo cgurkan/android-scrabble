@@ -12,7 +12,6 @@ import util.ErrorHandler;
  * When a phone sends a request to the server it takes care of it and redirects
  * to the correct model.
  * 
- * @author random dude
  */
 public class ServerInputThread extends Thread implements Runnable{
 
@@ -41,7 +40,6 @@ public class ServerInputThread extends Thread implements Runnable{
 					wait = true;
 					Socket socket = serverSocket.accept();
 										
-					// TODO: check if it is a login/logout/signup. if it isn't, 
 					new WorkThread(socket).start(); //	Start new client-thread
 					
 					wait = false;

@@ -3,7 +3,6 @@ package model.data;
 /**
  * Representation of a board
  * 
- * @author Marika
  *
  */
 public class Board {

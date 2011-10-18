@@ -7,13 +7,12 @@ import java.util.List;
 import util.SendObject;
 
 /**
- * 
+ * Thread that waits for input from a certain user.
  */
-//TODO: µ comment!
 public class RequestHandler extends Thread implements Runnable{
 	
 	private ObjectInputStream ois;
-	private List<SendObject> tasks;
+	private List<SendObject> tasks;	//	list of tasks that has been sent from the client
 	
 	public RequestHandler(Socket s, List<SendObject> tasks){
 		this.tasks = tasks;
@@ -28,12 +27,12 @@ public class RequestHandler extends Thread implements Runnable{
 	@Override
 	public void run(){
 		Object o = null;
-		while(true){
+		while(true){	//	listen forever (at least until the socket dies).
 	        try{
 	            while((o = ois.readUnshared()) != null){
 					if(o.getClass().equals(SendObject.class)){
 						SendObject so = ((SendObject)(o));
-						tasks.add(so);
+						tasks.add(so);	//	add the incoming object to the list
 					}
 	            }
 	        }

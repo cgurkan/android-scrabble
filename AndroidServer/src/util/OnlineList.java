@@ -6,6 +6,9 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.ListIterator;
 
+/**
+ * Singleton that contains all NamedConnections that are online. 
+ */
 public class OnlineList {
 
 	private static OnlineList list = null;
@@ -15,6 +18,10 @@ public class OnlineList {
 		connections = new ArrayList<NamedConnection>();
 	}
 	
+	/**
+	 * Gets the instance of this class.
+	 * @return
+	 */
 	public static OnlineList getInstance(){
 		if(list == null){
 			list = new OnlineList();
@@ -22,11 +29,20 @@ public class OnlineList {
 		return list;
 	}
 	
+	/**
+	 * Add a new connection.
+	 * 
+	 * @param nc
+	 */
 	public void add(NamedConnection nc){
 		System.out.println("added "+nc.getName());
 		connections.add(nc);
 	}
 	
+	/**
+	 * Remove connection from name.
+	 * @param name
+	 */
 	public void remove(String name){
 		ListIterator<NamedConnection> it = connections.listIterator();
 		while(it.hasNext()){
@@ -38,6 +54,12 @@ public class OnlineList {
 		}
 	}
 	
+	/**
+	 * Set name from known socket.
+	 * 
+	 * @param name
+	 * @param s
+	 */
 	public void setName(String name, Socket s){
 		for(NamedConnection nc : connections){
 			if(nc.getSocket().equals(s)){
@@ -47,6 +69,12 @@ public class OnlineList {
 		}
 	}
 	
+	/**
+	 * Get socket from name.
+	 * 
+	 * @param name
+	 * @return
+	 */
 	public Socket getSocket(String name){
 		for(NamedConnection nc : connections){
 			if(nc.getName().equalsIgnoreCase(name)){
@@ -56,6 +84,11 @@ public class OnlineList {
 		return null;
 	}
 	
+	/**
+	 * Get the names of the OnlineList as a List<>
+	 * 
+	 * @return
+	 */
 	public List<String> getList(){
 		List<String> list = new LinkedList<String>();
 		for(NamedConnection nc : connections){
@@ -64,6 +97,11 @@ public class OnlineList {
 		return list;
 	}
 	
+	/**
+	 * Get the names of the OnlineList as an Array[]
+	 * 
+	 * @return
+	 */
 	public String[] getArray(){
 		return getList().toArray(new String[0]);
 	}
