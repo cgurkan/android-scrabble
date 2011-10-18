@@ -1,6 +1,7 @@
 package android.scrabble.test;
 
 import android.scrabble.AboutViewActivity;
+import android.scrabble.HelpViewActivity;
 import android.scrabble.LoginActivity;
 import android.scrabble.MainMenuActivity;
 import android.scrabble.SignupActivity;
@@ -88,5 +89,25 @@ public class TestMain extends ActivityInstrumentationTestCase2<MainMenuActivity>
 		solo.wait(2000);
 		solo.clickOnButton("About");
 		solo.assertCurrentActivity("AboutViewActivity", AboutViewActivity.class);
+	}
+	
+	public void testHelp() throws InterruptedException{
+		solo.enterText(0, "kohina");
+		solo.wait(2000);
+		solo.clickOnButton("Log in!");
+		solo.assertCurrentActivity("MainMenuActivity", MainMenuActivity.class);
+		solo.wait(2000);
+		solo.clickOnButton("Help");
+		solo.assertCurrentActivity("HelpViewActivity", HelpViewActivity.class);
+	}
+	
+	public void testNewGame() throws InterruptedException{
+		solo.enterText(0, "kohina");
+		solo.wait(2000);
+		solo.clickOnButton("Log in!");
+		solo.assertCurrentActivity("MainMenuActivity", MainMenuActivity.class);
+		solo.wait(2000);
+		solo.clickOnButton("New game");
+		//TODO: finish here
 	}
 }
