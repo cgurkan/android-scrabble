@@ -25,6 +25,12 @@ public class GameModel extends Logic implements IGame{
 	private Player p2 = null;
 	
 	
+	/**
+	 * Creates the board, player objects and sets game variables
+	 * 
+	 * @param name1 - host name
+	 * @param name2 - opponent name
+	 */
 	public GameModel(String name1, String name2){
 		super();
 		db = getDatabase();
@@ -50,7 +56,6 @@ public class GameModel extends Logic implements IGame{
 	
 	@Override
 	public boolean generateLetters(int i) {
-		List<Character> letters = new ArrayList<Character>();
 		ResultSet set = null;
 		
 		if(getLettersLeft() >= i){
@@ -90,12 +95,13 @@ public class GameModel extends Logic implements IGame{
 				}
 			}
 		}
-		addLettersToPlayer(set, letters);
+		addLettersToPlayer(set);
 		return true;
 	}
 	
 	@Override
-	public void addLettersToPlayer(ResultSet set, List<Character> letters){
+	public void addLettersToPlayer(ResultSet set){
+		List<Character> letters = new ArrayList<Character>();
 		try {
 			while(set.next()){
 				letters.add(set.getString("letter").charAt(0));
@@ -112,16 +118,14 @@ public class GameModel extends Logic implements IGame{
 	}
 	
 	@Override
-	public Player receivePoints(String s) {
+	public void receivePoints(String s) {
 		pass = 0;
 		
 		if(p1.isTurn()){
 			p1.addPoints(db.countPoints(s));
-			return p1;
 		}
 		else{
 			p2.addPoints(db.countPoints(s));
-			return p2;
 		}
 	}
 	

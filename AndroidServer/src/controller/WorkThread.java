@@ -15,6 +15,7 @@ import util.OnlineList;
 import util.ResponseObject;
 import util.SendObject;
 
+//TODO: µ comment!!
 public class WorkThread extends Thread implements ListListener{
 
 	private ObjectOutputStream oos = null;

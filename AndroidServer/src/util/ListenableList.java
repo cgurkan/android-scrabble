@@ -3,6 +3,7 @@ package util;
 import java.util.LinkedList;
 import java.util.List;
 
+//TODO: µ comment
 public class ListenableList<E> extends LinkedList<E> {
 	
 	private static final long serialVersionUID = 4829748232963920754L;

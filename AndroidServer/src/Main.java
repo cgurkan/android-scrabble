@@ -8,6 +8,8 @@ import network.ServerInputThread;
 public class Main {
 	
 	/**
+	 * Starts the server and prints the ip and port the server is running on
+	 * 
 	 * @param args
 	 */
 	public static void main(String[] args) {

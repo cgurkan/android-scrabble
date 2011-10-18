@@ -2,10 +2,7 @@ package model;
 
 /**
  * Class that is extended by all logic-classes on the server.
- * The Logic-class handles stuff like the database and makes sure
- * that every logic-class is Observable.
- * 
- * @author Magnus
+ * The Logic-class handles stuff like the database.
  */
 public abstract class Logic{
 

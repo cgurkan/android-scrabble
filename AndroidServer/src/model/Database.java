@@ -11,7 +11,6 @@ import java.sql.Statement;
  * Class that manages all database storage.
  * The database can connect to a MySQL-database and execute queries.
  *
- *
  */
 public class Database {
 
@@ -130,6 +129,13 @@ public class Database {
 		return val;
 	}
 	
+	/**
+	 * Inserts player names in a specific game into the database
+	 * 
+	 * @param s - name of the hosting player
+	 * @param s2 - name of the opponent
+	 * @return true if the insert has no errors
+	 */
 	public boolean startGame(String s, String s2){
 		String insGame = "INSERT INTO game VALUES(NULL, '"+ s +"', '"+ s2 +"')";
 		
@@ -143,6 +149,13 @@ public class Database {
 		}
 	}
 	
+	
+	/**
+	 * Randomly selects the amount of letters put as parameter i
+	 * 
+	 * @param i - how many letters has been played
+	 * @return A ResultSet containing the selected letters, returns null if not successful 
+	 */
 	public ResultSet generateLetters(int i){
 		String query = "SELECT char FROM english ORDER BY RAND() LIMIT '" + i + "'";
 		try {
@@ -156,6 +169,8 @@ public class Database {
 	
 	
 	/**
+	 * Count the amount of points that the word put as parameter s gives
+	 * 
 	 * @param s - the word that has been played
 	 * @return the points for the word played
 	 */

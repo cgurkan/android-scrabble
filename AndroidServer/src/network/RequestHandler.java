@@ -8,8 +8,8 @@ import util.SendObject;
 
 /**
  * 
- * @author 
  */
+//TODO: µ comment!
 public class RequestHandler extends Thread implements Runnable{
 	
 	private ObjectInputStream ois;

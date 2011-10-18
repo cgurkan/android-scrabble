@@ -10,8 +10,6 @@ import model.Database;
  * Class for error handling.
  * Connects to the database and
  * saves the error.
- * 
- * @author Magnus
  *
  */
 public class ErrorHandler {
@@ -36,8 +34,8 @@ public class ErrorHandler {
 		}
 	}
 	
-	/*
-	 * Returns the current date
+	/**
+	 * @return current date
 	 */
 	private static String getDateNow(){
         DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");

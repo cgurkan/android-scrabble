@@ -12,7 +12,6 @@ import util.SendableAction;
 /**
  * Logic-class that contains all user-based logics.
  * 
- * @author Magnus
  */
 public class UserManager extends Logic{
 
