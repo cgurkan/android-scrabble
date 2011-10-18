@@ -3,7 +3,7 @@ package model;
 import java.util.Observable;
 import java.util.Observer;
 
-import controller.ClientController;
+import controller.NetworkController;
 
 import util.ResponseObject;
 import util.SendObject;
@@ -11,10 +11,10 @@ import util.SendableAction;
 
 public class LogoutModel extends Observable implements IModel, Observer{
 	
-	private ClientController cc;
+	private NetworkController cc;
 	
 	public LogoutModel(){
-		cc = ClientController.getInstance("");
+		cc = NetworkController.getInstance("");
 		cc.addObserver(this);
 	}
 	

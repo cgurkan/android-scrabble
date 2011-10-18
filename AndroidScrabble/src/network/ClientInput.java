@@ -7,14 +7,14 @@ import java.io.StreamCorruptedException;
 import android.util.Log;
 
 import util.ResponseObject;
-import controller.ClientController;
+import controller.NetworkController;
 
 public class ClientInput extends Thread implements Runnable{
 
-	private ClientController c = null;
+	private NetworkController c = null;
 	private ObjectInputStream in = null;
 	
-	public ClientInput(ClientController c) {
+	public ClientInput(NetworkController c) {
 		this.c = c;
 		try {
 			in = new ObjectInputStream(c.getSocket().getInputStream());

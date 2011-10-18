@@ -21,14 +21,14 @@ import network.ClientOutput;
  * listens to the models that it uses.
  * 
  */
-public class ClientController extends Observable{
+public class NetworkController extends Observable{
 
-	private static ClientController controller = null;
+	private static NetworkController controller = null;
 	private ClientOutput co = null;
 	private Socket s = null;
 	private int port = 7896;
 	
-	private ClientController(String serverip){
+	private NetworkController(String serverip){
 		try {
 			s = new Socket(serverip, port);
 		}
@@ -41,9 +41,9 @@ public class ClientController extends Observable{
 		co = new ClientOutput(s);
 	}
 
-	public static ClientController getInstance(String ip){
+	public static NetworkController getInstance(String ip){
 		if(controller == null){
-			controller = new ClientController(ip);
+			controller = new NetworkController(ip);
 		}
 		return controller;
 	}

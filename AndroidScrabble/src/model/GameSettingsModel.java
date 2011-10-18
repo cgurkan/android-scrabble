@@ -3,7 +3,7 @@ package model;
 import java.util.Observable;
 import java.util.Observer;
 
-import controller.ClientController;
+import controller.NetworkController;
 
 import model.data.UserData;
 
@@ -13,10 +13,10 @@ import util.SendableAction;
 
 public class GameSettingsModel extends Observable implements IModel, Observer{
 	
-	private ClientController cc;
+	private NetworkController cc;
 	
 	public GameSettingsModel(){
-		cc = ClientController.getInstance("");
+		cc = NetworkController.getInstance("");
 		cc.addObserver(this);
 	}
 	

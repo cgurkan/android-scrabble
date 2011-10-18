@@ -3,7 +3,7 @@ package model;
 import java.util.Observable;
 import java.util.Observer;
 
-import controller.ClientController;
+import controller.NetworkController;
 
 import util.ResponseObject;
 import util.SendObject;
@@ -14,11 +14,11 @@ public class SignupModel extends Observable implements IModel, Observer{
 	public static final int SIGNUP_NOT_OK = 0;
 	public static final int SIGNUP_OK = 1;
 	
-	private ClientController cc;
+	private NetworkController cc;
 	public String uname = "";
 	
 	public SignupModel(){
-		cc = ClientController.getInstance("");
+		cc = NetworkController.getInstance("");
 		cc.addObserver(this);
 	}
 	
