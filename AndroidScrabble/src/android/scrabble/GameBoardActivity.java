@@ -50,19 +50,18 @@ public class GameBoardActivity extends Activity implements OnClickListener{
 	        
 	        boardGrid.setPadding(1, 1, 1, 1);
 	        
-	        int xx;
-   		 	int yy;
+	        int x = 100;
+   		 	int y = 100;
 	        
    		 	for (int i = 0; i < 15; i++) {
 	        	TableRow tr = new TableRow(this);
 	        	for (int n = 0; n <15; n++) {
 	        		 Button b = new Button(this);
 	                 
-	        		 //These if-statements should be used to give a correct id to each button, does not work now
-	        		 if (i < 10)
-	        			 yy = 0;
-	        		 if (n < 10)
-	        			 xx = 0;
+	        		 //Setting the id for each button in the form of 1xx1yy
+	        		 int xx = x + n;
+	        		 int yy = y + i; 
+	        		 b.setId(xx*1000+yy);
 	        		 
 	        		 b.setText(""+i+n);
 	                 b.setTextSize(10.0f);
@@ -85,7 +84,9 @@ public class GameBoardActivity extends Activity implements OnClickListener{
 	        	TableRow tr = new TableRow(this);
 	        	for(int n = 0; n < 7; n++) {
 	        		Button b = new Button (this);
+	        		
 	        		b.setId(n);
+	        		
 	        		b.setText(""+i+n); //Need to set the character here
 	        		b.setTextSize(10.0f);
 	        		b.setTextColor(Color.rgb( 100, 200, 200));
