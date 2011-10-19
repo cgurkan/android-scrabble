@@ -122,6 +122,7 @@ public class WorkThread extends Thread implements ListListener{
 		case OPPONENT_DATA:
 			String s7 = (String)object.getObject();
 			data = model.getOpponentData(s7);
+			break;
 		case MAIN_THREAD:
 			//	add username to onlinelist
 			isOnlineThread = true;
