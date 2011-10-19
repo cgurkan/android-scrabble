@@ -31,7 +31,8 @@ public class GameBoardActivity extends Activity implements OnClickListener, Obse
 	private Button swapLetters, playWord, resignGame, pass, shuffle;
 	private Button[] playerLetters;
     private Button[][] gameBoard;
-    private char[][] yourPlacedLetters;
+    private char[][] yourPlacedLetters,
+    				 oldGameBoard;
     
     private int letterId = -1;
 	
@@ -55,11 +56,13 @@ public class GameBoardActivity extends Activity implements OnClickListener, Obse
 	       
 	        playerLetters = new Button[7];
 	        gameBoard = new Button[15][15];
+	        oldGameBoard = new char[15][15];
 	        yourPlacedLetters = new char[15][15];
 	        
 	        for(int i = 0; i<15; i++){
 	        	for(int j = 0; j<15; j++){
 	        		yourPlacedLetters[i][j] = ' ';
+	        		oldGameBoard[i][j] = ' ';
 	        	}
 	        }
 	        
@@ -109,7 +112,7 @@ public class GameBoardActivity extends Activity implements OnClickListener, Obse
 	        		 gameBoard[i][n].setId(xx*1000+yy);
 	        		 gameBoard[i][n].setOnClickListener(this);
 	        		 
-	        		 b.setText("");
+	        		 b.setText(" ");
 	                 b.setTextSize(10.0f);
 	                 b.setTextColor(Color.rgb(0, 0, 0));
 	                 b.setOnClickListener(this);
@@ -260,6 +263,21 @@ public class GameBoardActivity extends Activity implements OnClickListener, Obse
 	    
 	    /** This method will check if the word is correctly placed */
 		public boolean checkPlacement(char[][] c) {
+			
+			boolean empty = true;
+			for(int i = 0; i<15; i++){
+				for(int j = 0; j<15; j++){
+					if(oldGameBoard[i][j] != ' '){
+						empty = false;
+						break;
+					}
+				}
+			}
+			
+			if(empty){
+				return true;
+			}
+			
 			boolean result = true;
 			int x1 = -1;
 			int y1 = -1;
@@ -304,7 +322,7 @@ public class GameBoardActivity extends Activity implements OnClickListener, Obse
 									|| gameBoard[y][x + 1].getText().charAt(0) == ' ') {
 								result = false;
 							}
-						} else if (y == 15 && x == 15) {
+						} else if (y == 14 && x == 14) {
 							if (gameBoard[y - 1][x].getText().charAt(0) == ' '
 									|| gameBoard[y][x - 1].getText().charAt(0) == ' ') {
 								result = false;
@@ -315,7 +333,7 @@ public class GameBoardActivity extends Activity implements OnClickListener, Obse
 									|| gameBoard[y][x - 1].getText().charAt(0) == ' ') {
 								result = false;
 							}
-						} else if (y == 15) {
+						} else if (y == 14) {
 							if (gameBoard[y - 1][x].getText().charAt(0) == ' '
 									|| gameBoard[y][x + 1].getText().charAt(0) == ' '
 									|| gameBoard[y][x - 1].getText().charAt(0) == ' ') {
@@ -327,7 +345,7 @@ public class GameBoardActivity extends Activity implements OnClickListener, Obse
 									|| gameBoard[y][x + 1].getText().charAt(0) == ' ') {
 								result = false;
 							}
-						} else if (x == 15) {
+						} else if (x == 14) {
 							if (gameBoard[y + 1][x].getText().charAt(0) == ' '
 									|| gameBoard[y - 1][x].getText().charAt(0) == ' '
 									|| gameBoard[y][x - 1].getText().charAt(0) == ' ') {
@@ -397,8 +415,8 @@ public class GameBoardActivity extends Activity implements OnClickListener, Obse
 				letterId = v.getId();
 			}
 			else if(v.getId() == 100){	//	place word
-				//boolean ok = checkPlacement(yourPlacedLetters);
-				//Log.d("class", ok+"");
+				boolean ok = checkPlacement(yourPlacedLetters);
+				Log.d("class", ok+"");
 			}
 		}
 
