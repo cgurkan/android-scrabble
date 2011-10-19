@@ -1,6 +1,7 @@
 package util;
 
 import java.io.Serializable;
+import java.util.List;
 
 /**
  * An object representing a word, it's start position on the board and it's direction on the board
@@ -8,12 +9,12 @@ import java.io.Serializable;
 public class WordObject implements Serializable{
 
 	private static final long serialVersionUID = 6609466368232479780L;
-	String word = null;
+	List<String> word = null;
 	int x = -1;
 	int y = -1;
 	Direction direction = null;
 	
-	public WordObject(String word, int x, int y, Direction direction) {
+	public WordObject(List<String> word, int x, int y, Direction direction) {
 		super();
 		this.word = word;
 		this.x = x;
@@ -23,19 +24,19 @@ public class WordObject implements Serializable{
 
 	
 	/**
-	 * @return the word
+	 * @return the words
 	 */
-	public String getWord() {
+	public List<String> getWord() {
 		return word;
 	}
 
 
 	/**
-	 * Sets the word
+	 * Sets the words
 	 * 
-	 * @param word - a word
+	 * @param word - words
 	 */
-	public void setWord(String word) {
+	public void setWord(List<String> word) {
 		this.word = word;
 	}
 

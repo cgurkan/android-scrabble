@@ -1,5 +1,6 @@
 package android.scrabble;
 
+import util.WordObject;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -191,6 +192,28 @@ public class GameBoardActivity extends Activity implements OnClickListener{
     		buttonGrid.addView(tr);
     		
     		return buttonGrid;
+	    }
+	    
+	    
+	    /**This method sorts the array*/
+	    /* We ended up not using it
+	    public Button[] sortPlayerLetters(Button[] b) {
+	    	Button[] temp = new Button[b.length];
+	    	int n = 0;
+	    	for (int i = 0; i < b.length; i++) {
+	    		if (b[i].getText() != null) {
+	    			temp[n].setText(b[i].getText());
+	    			n++;
+	    		}
+	    	}
+	    	playerLetters = temp;
+	    	return playerLetters;
+	    }
+	    */
+	    
+	    /**This method adds new letters to the players*/
+	    public WordObject sendPlacedWord() {
+	    	return null;
 	    }
 	    
 	    /**This method is used to set new characters when some have been played*/
