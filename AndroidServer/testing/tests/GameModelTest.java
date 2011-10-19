@@ -31,13 +31,8 @@ public class GameModelTest {
 		assertTrue(gm.startGame());
 	}
 	
-	@Test void testGenerateLetters(){
-		boolean result = testGenerateLetters1() && testGenerateLetters2() && testGenerateLetters3();
-		assertTrue(result);
-	}
-	
 	@Test
-	public boolean testGenerateLetters1(){
+	public void testGenerateLetters1(){
 		gm.setLettersLeft(5);
 		gm.generateLetters(4);
 		boolean result = false;
@@ -48,11 +43,10 @@ public class GameModelTest {
 		else if(gm.getPlayer2().isTurn()){
 			result = gm.getPlayer2().getNrLetters() == 7 && gm.getLettersLeft() == 5-4;
 		}
-		return result;
 	}
 	
 	@Test
-	public boolean testGenerateLetters2(){
+	public void testGenerateLetters2(){
 		gm.setLettersLeft(3);
 		gm.generateLetters(4);
 		boolean result = false;
@@ -63,11 +57,10 @@ public class GameModelTest {
 		else if(gm.getPlayer2().isTurn()){
 			result = gm.getPlayer2().getNrLetters()-4+gm.getLettersLeft() == 7-4+3 && gm.getLettersLeft() == 0;
 		}
-		return result;
 	}
 	
 	@Test
-	public boolean testGenerateLetters3(){
+	public void testGenerateLetters3(){
 		gm.getPlayer1().setNrLetters(3);
 		gm.getPlayer2().setNrLetters(3);
 		gm.setLettersLeft(0);
@@ -80,7 +73,6 @@ public class GameModelTest {
 		else if(gm.getPlayer2().isTurn()){
 			result = gm.getPlayer2().getNrLetters()-2 == 3-2 && gm.getLettersLeft() == 0;
 		}
-		return result;
 	}
 	
 	@Test
