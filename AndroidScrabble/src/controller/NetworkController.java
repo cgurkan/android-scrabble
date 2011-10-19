@@ -14,11 +14,8 @@ import network.ClientOutput;
 
 /**
  * Class that represents a "Server".
- * The server holds a socket which the phones connect to.
  * 
- * The server starts a new Thread (ServerController) which listens to the sockets,
- * and take care of all info. The ServerController also makes sure that the server
- * listens to the models that it uses.
+ * The controller takes care of in and outgoing objects and redirects them to the right place.
  * 
  */
 public class NetworkController extends Observable{

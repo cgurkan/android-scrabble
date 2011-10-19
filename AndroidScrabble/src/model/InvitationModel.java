@@ -16,6 +16,9 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.util.Log;
 
+/**
+ * Thread that listens to game invitations.
+ */
 public class InvitationModel extends Thread implements IModel{
 	
 	private Socket socket = null;
@@ -112,8 +115,8 @@ public class InvitationModel extends Thread implements IModel{
 		dialog.show();
 	}
 	
-	/*
-	 * Sends a request to the server that "username" wants to login
+	/**
+	 * Sends a request to the server that "username" wants to start a game
 	 */
 	public void sendStartGameRequest(String username){
 		try{
@@ -127,7 +130,7 @@ public class InvitationModel extends Thread implements IModel{
 		}
 	}
 	
-	/*
+	/**
 	 * Tell the server that this is the main thread where the user always can be reached.
 	 */
 	public void identifyToServer() throws IOException {
@@ -136,7 +139,7 @@ public class InvitationModel extends Thread implements IModel{
 		out.flush();
 	}
 	
-	/*
+	/**
 	 * Close the socket so the server knows that the user is offline
 	 */
 	public void killSocket() {

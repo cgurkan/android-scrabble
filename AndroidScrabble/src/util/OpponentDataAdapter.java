@@ -11,6 +11,10 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
+/**
+ * Listadapter which makes it possible to view opponentdata in listViews
+ *
+ */
 public class OpponentDataAdapter extends ArrayAdapter<OpponentData> {
 
         private ArrayList<OpponentData> items;

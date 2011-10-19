@@ -24,7 +24,7 @@ public class LoginModel extends Observable implements IModel, Observer {
 		cc.addObserver(this);
 	}
 
-	/*
+	/**
 	 * Sends a request to the server that "username" wants to login
 	 */
 	public void sendLoginRequest(String username) {
@@ -33,7 +33,7 @@ public class LoginModel extends Observable implements IModel, Observer {
 		cc.send(object);
 	}
 
-	/*
+	/**
 	 * Evaluates the answer from the server and returns an int that is
 	 * LoginModel#LOGIN_SIGN_UP, LoginModel#LOGIN_NOT_OK, LoginModel#LOGIN_OK or
 	 * an error.

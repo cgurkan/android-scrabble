@@ -31,6 +31,7 @@ public class GameBoardActivity extends Activity implements OnClickListener, Obse
 	private Button swapLetters, playWord, resignGame, pass, shuffle;
 	private Button[] playerLetters;
     private Button[][] gameBoard;
+    private char[][] yourPlacedLetters;
     
     private int letterId = -1;
 	
@@ -54,6 +55,14 @@ public class GameBoardActivity extends Activity implements OnClickListener, Obse
 	       
 	        playerLetters = new Button[7];
 	        gameBoard = new Button[15][15];
+	        yourPlacedLetters = new char[15][15];
+	        
+	        for(int i = 0; i<15; i++){
+	        	for(int j = 0; j<15; j++){
+	        		yourPlacedLetters[i][j] = ' ';
+	        	}
+	        }
+	        
 	        ScrollView mainScrollLayout = new ScrollView(this);
 	        
 	        HorizontalScrollView horScrollLayout = new HorizontalScrollView(this);
@@ -183,6 +192,8 @@ public class GameBoardActivity extends Activity implements OnClickListener, Obse
 	        playWord.setText("Play word");
     		playWord.setTextSize(10.0f);
     		playWord.setTextColor(Color.rgb(0, 0, 0));
+    		playWord.setOnClickListener(this);
+    		playWord.setId(100);
     		playWord.setOnClickListener(this);
     		tr.addView(playWord);
     		
@@ -363,7 +374,6 @@ public class GameBoardActivity extends Activity implements OnClickListener, Obse
 	    }
 		@Override
 		public void onClick(View v) {
-			// TODO Auto-generated method stub
 			if(v.getId() > 100000){	//	its a board button
 				if(letterId >= 0){
 					//	find x and y
@@ -375,6 +385,7 @@ public class GameBoardActivity extends Activity implements OnClickListener, Obse
 					// 	swap text
 					Button b = ((Button)(findViewById(letterId)));
 					gameBoard[x][y].setText(b.getText());
+					yourPlacedLetters[x][y] = b.getText().charAt(0);
 					
 					b.setText("");
 					gameBoard[x][y].invalidate();
@@ -384,6 +395,10 @@ public class GameBoardActivity extends Activity implements OnClickListener, Obse
 			}
 			else if(v.getId() < 7){
 				letterId = v.getId();
+			}
+			else if(v.getId() == 100){	//	place word
+				//boolean ok = checkPlacement(yourPlacedLetters);
+				//Log.d("class", ok+"");
 			}
 		}
 

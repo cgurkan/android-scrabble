@@ -45,6 +45,11 @@ public class GameSettingsActivity extends Activity implements OnClickListener, O
         start_game.setOnClickListener(this);
     }
     
+    /**
+     * Init the spinner with dictionaries
+     * 
+     * @param dicObj
+     */
     public void initDictionaries(ResponseObject dicObj){
     	String[] dics = ((String[])(dicObj.getObject()));
     	
@@ -55,6 +60,12 @@ public class GameSettingsActivity extends Activity implements OnClickListener, O
     	spinner.setAdapter(spinnerArrayAdapter);
     }
     
+    /**
+     * Display a message if searched user is online.
+     * 
+     * @param username
+     * @param ppl
+     */
     public void isOnline(String username, String[] ppl){
     	
     	boolean isOnline = false;

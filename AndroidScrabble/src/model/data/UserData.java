@@ -4,6 +4,9 @@ import android.content.Context;
 
 import model.InvitationModel;
 
+/**
+ * Singleton that keep tracks of username and invitationthread.
+ */
 public class UserData {
 
 	private static UserData userData = null;
@@ -22,7 +25,7 @@ public class UserData {
 		return userData;
 	}
 	
-	/*
+	/**
 	 * Initiate the socket so the server knows that the user is online
 	 */
 	public void init(Context c, String serverIp){

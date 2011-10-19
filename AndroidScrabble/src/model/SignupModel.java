@@ -24,7 +24,7 @@ public class SignupModel extends Observable implements IModel, Observer {
 		cc.addObserver(this);
 	}
 
-	/*
+	/**
 	 * Sends a request to the server that "username" wants to signup
 	 */
 	public void sendLoginRequest(String username) {
@@ -33,7 +33,7 @@ public class SignupModel extends Observable implements IModel, Observer {
 		cc.send(object);
 	}
 
-	/*
+	/**
 	 * Evaluates the answer from the server and returns an int that is
 	 * SignupModel#SIGNUP_NOT_OK, SignupModel#SIGNUP_OK or an error.
 	 */

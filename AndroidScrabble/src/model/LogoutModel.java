@@ -18,7 +18,7 @@ public class LogoutModel extends Observable implements IModel, Observer {
 		cc.addObserver(this);
 	}
 
-	/*
+	/**
 	 * Sends a request to the server that "username" wants to logout
 	 */
 	public void sendLogoutRequest(String username) {

@@ -7,6 +7,9 @@ import util.SendObject;
 
 import android.util.Log;
 
+/**
+ * Class that writes objects to the server
+ */
 public class ClientOutput{
 
 	//Socket s = null;

@@ -1,5 +1,6 @@
 package network;
 
+
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.StreamCorruptedException;
@@ -9,6 +10,9 @@ import android.util.Log;
 import util.ResponseObject;
 import controller.NetworkController;
 
+/**
+ * Class that listens for input from the server.
+ */
 public class ClientInput extends Thread implements Runnable{
 
 	private NetworkController c = null;

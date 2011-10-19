@@ -14,6 +14,9 @@ import android.content.Context;
 import android.scrabble.R;
 import android.util.Log;
 
+/**
+ * Model class that gets all games and lists them.
+ */
 public class GameListModel implements IModel{
 
 	private Context context = null;
@@ -27,7 +30,7 @@ public class GameListModel implements IModel{
 		initSocket();
 	}
 	
-	/*
+	/**
 	 * Initiates the socket and it's streams
 	 */
 	public void initSocket(){
@@ -45,7 +48,7 @@ public class GameListModel implements IModel{
 		}
 	}
 	
-	/*
+	/**
 	 * Sends a request to the server to get all the opponent data for "username"
 	 */
 	public ResponseObject getOpponentData(String username){
@@ -68,7 +71,7 @@ public class GameListModel implements IModel{
 		return retrieved;
 	}
 	
-	/*
+	/**
 	 * Retrieves the answer from the server
 	 */
 	private ResponseObject getServerAnswer() {

@@ -25,6 +25,9 @@ public class SettingsViewActivity extends Activity  implements OnClickListener{
         save.setOnClickListener(this);
     }
 	
+    /**
+     * Set possible languages
+     */
 	private void initLangSpinner() {
 		Spinner languages = (Spinner)(findViewById(R.id.lang));
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(
