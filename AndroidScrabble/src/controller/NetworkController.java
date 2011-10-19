@@ -31,6 +31,7 @@ public class NetworkController extends Observable{
 	private NetworkController(String serverip){
 		try {
 			s = new Socket(serverip, port);
+			Log.e("serverip=", serverip == null ? "null" : serverip);
 		}
 		catch(UnknownHostException e){
 			Log.e("socket e", e.getMessage());

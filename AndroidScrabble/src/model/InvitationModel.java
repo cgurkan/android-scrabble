@@ -66,8 +66,10 @@ public class InvitationModel extends Thread implements IModel{
 		Object o = null;
 		while(true){
 	        try{
-	        	while((o = is.readUnshared()) != null){
-	            	if(o.getClass().equals(ResponseObject.class)){
+	        	Log.e("class", "running run in input");
+	            while((o = is.readUnshared()) != null){
+	            	Log.d("class", o.getClass().getName());
+					if(o.getClass().equals(ResponseObject.class)){
 						ResponseObject so = ((ResponseObject)(o));
 						String[] req = ((String[])so.getObject());
 						

@@ -37,7 +37,7 @@ public class GameModel extends Observable implements Observer {
 	}
 
 	public void sendSwapRequest(int gameID, int nrLetters) {
-		SendObject object = new SendObject(SendableAction.PLACE_WORD, new ClientGameDataObject(null, null, null, nrLetters,gameID));
+		SendObject object = new SendObject(SendableAction.SWAP, new ClientGameDataObject(null, null, null, nrLetters,gameID));
 		cc.send(object);
 	}
 

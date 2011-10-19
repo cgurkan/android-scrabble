@@ -1,7 +1,18 @@
 package android.scrabble;
 
+
+import java.util.Observable;
+import java.util.Observer;
+
+import util.ResponseObject;
+
+import model.GameModel;
+import model.GameSettingsModel;
+
 import util.WordObject;
+
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -13,8 +24,9 @@ import android.widget.TextView;
 import android.app.Activity;
 import android.graphics.Color;
 
-public class GameBoardActivity extends Activity implements OnClickListener{
+public class GameBoardActivity extends Activity implements OnClickListener, Observer{
 	
+	private GameModel model = null;
 	private TextView playerOne, playerTwo, playerOnePoints, playerTwoPoints; 
 	private Button swapLetters, playWord, resignGame, pass, shuffle;
 	private Button[] playerLetters;
@@ -25,6 +37,9 @@ public class GameBoardActivity extends Activity implements OnClickListener{
 	   @Override
 	    public void onCreate(Bundle savedInstanceState) {
 	        super.onCreate(savedInstanceState);
+	        
+	        model = new GameModel();
+	        model.addObserver(this);
 	        
 	        playerOne = new TextView(this);
 	        playerTwo = new TextView(this);
@@ -370,5 +385,42 @@ public class GameBoardActivity extends Activity implements OnClickListener{
 			else if(v.getId() < 7){
 				letterId = v.getId();
 			}
+		}
+
+		@Override
+		public void update(Observable observable, Object data) {
+			final ResponseObject r = ((ResponseObject)data);
+			
+			
+	        switch(r.getAction()){
+	        	case PASS:
+	        		GameBoardActivity.this.runOnUiThread(new Runnable() {
+		    			public void run(){
+		    				
+		    			}
+		    		});
+	        		break;
+	        	case PLACE_WORD:
+	        		GameBoardActivity.this.runOnUiThread(new Runnable() {
+		    			public void run(){
+		    				
+		    			}
+		    		});
+	        		break;
+	        	case QUIT_GAME:
+	        		GameBoardActivity.this.runOnUiThread(new Runnable() {
+		    			public void run(){
+		    				
+		    			}
+		    		});
+	        		break;
+	        	case SWAP:
+	        		GameBoardActivity.this.runOnUiThread(new Runnable() {
+		    			public void run(){
+		    				
+		    			}
+		    		});
+	        		break;
+	        }
 		}
 	}

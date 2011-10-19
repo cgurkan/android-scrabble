@@ -3,6 +3,9 @@ package model;
 import java.util.Observable;
 import java.util.Observer;
 
+import android.scrabble.GameBoardActivity;
+import android.util.Log;
+
 import controller.NetworkController;
 
 import model.data.UserData;
