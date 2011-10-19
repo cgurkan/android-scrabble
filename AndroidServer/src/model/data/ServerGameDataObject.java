@@ -5,7 +5,7 @@ import util.Player;
 /**
  * An object that represents game data (players, board, id and turn)
  */
-public class GameDataObject {
+public class ServerGameDataObject {
 	
 	private Player p1 = null;
 	private Player p2 = null;
@@ -20,7 +20,7 @@ public class GameDataObject {
 	 * @param b - the board
 	 * @param i - game ID
 	 */
-	public GameDataObject(Player p1, Player p2, String s, Board b, int i){
+	public ServerGameDataObject(Player p1, Player p2, String s, Board b, int i){
 		this.p1 = p1;
 		this.p2 = p2;
 		turn = s;

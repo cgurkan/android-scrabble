@@ -1,12 +1,15 @@
 package model.data;
 
+import java.io.Serializable;
+
 /**
  * Representation of a board
  * 
  *
  */
-public class Board {
+public class Board implements Serializable{
 	
+	private static final long serialVersionUID = 8829664380725884359L;
 	private char[][] board = null;
 
 	/**

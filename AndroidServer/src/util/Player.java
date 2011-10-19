@@ -1,13 +1,15 @@
 package util;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
 /**
  * A class that represent a player
  */
-public class Player {
+public class Player implements Serializable{
 	
+	private static final long serialVersionUID = -3089302783006861156L;
 	private int nrletters = -1;
 	private int points = 0;
 	private String username = null;

@@ -3,7 +3,7 @@ package model;
 import java.util.HashMap;
 import java.util.List;
 
-import model.data.GameDataObject;
+import model.data.ServerGameDataObject;
 
 import util.OnlineList;
 import util.OpponentData;
@@ -84,7 +84,7 @@ public class Model {
 	 */
 	public ResponseObject update(int gameID){
 		GameModel gm = modelList.get(gameID);
-		GameDataObject obj = new GameDataObject(gm.getPlayer1(), gm.getPlayer2(), getTurn(gm), gm.getBoard(), gameID);
+		ServerGameDataObject obj = new ServerGameDataObject(gm.getPlayer1(), gm.getPlayer2(), getTurn(gm), gm.getBoard(), gameID);
 		return new ResponseObject(SendableAction.UPDATE, obj);
 	}
 
@@ -97,7 +97,7 @@ public class Model {
 	public ResponseObject pass(int gameID) {
 		GameModel gm = modelList.get(gameID);
 		if(gm.pass()){
-			GameDataObject obj = new GameDataObject(null, null, getTurn(gm), null, gameID);
+			ServerGameDataObject obj = new ServerGameDataObject(null, null, getTurn(gm), null, gameID);
 			return new ResponseObject(SendableAction.PASS, obj);
 		}
 		else{
@@ -112,7 +112,7 @@ public class Model {
 	 */
 	public ResponseObject quitGame(int gameID) {
 		GameModel gm = modelList.get(gameID);
-		GameDataObject obj = new GameDataObject(gm.getPlayer1(), gm.getPlayer2(), getTurn(gm), gm.getBoard(), gameID);
+		ServerGameDataObject obj = new ServerGameDataObject(gm.getPlayer1(), gm.getPlayer2(), getTurn(gm), gm.getBoard(), gameID);
 		return new ResponseObject(SendableAction.QUIT_GAME, obj);
 	}
 
@@ -126,7 +126,7 @@ public class Model {
 		GameModel gm = modelList.get(gameID);
 		if(gameLogic.checkWord(wo)){
 			if(gm.placeWord(wo)){
-				GameDataObject obj = new GameDataObject(gm.getPlayer1(), gm.getPlayer2(), getTurn(gm), gm.getBoard(), gameID);
+				ServerGameDataObject obj = new ServerGameDataObject(gm.getPlayer1(), gm.getPlayer2(), getTurn(gm), gm.getBoard(), gameID);
 				return new ResponseObject(SendableAction.PLACE_WORD, obj);
 			}
 			else{
@@ -151,7 +151,7 @@ public class Model {
 		}
 		else{
 			gm.generateLetters(i);
-			GameDataObject obj = new GameDataObject(gm.getPlayer1(), gm.getPlayer2(), getTurn(gm), gm.getBoard(), gameID);
+			ServerGameDataObject obj = new ServerGameDataObject(gm.getPlayer1(), gm.getPlayer2(), getTurn(gm), gm.getBoard(), gameID);
 			return new ResponseObject(SendableAction.SWAP, obj);
 		}
 	}
@@ -168,7 +168,7 @@ public class Model {
 		int ID = nextID();
 		modelList.put(ID, new GameModel(name1, name2));
 		GameModel gm = modelList.get(ID);
-		GameDataObject obj = new GameDataObject(gm.getPlayer1(), gm.getPlayer2(), getTurn(gm), gm.getBoard(), ID);
+		ServerGameDataObject obj = new ServerGameDataObject(gm.getPlayer1(), gm.getPlayer2(), getTurn(gm), gm.getBoard(), ID);
 		return new ResponseObject(SendableAction.START_GAME, obj);
 	}
 

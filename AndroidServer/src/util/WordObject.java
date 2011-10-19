@@ -1,10 +1,13 @@
 package util;
 
+import java.io.Serializable;
+
 /**
  * An object representing a word, it's start position on the board and it's direction on the board
  */
-public class WordObject {
+public class WordObject implements Serializable{
 
+	private static final long serialVersionUID = 6609466368232479780L;
 	String word = null;
 	int x = -1;
 	int y = -1;
