@@ -351,11 +351,13 @@ public class GameBoardActivity extends Activity implements OnClickListener{
 			// TODO Auto-generated method stub
 			if(v.getId() > 100000){	//	its a board button
 				if(letterId >= 0){
+					//	find x and y
 					int y = (v.getId()/1000);
 					int x = (v.getId()-(y*1000));
 					x -= 100;
 					y -= 100;
 					
+					// 	swap text
 					Button b = ((Button)(findViewById(letterId)));
 					gameBoard[x][y].setText(b.getText());
 					
