@@ -100,7 +100,7 @@ public class GameBoardActivity extends Activity implements OnClickListener{
 	        		b.setText(""+i+n); //Need to set the character here
 	        		b.setTextSize(10.0f);
 	        		b.setTextColor(Color.rgb(0, 0, 0));
-	        		//b.setBackgroundColor(Color.rgb(100, 149, 237));
+	        		b.setBackgroundColor(Color.rgb(100, 149, 237));
 	        		b.setOnClickListener(this);
 	        		tr.addView(b, 30,30);
 	        	}
