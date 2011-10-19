@@ -148,19 +148,6 @@ public class GameBoardActivity extends Activity implements OnClickListener{
     		playerGrid.addView(tr2);
 	    	
     		return playerGrid;
-    		/*
-    		for (int i = 0; i < 2; i++) {
-	        	for(int n = 0; i < 2; i++) {
-	        		TextView tw = new TextView(this);
-	        		tw.setText(""+i+n);
-	        		tw.setTextSize(10.0f);
-	        		tw.setTextColor(Color.rgb(255, 255, 255));
-	        		tw.setOnClickListener(this);
-	        		tr.addView(tw, 30,30);
-	        	}
-	        playerGrid.addView(tr);
-	        }
-	        */
 	    }
 	    
 	    public TableLayout createButtonGrid() {
@@ -204,20 +191,6 @@ public class GameBoardActivity extends Activity implements OnClickListener{
     		buttonGrid.addView(tr);
     		
     		return buttonGrid;
-	        /*
-	        for (int i = 0; i < 1; i++) {
-	        	TableRow tr = new TableRow(this);
-	        	for(int n = 0; i < 3; i++) {
-	        		Button b = new Button (this);
-	        		b.setText(""+i+n);
-	        		b.setTextSize(10.0f);
-	        		b.setTextColor(Color.rgb(255, 255, 255));
-	        		b.setOnClickListener(this);
-	        		tr.addView(b, 30,30);
-	        	}
-	        buttonGrid.addView(tr);
-	        }
-	        */
 	    }
 	    
 	    /**This method is used to set new characters when some have been played*/
