@@ -161,14 +161,22 @@ public class GameSettingsActivity extends Activity implements OnClickListener, O
 	@Override
 	public void update(Observable observable, Object data) {
 
-		ResponseObject r = ((ResponseObject)data);
+		final ResponseObject r = ((ResponseObject)data);
         switch(r.getAction()){
         	case GET_DICTIONARIES:
-        		initDictionaries(r);
+        		GameSettingsActivity.this.runOnUiThread(new Runnable() {
+	    			public void run(){
+	    				initDictionaries(r);
+	    			}
+	    		});
         		break;
         	case PLAYERS_ONLINE:
-        		TextView v = ((TextView)findViewById(R.id.settings_search_field));
-        		isOnline(v.getText().toString(), ((String[])r.getObject()));
+        		GameSettingsActivity.this.runOnUiThread(new Runnable() {
+	    			public void run(){
+			    		TextView v = ((TextView)findViewById(R.id.settings_search_field));
+		        		isOnline(v.getText().toString(), ((String[])r.getObject()));
+	    			}
+	    		});
         		break;
         }
 	}
