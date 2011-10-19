@@ -19,6 +19,8 @@ public class GameBoardActivity extends Activity implements OnClickListener{
 	private Button swapLetters, playWord, resignGame, pass, shuffle;
 	private Button[] playerLetters;
     private Button[][] gameBoard;
+    
+    private int letterId = -1;
 	
 	   @Override
 	    public void onCreate(Bundle savedInstanceState) {
@@ -35,6 +37,8 @@ public class GameBoardActivity extends Activity implements OnClickListener{
 	        pass = new Button(this);
 	        shuffle = new Button(this);
 	       
+	        playerLetters = new Button[7];
+	        gameBoard = new Button[15][15];
 	        ScrollView mainScrollLayout = new ScrollView(this);
 	        
 	        HorizontalScrollView horScrollLayout = new HorizontalScrollView(this);
@@ -72,14 +76,16 @@ public class GameBoardActivity extends Activity implements OnClickListener{
 	        	for (int n = 0; n <15; n++) {
 	        		 Button b = new Button(this);
 	        		 
-	        		 gameBoard[i][y] = b;
+	        		 gameBoard[i][n] = b;
+	        		 
 	                 
 	        		 //Setting the id for each button in the form of 1xx1yy
 	        		 int xx = x + n;
 	        		 int yy = y + i; 
-	        		 b.setId(xx*1000+yy);
+	        		 gameBoard[i][n].setId(xx*1000+yy);
+	        		 gameBoard[i][n].setOnClickListener(this);
 	        		 
-	        		 b.setText(""+i+n);
+	        		 b.setText("");
 	                 b.setTextSize(10.0f);
 	                 b.setTextColor(Color.rgb(0, 0, 0));
 	                 b.setOnClickListener(this);
@@ -254,5 +260,24 @@ public class GameBoardActivity extends Activity implements OnClickListener{
 		@Override
 		public void onClick(View v) {
 			// TODO Auto-generated method stub
+			if(v.getId() > 100000){	//	its a board button
+				if(letterId >= 0){
+					int y = (v.getId()/1000);
+					int x = (v.getId()-(y*1000));
+					x -= 100;
+					y -= 100;
+					
+					Button b = ((Button)(findViewById(letterId)));
+					gameBoard[x][y].setText(b.getText());
+					
+					b.setText("");
+					gameBoard[x][y].invalidate();
+					
+					letterId = -1;
+				}
+			}
+			else if(v.getId() < 7){
+				letterId = v.getId();
+			}
 		}
 	}
