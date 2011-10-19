@@ -16,6 +16,8 @@ public class GameBoardActivity extends Activity implements OnClickListener{
 	
 	private TextView playerOne, playerTwo, playerOnePoints, playerTwoPoints; 
 	private Button swapLetters, playWord, resignGame, pass, shuffle;
+	private Button[] playerLetters;
+    private Button[][] gameBoard;
 	
 	   @Override
 	    public void onCreate(Bundle savedInstanceState) {
@@ -68,6 +70,8 @@ public class GameBoardActivity extends Activity implements OnClickListener{
 	        	TableRow tr = new TableRow(this);
 	        	for (int n = 0; n <15; n++) {
 	        		 Button b = new Button(this);
+	        		 
+	        		 gameBoard[y][i] = b;
 	                 
 	        		 //Setting the id for each button in the form of 1xx1yy
 	        		 int xx = x + n;
@@ -95,6 +99,8 @@ public class GameBoardActivity extends Activity implements OnClickListener{
 	        	TableRow tr = new TableRow(this);
 	        	for(int n = 0; n < 7; n++) {
 	        		Button b = new Button (this);
+	        		
+	        		playerLetters[n] = b;
 	        		
 	        		b.setId(n);        		
 	        		b.setText(""+i+n); //Need to set the character here
