@@ -97,10 +97,8 @@ public class LogoutActivity extends Activity implements Observer {
 
 			@Override
 			public void run() {
-				showLoggedOutDialog(data.toString());
-				
+				showLoggedOutDialog(data.toString());	
 			}
-			
 		});
 		
 	}
