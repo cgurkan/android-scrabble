@@ -157,7 +157,7 @@ public class Database {
 	 * @return A ResultSet containing the selected letters, returns null if not successful 
 	 */
 	public ResultSet generateLetters(int i){
-		String query = "SELECT char FROM english ORDER BY RAND() LIMIT '" + i + "'";
+		String query = "SELECT 'char' FROM english ORDER BY RAND() LIMIT " + i;
 		try {
 			return execQuery(query);
 		} catch (SQLException e) {
@@ -175,19 +175,21 @@ public class Database {
 	 * @return the points for the word played
 	 */
 	public int countPoints(String s){
-		int letters = s.length();
 		int points = 0;
+		s = s.toLowerCase();
 		
-		while(letters >= 0){
-			String query = "SELECT points FROM english WHERE char = '" + s.charAt(letters) + "' LIMIT 1";
+		for(int i = 0; i<s.length(); i++){
+			String query = "SELECT points FROM english WHERE 'char' = '"+s.charAt(i)+"' LIMIT 1";
 			
 			try {
 				ResultSet set = execQuery(query);
-				points += Integer.parseInt(set.getString("points"));
-			} catch (SQLException e) {
+				if(set.next()){
+					points += Integer.parseInt(set.getString("points"));
+				}
+			}
+			catch (SQLException e) {
 				e.printStackTrace();
 			}
-			letters--;
 		}
 		return points;
 	}

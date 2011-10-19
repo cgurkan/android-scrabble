@@ -37,7 +37,7 @@ public class GameModel extends Logic implements IGame{
 		board = new Board();
 		p1 = new Player(name1);
 		p2 = new Player(name2);
-		setLettersLeft(300);
+		setStartingLettersLeft(300);
 	}
 	
 	@Override
@@ -103,13 +103,15 @@ public class GameModel extends Logic implements IGame{
 	public void addLettersToPlayer(ResultSet set){
 		List<Character> letters = new ArrayList<Character>();
 		try {
-			while(set.next()){
-				letters.add(set.getString("letter").charAt(0));
-				if(p1.isTurn()){
-					p1.setLetters(letters);
-				}
-				else {
-					p2.setLetters(letters);
+			if(set != null){
+				while(set.next()){
+					letters.add(set.getString("char").charAt(0));
+					if(p1.isTurn()){
+						p1.setLetters(letters);
+					}
+					else {
+						p2.setLetters(letters);
+					}
 				}
 			}
 		} catch (SQLException e) {
@@ -162,7 +164,7 @@ public class GameModel extends Logic implements IGame{
 		int y = word.getY();
 		
 		if(word.getDirection() == Direction.VERTICAL){
-			while(iterator <= size){
+			while(iterator < size){
 				board.addLetter(w.charAt(iterator), x, y);
 				y++;
 				iterator++;
@@ -194,8 +196,13 @@ public class GameModel extends Logic implements IGame{
 	}
 
 	@Override
-	public void setLettersLeft(int i) {
+	public void setLettersLeft(int i){
 		lettersLeft -= i;
+	}
+	
+	@Override
+	public void setStartingLettersLeft(int i) {
+		lettersLeft = i;
 	}
 
 	@Override

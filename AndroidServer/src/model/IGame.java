@@ -99,4 +99,9 @@ public interface IGame {
 	 * @param i - a number of passed turns
 	 */
 	public void setPass(int i);
+	
+	/**
+	 * @param i - the starting number of letters in the bank
+	 */
+	void setStartingLettersLeft(int i);
 }
