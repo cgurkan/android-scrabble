@@ -17,7 +17,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
+import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -39,7 +39,6 @@ public class MainMenuActivity extends Activity implements OnClickListener, OnMen
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
-
         
         controller = NetworkController.getInstance(getString(R.string.serverip));
         new ClientInput(controller).start();
@@ -82,7 +81,7 @@ public class MainMenuActivity extends Activity implements OnClickListener, OnMen
         super.onResume();
         // The activity has become visible (it is now "resumed").
         
-        //Check if the user is logged in every time the main menu resumes 
+        //Check if the user is logged in every time the main menu resumes
         if(UserData.getInstance().getUsername().equals("")){
         	startLoginScreen();
         	UserData.getInstance().killSocket();
@@ -113,7 +112,7 @@ public class MainMenuActivity extends Activity implements OnClickListener, OnMen
     }
     
     @Override
-    protected void onDestroy() {
+    protected void onDestroy(){
         super.onDestroy();
         // The activity is about to be destroyed.
     }
@@ -145,6 +144,14 @@ public class MainMenuActivity extends Activity implements OnClickListener, OnMen
 				break;
 		}
 	}
+	
+	@Override 
+    public boolean onKeyDown(int keyCode, KeyEvent event) { 
+        if(keyCode == KeyEvent.KEYCODE_BACK){ 
+        	// DONT KILL THE APP HERE
+        }
+        return true;
+    } 
 
 	@Override
 	public boolean onMenuItemClick(MenuItem item){

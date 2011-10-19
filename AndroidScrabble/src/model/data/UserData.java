@@ -10,8 +10,8 @@ import model.InvitationModel;
 
 public class UserData {
 
-	public static UserData userData = null;
-	public InvitationModel invModel = null;
+	private static UserData userData = null;
+	private InvitationModel invModel = null;
 	
 	private Socket socket = null;
 	private String username = "";
