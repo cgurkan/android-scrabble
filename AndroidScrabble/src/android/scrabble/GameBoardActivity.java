@@ -220,10 +220,12 @@ public class GameBoardActivity extends Activity implements OnClickListener{
 	        */
 	    }
 	    
+	    /**This method is used to set new characters when some have been played*/
 	    public void setLetter(char c, int x) {
 	    	playerLetters[x].setText(c);
 	    }
 	    
+	    /**This method is used to set new characters on the board*/
 	    public void setLetterOnBoard(char c, int x, int y) {
 	    	gameBoard[x][y].setText(c);
 	    }
