@@ -6,6 +6,7 @@ import android.scrabble.LoginActivity;
 import android.scrabble.MainMenuActivity;
 import android.scrabble.SignupActivity;
 import android.test.ActivityInstrumentationTestCase2;
+import android.util.Log;
 
 import com.jayway.android.robotium.solo.Solo;
 
@@ -22,23 +23,23 @@ public class TestMain extends ActivityInstrumentationTestCase2<MainMenuActivity>
 		solo = new Solo(getInstrumentation(), getActivity());
 	}
 
-	protected void tearDown() throws Exception {
+	protected void tearDown() throws Exception{
 		try {
 			solo.finalize();
 		} catch (Throwable e) {
-			System.out.println("Throwable error");
+			Log.e("Throwable error", e.getMessage());
 		}
 	}
 	
-	public void testLogIn() throws InterruptedException {
-		System.out.println("Test login is running");
+	public void test2LogIn() throws InterruptedException {
+		//System.out.println("Test login is running");
 		solo.enterText(0, "kohina");
 		solo.clickOnButton("Log in!");
 		solo.assertCurrentActivity("MainMenuActivity", MainMenuActivity.class);
 	}
 	
-	public void testInvalidLogin() throws InterruptedException{
-		System.out.println("Test invalid login is running");
+	public void test1InvalidLogin() throws InterruptedException{
+		//System.out.println("Test invalid login is running");
 		solo.enterText(0, "kooooooooooooooohina");
 		solo.clickOnButton("Log in!");
 		solo.assertCurrentActivity("Sign up activity", SignupActivity.class);
@@ -71,6 +72,11 @@ public class TestMain extends ActivityInstrumentationTestCase2<MainMenuActivity>
 	public void testAbout() throws InterruptedException{
 		solo.enterText(0, "kohina");
 		solo.clickOnButton("Log in!");
+		if(solo.searchButton("Try to log me out!")){
+			solo.clickOnButton("Try to log me out!");
+			solo.clickOnButton("OK");
+			solo.clickOnButton("Log in!");
+		}
 		solo.assertCurrentActivity("MainMenuActivity", MainMenuActivity.class);
 		solo.clickOnButton("About");
 		solo.assertCurrentActivity("AboutViewActivity", AboutViewActivity.class);
