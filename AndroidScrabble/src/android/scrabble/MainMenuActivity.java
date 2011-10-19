@@ -91,7 +91,7 @@ public class MainMenuActivity extends Activity implements OnClickListener, OnMen
         		loadGamesList();
         		gamesListLoaded = true;
         	}
-        	if(UserData.getInstance().getSocket() == null){
+        	if(!UserData.getInstance().isIntantiated()){
         		UserData.getInstance().init(getBaseContext(), getBaseContext().getString(android.scrabble.R.string.serverip));
         	}
         }
@@ -149,8 +149,11 @@ public class MainMenuActivity extends Activity implements OnClickListener, OnMen
     public boolean onKeyDown(int keyCode, KeyEvent event) { 
         if(keyCode == KeyEvent.KEYCODE_BACK){ 
         	// DONT KILL THE APP HERE
+        	return true;
         }
-        return true;
+        else{
+        	return super.onKeyDown(keyCode, event);
+        }
     } 
 
 	@Override

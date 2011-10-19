@@ -1,9 +1,5 @@
 package model.data;
 
-import java.io.IOException;
-import java.net.Socket;
-import java.net.UnknownHostException;
-
 import android.content.Context;
 
 import model.InvitationModel;
@@ -12,8 +8,8 @@ public class UserData {
 
 	private static UserData userData = null;
 	private InvitationModel invModel = null;
-	
-	private Socket socket = null;
+	private boolean isInit = false;
+
 	private String username = "";
 	
 	private UserData(){
@@ -30,49 +26,20 @@ public class UserData {
 	 * Initiate the socket so the server knows that the user is online
 	 */
 	public void init(Context c, String serverIp){
-		//	create socket
-		if(socket == null){
-			try {
-				socket = new Socket(serverIp, 7896);
-			}
-			catch(UnknownHostException e){
-				e.printStackTrace();
-			}
-			catch(IOException e){
-				e.printStackTrace();
-			}
-		}
+		isInit = true;
 		
 		//	create model
-		invModel = new InvitationModel(c, socket);
-		
-		//	tell the server that this is the main listener-thread
-		try{
-			invModel.identifyToServer();
-		}
-		catch(IOException e){
-			e.printStackTrace();
-		}
-		
+		invModel = new InvitationModel(c, serverIp);
 		invModel.start();	// start waiting for game requests
 	}
 
 	/*
 	 * Close the socket so the server knows that the user is offline
 	 */
-	public void killSocket() {
-		if(socket != null){
-			if(!socket.isClosed()){
-				try {
-					socket.close();
-				}
-				catch(IOException e){
-					e.printStackTrace();
-				}
-				socket = null;
-				//invModel.dispose();
-				invModel = null;
-			}
+	public void killSocket(){
+		if(invModel != null){
+			invModel.killSocket();
+			invModel = null;
 		}
 	}
 
@@ -84,7 +51,7 @@ public class UserData {
 		return username;
 	}
 
-	public Socket getSocket() {
-		return socket;
+	public boolean isIntantiated() {
+		return isInit;
 	}
 }

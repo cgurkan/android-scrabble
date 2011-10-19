@@ -1,5 +1,6 @@
 package model;
 
+import java.io.EOFException;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
@@ -24,20 +25,23 @@ public class InvitationModel extends Thread implements IModel{
 	
 	private Context context = null;
 	
-	public InvitationModel(Context context, Socket socket){
+	public InvitationModel(Context context, String serverIp){
 		this.context = context;
-		this.socket = socket;
 
-		initSocket(socket);
+		initSocket(serverIp);
 	}
 	
 	/*
 	 * Initiates the socket and it's streams
 	 */
-	public void initSocket(Socket s){
+	public void initSocket(String serverIp){
 		try {
-			is = new ObjectInputStream(s.getInputStream());
-			out = new ObjectOutputStream(s.getOutputStream());
+			//	create socket
+			if(socket == null){
+				socket = new Socket(serverIp, 7896);				
+			}
+			is = new ObjectInputStream(socket.getInputStream());
+			out = new ObjectOutputStream(socket.getOutputStream());
 		}
 		catch(UnknownHostException e){
 			e.printStackTrace();
@@ -51,26 +55,45 @@ public class InvitationModel extends Thread implements IModel{
 	 * Retrieves the answer from the server
 	 */
 	public void run() {
+		
+		//	tell the server that this is the main listener-thread
+		try{
+			identifyToServer();
+		}
+		catch(IOException e){
+			e.printStackTrace();
+		}
+		
 		Object o = null;
 		while(true){
 	        try{
+	        	Log.d("class", "running run in input");
 	            while((o = is.readUnshared()) != null){
+	            	Log.d("class", o.getClass().getName());
 					if(o.getClass().equals(ResponseObject.class)){
 						ResponseObject so = ((ResponseObject)(o));
 						String[] req = ((String[])so.getObject());
 						
-						showInvitationDialog(req[0], req[1]);
+						Log.d("class", req[1]);
+						//showInvitationDialog(req[0], req[1]);
 					}
 	            }
+	        	Log.d("class", "running run2 in input");
+	        }
+	        catch(EOFException e){
+	        	Log.d("class", e.getMessage());
 	        }
 	        catch(ClassNotFoundException e){
-	        	e.printStackTrace();
+	        	Log.d("class", e.getMessage());
 	        }
 	        catch (IOException e){
 	        	//	We arrive here when the socket is closed.
-	            break;
+	            Log.d("class", e.getMessage());
+	        	break;
 	        }
+	        Log.d("class", "thread is not dead");
 	    }
+		Log.d("class", "thread is dead");
 	}
 	
 	public void showInvitationDialog(String message, final String opp){
@@ -115,5 +138,22 @@ public class InvitationModel extends Thread implements IModel{
 		SendObject so = new SendObject(SendableAction.MAIN_THREAD, UserData.getInstance().getUsername());
 		out.writeUnshared(so);
 		out.flush();
+	}
+	
+	/*
+	 * Close the socket so the server knows that the user is offline
+	 */
+	public void killSocket() {
+		if(socket != null){
+			if(!socket.isClosed()){
+				try {
+					socket.close();
+				}
+				catch(IOException e){
+					e.printStackTrace();
+				}
+				socket = null;
+			}
+		}
 	}
 }
