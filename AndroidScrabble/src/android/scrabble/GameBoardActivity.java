@@ -71,7 +71,7 @@ public class GameBoardActivity extends Activity implements OnClickListener{
 	        	for (int n = 0; n <15; n++) {
 	        		 Button b = new Button(this);
 	        		 
-	        		 gameBoard[y][i] = b;
+	        		 gameBoard[i][y] = b;
 	                 
 	        		 //Setting the id for each button in the form of 1xx1yy
 	        		 int xx = x + n;
@@ -218,6 +218,14 @@ public class GameBoardActivity extends Activity implements OnClickListener{
 	        buttonGrid.addView(tr);
 	        }
 	        */
+	    }
+	    
+	    public void setLetter(char c, int x) {
+	    	playerLetters[x].setText(c);
+	    }
+	    
+	    public void setLetterOnBoard(char c, int x, int y) {
+	    	gameBoard[x][y].setText(c);
 	    }
 	    
 	    @Override
