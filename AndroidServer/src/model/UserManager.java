@@ -3,7 +3,8 @@ package model;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import util.ErrorHandler;
+import model.data.ErrorHandler;
+
 import util.OnlineList;
 import util.ResponseObject;
 import util.SendableAction;
