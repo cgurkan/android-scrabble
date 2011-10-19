@@ -67,33 +67,28 @@ public class InvitationModel extends Thread implements IModel{
 		Object o = null;
 		while(true){
 	        try{
-	        	Log.d("class", "running run in input");
-	            while((o = is.readUnshared()) != null){
-	            	Log.d("class", o.getClass().getName());
-					if(o.getClass().equals(ResponseObject.class)){
+	        	while((o = is.readUnshared()) != null){
+	            	if(o.getClass().equals(ResponseObject.class)){
 						ResponseObject so = ((ResponseObject)(o));
 						String[] req = ((String[])so.getObject());
 						
-						Log.d("class", req[1]);
-						//showInvitationDialog(req[0], req[1]);
+						showInvitationDialog(req[0], req[1]);
 					}
 	            }
-	        	Log.d("class", "running run2 in input");
+	            sleep(10000);
 	        }
-	        catch(EOFException e){
-	        	Log.d("class", e.getMessage());
+	        catch(InterruptedException e){	
+	        	Log.e("class", e.getMessage());
 	        }
 	        catch(ClassNotFoundException e){
-	        	Log.d("class", e.getMessage());
+	        	Log.e("class", e.getMessage());
 	        }
 	        catch (IOException e){
 	        	//	We arrive here when the socket is closed.
-	            Log.d("class", e.getMessage());
+	            Log.e("class", e.getMessage());
 	        	break;
 	        }
-	        Log.d("class", "thread is not dead");
 	    }
-		Log.d("class", "thread is dead");
 	}
 	
 	public void showInvitationDialog(String message, final String opp){
