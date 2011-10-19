@@ -6,8 +6,8 @@ import java.net.Socket;
 
 import network.RequestHandler;
 import model.Model;
+import model.data.ErrorHandler;
 
-import util.ErrorHandler;
 import util.ListListener;
 import util.ListenableList;
 import util.NamedConnection;
