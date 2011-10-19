@@ -43,7 +43,10 @@ public class GameSettingsModel extends Observable implements IModel, Observer{
 
 	@Override
 	public void update(Observable observable, Object data) {
-		setChanged();
-		notifyObservers((ResponseObject)data);
+		if (((ResponseObject) data).getAction() == SendableAction.GET_DICTIONARIES
+				|| ((ResponseObject) data).getAction() == SendableAction.OPPONENT_DATA) {
+			setChanged();
+			notifyObservers((ResponseObject)data);
+		}
 	}
 }

@@ -9,23 +9,23 @@ import util.ResponseObject;
 import util.SendObject;
 import util.SendableAction;
 
-public class SignupModel extends Observable implements IModel, Observer{
-	
+public class SignupModel extends Observable implements IModel, Observer {
+
 	public static final int SIGNUP_NOT_OK = 0;
 	public static final int SIGNUP_OK = 1;
-	
+
 	private NetworkController cc;
 	public String uname = "";
-	
-	public SignupModel(){
+
+	public SignupModel() {
 		cc = NetworkController.getInstance("");
 		cc.addObserver(this);
 	}
-	
+
 	/*
 	 * Sends a request to the server that "username" wants to signup
 	 */
-	public void sendLoginRequest(String username){
+	public void sendLoginRequest(String username) {
 		uname = username;
 		SendObject object = new SendObject(SendableAction.SIGN_UP, username);
 		cc.send(object);
@@ -37,26 +37,26 @@ public class SignupModel extends Observable implements IModel, Observer{
 	 */
 	private int evaluate(ResponseObject obj, String username) {
 		String[] possibleOutcome = {
-				"Sorry, the username "+username+" is already taken. Please choose another one.",
-				"You are now signed up, welcome "+username
-		};
+				"Sorry, the username " + username
+						+ " is already taken. Please choose another one.",
+				"You are now signed up, welcome " + username };
 
-		for(int i = 0; i<possibleOutcome.length; i++){
-			if(obj.getObject().toString().equalsIgnoreCase(possibleOutcome[i])){
+		for (int i = 0; i < possibleOutcome.length; i++) {
+			if (obj.getObject().toString().equalsIgnoreCase(possibleOutcome[i])) {
 				return i;
 			}
 		}
-		
-		return (SIGNUP_OK+1);	//error
+
+		return (SIGNUP_OK + 1); // error
 	}
 
 	@Override
 	public void update(Observable observable, Object data) {
-		//cc.deleteObserver(this);
-		ResponseObject r = ((ResponseObject)data);
+		ResponseObject r = ((ResponseObject) data);
 		Integer i = evaluate(r, uname);
-		
-		setChanged();
-		notifyObservers(i);
+		if (r.getAction() == SendableAction.SIGN_UP) {
+			setChanged();
+			notifyObservers(i);
+		}
 	}
 }
