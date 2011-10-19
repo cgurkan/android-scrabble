@@ -99,7 +99,11 @@ public class GameSettingsActivity extends Activity implements OnClickListener, O
 				break;
 			case R.id.settings_start_game:
 				if(opponent == null){
-					showNoUserDialog();
+					GameSettingsActivity.this.runOnUiThread(new Runnable() {
+		    			public void run(){
+		    				showNoUserDialog();
+		    			}
+		    		});
 				}
 				else{
 					model.sendInviteRequest(opponent);

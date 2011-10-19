@@ -3,6 +3,8 @@ package model;
 import java.util.Observable;
 import java.util.Observer;
 
+import android.util.Log;
+
 import controller.NetworkController;
 
 import util.ResponseObject;
@@ -53,6 +55,8 @@ public class SignupModel extends Observable implements IModel, Observer {
 	@Override
 	public void update(Observable observable, Object data) {
 		ResponseObject r = ((ResponseObject) data);
+		Log.d("username", r.getObject().toString());
+		
 		Integer i = evaluate(r, uname);
 		if (r.getAction() == SendableAction.SIGN_UP) {
 			setChanged();
