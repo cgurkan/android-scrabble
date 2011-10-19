@@ -232,6 +232,95 @@ public class GameBoardActivity extends Activity implements OnClickListener{
 	    	gameBoard[x][y].setText(c);
 	    }
 	    
+	    /** This method will check if the word is correctly placed */
+		public boolean checkPlacement(char[][] c) {
+			boolean result = true;
+			int x1 = -1;
+			int y1 = -1;
+			boolean changeX = false;
+			boolean changeY = false;
+
+			for (int y = 0; y < 15; y++) {
+				for (int x = 0; x < 15; x++) {
+					if (c[y][x] == ' ') {
+						// DO NOTHING LOL
+					} else {
+						// if x1 and y1 is set to a index in the c array
+						if (x1 != -1 && y1 != -1) {
+							// if x1 has a new value since the last loop and y1
+							// haven't changed more than once
+							if (x1 != x && !changeY) {
+								changeX = true;
+							}
+							// if x1 has a new value since the last loop and y1 has
+							// been changed more than once return false since not
+							// allowed placement
+							else if (x1 != x && changeY) {
+								return false;
+							}
+							// if y1 has a new value since the last loop and x1
+							// haven't changed more than once
+							else if (y1 != y && !changeX) {
+								changeY = true;
+							}
+							// if y1 has a new value since the last loop and x1 has
+							// been changed more than once return false since not
+							// allowed placement
+							else if (y1 != y && changeX) {
+								return false;
+							}
+						} else {
+							x1 = x;
+							y1 = y;
+						}
+						if (y == 0 && x == 0) {
+							if (gameBoard[y + 1][x].getText().charAt(0) == ' '
+									|| gameBoard[y][x + 1].getText().charAt(0) == ' ') {
+								result = false;
+							}
+						} else if (y == 15 && x == 15) {
+							if (gameBoard[y - 1][x].getText().charAt(0) == ' '
+									|| gameBoard[y][x - 1].getText().charAt(0) == ' ') {
+								result = false;
+							}
+						} else if (y == 0) {
+							if (gameBoard[y + 1][x].getText().charAt(0) == ' '
+									|| gameBoard[y][x + 1].getText().charAt(0) == ' '
+									|| gameBoard[y][x - 1].getText().charAt(0) == ' ') {
+								result = false;
+							}
+						} else if (y == 15) {
+							if (gameBoard[y - 1][x].getText().charAt(0) == ' '
+									|| gameBoard[y][x + 1].getText().charAt(0) == ' '
+									|| gameBoard[y][x - 1].getText().charAt(0) == ' ') {
+								result = false;
+							}
+						} else if (x == 0) {
+							if (gameBoard[y + 1][x].getText().charAt(0) == ' '
+									|| gameBoard[y - 1][x].getText().charAt(0) == ' '
+									|| gameBoard[y][x + 1].getText().charAt(0) == ' ') {
+								result = false;
+							}
+						} else if (x == 15) {
+							if (gameBoard[y + 1][x].getText().charAt(0) == ' '
+									|| gameBoard[y - 1][x].getText().charAt(0) == ' '
+									|| gameBoard[y][x - 1].getText().charAt(0) == ' ') {
+								result = false;
+							}
+						} else {
+							if (gameBoard[y + 1][x].getText().charAt(0) == ' '
+									|| gameBoard[y - 1][x].getText().charAt(0) == ' '
+									|| gameBoard[y][x + 1].getText().charAt(0) == ' '
+									|| gameBoard[y][x - 1].getText().charAt(0) == ' ') {
+								result = false;
+							}
+						}
+					}
+				}
+			}
+			return result;
+		}
+	    
 	    @Override
 	    protected void onStart() {
 	        super.onStart();
