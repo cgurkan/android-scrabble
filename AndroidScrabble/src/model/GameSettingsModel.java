@@ -3,6 +3,8 @@ package model;
 import java.util.Observable;
 import java.util.Observer;
 
+import android.util.Log;
+
 import controller.NetworkController;
 
 import model.data.UserData;
@@ -26,6 +28,7 @@ public class GameSettingsModel extends Observable implements IModel, Observer{
 	public void getPeopleOnline(){
 		SendObject object = new SendObject(SendableAction.PLAYERS_ONLINE, null);
 		cc.send(object);
+		Log.d("username", "OPP DATA SNET MF");
 	}
 	
 	/*
@@ -44,7 +47,7 @@ public class GameSettingsModel extends Observable implements IModel, Observer{
 	@Override
 	public void update(Observable observable, Object data) {
 		if (((ResponseObject) data).getAction() == SendableAction.GET_DICTIONARIES
-				|| ((ResponseObject) data).getAction() == SendableAction.OPPONENT_DATA) {
+				|| ((ResponseObject) data).getAction() == SendableAction.PLAYERS_ONLINE) {
 			setChanged();
 			notifyObservers((ResponseObject)data);
 		}

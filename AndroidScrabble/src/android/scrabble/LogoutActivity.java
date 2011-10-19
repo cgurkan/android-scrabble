@@ -94,7 +94,6 @@ public class LogoutActivity extends Activity implements Observer {
 	public void update(Observable observable, final Object data) {
 		UserData.getInstance().setUsername("");
 		LogoutActivity.this.runOnUiThread(new Runnable() {
-
 			@Override
 			public void run() {
 				showLoggedOutDialog(data.toString());	

@@ -13,6 +13,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.ArrayAdapter;
@@ -162,8 +163,11 @@ public class GameSettingsActivity extends Activity implements OnClickListener, O
 	public void update(Observable observable, Object data) {
 
 		final ResponseObject r = ((ResponseObject)data);
+		
+		
         switch(r.getAction()){
         	case GET_DICTIONARIES:
+        		Log.d("username", "dic");
         		GameSettingsActivity.this.runOnUiThread(new Runnable() {
 	    			public void run(){
 	    				initDictionaries(r);
@@ -171,8 +175,10 @@ public class GameSettingsActivity extends Activity implements OnClickListener, O
 	    		});
         		break;
         	case PLAYERS_ONLINE:
+        		Log.d("username", "player");
         		GameSettingsActivity.this.runOnUiThread(new Runnable() {
 	    			public void run(){
+	    				Log.d("username", "lol");
 			    		TextView v = ((TextView)findViewById(R.id.settings_search_field));
 		        		isOnline(v.getText().toString(), ((String[])r.getObject()));
 	    			}
