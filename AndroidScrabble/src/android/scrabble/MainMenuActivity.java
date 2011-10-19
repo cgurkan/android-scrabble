@@ -17,6 +17,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -38,10 +39,11 @@ public class MainMenuActivity extends Activity implements OnClickListener, OnMen
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
+
         
         controller = NetworkController.getInstance(getString(R.string.serverip));
         new ClientInput(controller).start();
-        
+
         Button settings = (Button)(findViewById(R.id.settingsButton));
         settings.setOnClickListener(this);
         
@@ -81,11 +83,11 @@ public class MainMenuActivity extends Activity implements OnClickListener, OnMen
         // The activity has become visible (it is now "resumed").
         
         //Check if the user is logged in every time the main menu resumes 
-        /*if(UserData.getInstance().getUsername().equals("")){
+        if(UserData.getInstance().getUsername().equals("")){
         	startLoginScreen();
         	UserData.getInstance().killSocket();
         }
-        else{*/
+        else{
         	if(!gamesListLoaded){
         		loadGamesList();
         		gamesListLoaded = true;
@@ -93,7 +95,7 @@ public class MainMenuActivity extends Activity implements OnClickListener, OnMen
         	if(UserData.getInstance().getSocket() == null){
         		UserData.getInstance().init(getBaseContext(), getBaseContext().getString(android.scrabble.R.string.serverip));
         	}
-        //}
+        }
         
         updateLocale();	//	update text depending on language
     }

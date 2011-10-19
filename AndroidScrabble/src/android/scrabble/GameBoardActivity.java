@@ -242,6 +242,5 @@ public class GameBoardActivity extends Activity implements OnClickListener{
 		@Override
 		public void onClick(View v) {
 			// TODO Auto-generated method stub
-			
 		}
 	}

@@ -9,11 +9,11 @@ import android.util.Log;
 
 public class ClientOutput{
 
-	Socket s = null;
+	//Socket s = null;
 	ObjectOutputStream out = null;
 	
-	public ClientOutput(Socket s) {
-		this.s = s;
+	public ClientOutput(Socket s1) {
+		Socket s = s1;
 		try {
 			out = new ObjectOutputStream(s.getOutputStream());
 		} catch (IOException e) {
