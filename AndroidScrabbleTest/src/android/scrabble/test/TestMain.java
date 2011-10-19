@@ -31,10 +31,14 @@ public class TestMain extends ActivityInstrumentationTestCase2<MainMenuActivity>
 		}
 	}
 	
-	public void test2LogIn() throws InterruptedException {
-		//System.out.println("Test login is running");
+	public void testLogIn() throws InterruptedException {
 		solo.enterText(0, "kohina");
 		solo.clickOnButton("Log in!");
+		if(solo.searchButton("Try to log me out!")){
+			solo.clickOnButton("Try to log me out!");
+			solo.clickOnButton("OK");
+			solo.clickOnButton("Log in!");
+		}
 		solo.assertCurrentActivity("MainMenuActivity", MainMenuActivity.class);
 	}
 	
@@ -42,12 +46,22 @@ public class TestMain extends ActivityInstrumentationTestCase2<MainMenuActivity>
 		//System.out.println("Test invalid login is running");
 		solo.enterText(0, "kooooooooooooooohina");
 		solo.clickOnButton("Log in!");
+		if(solo.searchButton("Try to log me out!")){
+			solo.clickOnButton("Try to log me out!");
+			solo.clickOnButton("OK");
+			solo.clickOnButton("Log in!");
+		}
 		solo.assertCurrentActivity("Sign up activity", SignupActivity.class);
 	}
 	
 	public void testLogOut() throws InterruptedException{
 		solo.enterText(0, "kohina");
 		solo.clickOnButton("Log in!");
+		if(solo.searchButton("Try to log me out!")){
+			solo.clickOnButton("Try to log me out!");
+			solo.clickOnButton("OK");
+			solo.clickOnButton("Log in!");
+		}
 		solo.assertCurrentActivity("MainMenuActivity", MainMenuActivity.class);
 		solo.clickOnMenuItem("Log out");
 		solo.assertCurrentActivity("Log in Activity", LoginActivity.class);
@@ -56,6 +70,11 @@ public class TestMain extends ActivityInstrumentationTestCase2<MainMenuActivity>
 	public void testEditSettings() throws InterruptedException{
 		solo.enterText(0, "kohina");
 		solo.clickOnButton("Log in!");
+		if(solo.searchButton("Try to log me out!")){
+			solo.clickOnButton("Try to log me out!");
+			solo.clickOnButton("OK");
+			solo.clickOnButton("Log in!");
+		}
 		solo.assertCurrentActivity("MainMenuActivity", MainMenuActivity.class);
 		solo.clickOnButton("Edit settings");
 		solo.clickInList(1);
@@ -88,13 +107,5 @@ public class TestMain extends ActivityInstrumentationTestCase2<MainMenuActivity>
 		solo.assertCurrentActivity("MainMenuActivity", MainMenuActivity.class);
 		solo.clickOnButton("Help");
 		solo.assertCurrentActivity("HelpViewActivity", HelpViewActivity.class);
-	}
-	
-	public void testNewGame() throws InterruptedException{
-		solo.enterText(0, "kohina");
-		solo.clickOnButton("Log in!");
-		solo.assertCurrentActivity("MainMenuActivity", MainMenuActivity.class);
-		solo.clickOnButton("New game");
-		//TODO: finish here
 	}
 }
