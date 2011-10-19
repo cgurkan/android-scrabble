@@ -4,9 +4,10 @@ import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
 
+import model.data.ErrorHandler;
+
 import controller.WorkThread;
 
-import util.ErrorHandler;
 /**
  * Server-thread that listens to the ServerSocket that the server provides.
  * When a phone sends a request to the server it takes care of it and redirects

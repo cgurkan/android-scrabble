@@ -6,8 +6,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import model.data.Board;
+import model.data.ErrorHandler;
 
-import util.ErrorHandler;
 import util.Player;
 import util.WordObject;
 import util.WordObject.Direction;
