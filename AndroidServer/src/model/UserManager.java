@@ -138,7 +138,7 @@ public class UserManager extends Logic{
 			ErrorHandler.report("The following SQL-error(s) occured in UserLogic#getUsersOnline(): "+e.getMessage());
 		}
 
-		ResponseObject obj = new ResponseObject(SendableAction.LOGOUT, result);
+		ResponseObject obj = new ResponseObject(SendableAction.SIGN_UP, result);
 		return obj;
 	}
 
